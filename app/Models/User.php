@@ -45,4 +45,22 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function getNameAttribute()
+    {
+        // if ($this->display_name) {
+        //     return $this->display_name;
+        // }
+
+        return $this->getDiscordAttribute();
+    }
+
+    public function getDiscordAttribute()
+    {
+        if ($this->discord_discriminator == 0) {
+            return $this->discord_name;
+        }
+
+        return $this->discord_name.'#'.$this->discord_discriminator;
+    }
 }

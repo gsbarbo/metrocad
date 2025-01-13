@@ -12,11 +12,29 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->bigInteger('id')->unsigned()->primary();
+            $table->string('discord_name');
+            $table->string('discord_username');
+            $table->integer('discord_discriminator')->nullable();
+            $table->string('avatar');
+
+            $table->bigInteger('steam_id')->nullable();
+            $table->string('steam_name')->nullable();
+            $table->string('steam_hex')->nullable();
+
+            $table->integer('status')->default(1);
+            $table->string('display_name')->nullable();
+
+            $table->timestamp('last_login_at');
+
+            $table->boolean('is_protected_user')->default(0);
+            $table->boolean('is_super_user')->default(0);
+
+            $table->timestamp('became_member_at')->nullable();
+            $table->string('community_rank')->nullable();
+
+            $table->string('email')->nullable();
+            $table->string('password')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

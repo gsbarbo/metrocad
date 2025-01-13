@@ -33,6 +33,27 @@ return [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
+
+    ],
+
+    'discord' => [
+        'client_id' => env('DISCORD_CLIENT_ID'),
+        'client_secret' => env('DISCORD_CLIENT_SECRET'),
+        'redirect' => env('DISCORD_REDIRECT_URI'),
+
+        // optional
+        'allow_gif_avatars' => (bool) env('DISCORD_AVATAR_GIF', true),
+        'avatar_default_extension' => env('DISCORD_EXTENSION_DEFAULT', 'png'), // only pick from jpg, png, webp
+    ],
+
+    'steam' => [
+        'client_id' => null,
+        'client_secret' => env('STEAM_CLIENT_SECRET'),
+        'redirect' => env('STEAM_REDIRECT_URI'),
+        'force_https' => true,
+        'allowed_hosts' => [
+            env('STEAM_ALLOWED_HOSTS'),
+        ],
     ],
 
 ];
