@@ -91,51 +91,11 @@
 
                 </div>
             @endauth
-
-            {{-- <div class="mt-3 text-center">
-
-            @auth
-                @switch(auth()->user()->status)
-                    @case(1)
-                        <p>Your account is pending. Please contact your supervisor to gain access to the CAD/MDT.</p>
-                    @break
-
-                    @case(2)
-                        <a href="{{ route('portal.home') }}">
-                            <button
-                                class="mx-auto flex items-center bg-primary rounded-lg px-6 py-2 text-sm font-medium text-white hover:opacity-85">
-
-                                <svg class="h-6 w-6 mr-2" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                                <span>Go to CAD</span>
-                            </button>
-                        </a>
-                    @break
-
-                    @case(3)
-                        <p>Your account is suspended. Please contact your supervisor to gain access to the CAD/MDT.</p>
-                    @break
-
-                    @case(4)
-                        <p>Your account is Temporary banned. Please contact your supervisor to gain access to the CAD/MDT.</p>
-                    @break
-
-                    @case(5)
-                        <p>Your account is Permanently banned. Please contact your supervisor to gain access to the CAD/MDT.</p>
-                    @break
-
-                    @default
-                        <p>Your account status is not correct. Please contact your supervisor to gain access to the CAD/MDT.</p>
-                @endswitch
-            @endauth
-        </div> --}}
         </div>
         <div class="mt-3 flex justify-between mx-3">
-            <a class="font-light text-sm text-gray-500 underline" href="#">v{{ config('metrocad.version') }}</a>
+            <a class="font-light text-sm text-gray-500 underline"
+                href="https://github.com/gsbarbo/metrocad/releases/tag/v{{ config('metrocad.version') }}"
+                target="_blank">v{{ config('metrocad.version') }}</a>
             <a class="font-light text-sm text-gray-500 underline" href="#">Powered by MetroCAD</a>
         </div>
     </div>
