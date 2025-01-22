@@ -32,7 +32,7 @@
         </div>
     @endif
 
-    @livewireScripts
+    @include('inc.layouts.scripts')
 </body>
 
 </html>

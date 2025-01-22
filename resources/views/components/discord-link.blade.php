@@ -8,7 +8,7 @@
         @endif
 
         <div>
-            {{ auth()->user()->preferred_name }}
+            {{ auth()->user()->name }}
         </div>
 
         <div class="ml-1">
