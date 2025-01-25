@@ -109,9 +109,9 @@
                                     </a>
                                 </form>
                             </li>
-                            <li class="flex">
+                            <li class="flex border-t">
                                 <p class="w-full px-2 py-1 text-xs font-semibold transition-colors duration-150 rounded-md">
-                                    {{ config('cad.version') }}
+                                    v{{ config('metrocad.version') }}
                                 </p>
                             </li>
                         </ul>

@@ -35,9 +35,9 @@ class AppServiceProvider extends ServiceProvider
             });
         });
 
-        // Gate::before(function ($user, $ability) {
-        //     return in_array($user->id, config('metrocad.owner_ids')) ? true : null;
-        // });
+        Gate::before(function ($user, $ability) {
+            return ($user->is_owner) ? true : null;
+        });
 
         $this->configureModels();
         $this->configureUrl();

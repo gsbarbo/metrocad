@@ -58,7 +58,7 @@
 
                         @case(2)
                             <p>{{ get_setting('community_intro') }}</p>
-                            <a class="inline-block" href="#">
+                            <a class="inline-block" href="{{ route('portal.dashboard') }}">
                                 <button
                                     class="mx-auto flex items-center bg-primary rounded-lg px-6 py-2 text-sm font-medium text-white hover:opacity-85">
 

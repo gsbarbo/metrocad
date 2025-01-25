@@ -27,8 +27,9 @@ return new class extends Migration
 
             $table->timestamp('last_login_at');
 
-            $table->boolean('is_protected_user')->default(0);
-            $table->boolean('is_super_user')->default(0);
+            $table->boolean('is_protected_user')->default(0); // can not be touched except by super users
+            $table->boolean('is_super_user')->default(0); // Can do anything in the cad. Bypasses all permissions. Can not be added/removed except by owner
+            $table->boolean('is_owner')->default(0); // Can do anything in the cad. Bypasses all permissions. Can not be removed
 
             $table->timestamp('became_member_at')->nullable();
             $table->string('community_rank')->nullable();

@@ -13,44 +13,31 @@
                     <h1 class="text-xl font-thin">Community Announcements</h1>
                     <a class="text-blue-500 hover:underline" href="#">View All</a>
                 </div>
-                {{-- @forelse ($announcements as $announcement) --}}
-                <div class="bg-navbar p-2 rounded-lg flex">
-                    <img alt="" class="w-16 h-16" onerror="defaultImage('logo')"
-                        src="{{ get_setting('community_logo') }}">
-                    <div class="ml-4">
-                        <h3 class="text-lg">Title</h3>
-                        <p class="text-sm">{{ get_setting('community_intro') }}</p>
-                        <div class="flex justify-between mt-2">
-                            <p class="block text-xs">By: Name</p>
-                            <p class="text-xs">Posted at:
-                            </p>
+                @forelse ($announcements as $announcement)
+                    <div class="bg-navbar p-2 rounded-lg flex">
+                        <img alt="" class="w-16 h-16" onerror="defaultImage('logo')"
+                            src="{{ get_setting('community_logo') }}">
+                        <div class="ml-4">
+                            <h3 class="text-lg">{{ $announcement->title }}</h3>
+                            <p class="text-sm">{{ $announcement->text }}</p>
+                            <div class="flex justify-between">
+                                <p class="text-xs">By: {{ $announcement->user->name }}</p>
+                                <p class="text-xs">Posted at:
+                                    {{ $announcement->created_at->format('m/d/Y H:i') }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="bg-navbar p-2 rounded-lg flex">
-                    <img alt="" class="w-16 h-16" onerror="defaultImage('logo')"
-                        src="{{ get_setting('community_logo') }}">
-                    <div class="ml-4">
-                        <h3 class="text-lg">Title</h3>
-                        <p class="text-sm">{{ get_setting('community_intro') }}</p>
-                        <div class="flex justify-between mt-2">
-                            <p class="block text-xs">By: Name</p>
-                            <p class="text-xs">Posted at:
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                {{-- @empty
+                @empty
                     <div class="md:col-span-2">
                         <p class="">There are no announcements.</p>
                     </div>
-                @endforelse --}}
+                @endforelse
             </div>
             <div class="space-y-3">
                 <h1 class="text-xl font-thin">Community Stats</h1>
                 <div class="border-navbar border-4 p-2 rounded-lg">
                     <h3 class="text-2xl">5</h3>
-                    <p class="text-xs">arrests</p>
+                    <p class="text-xs">New Members</p>
                 </div>
 
                 <div class="border-navbar border-4 p-2 rounded-lg">

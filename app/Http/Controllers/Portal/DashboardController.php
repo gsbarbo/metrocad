@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Portal;
 
 use App\Http\Controllers\Controller;
+use App\Models\Announcement;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -12,6 +13,8 @@ class DashboardController extends Controller
      */
     public function __invoke()
     {
-        return view('portal.dashboard');
+        $announcements = Announcement::where('department_id', null)->latest()->limit(2)->get();
+
+        return view('portal.dashboard', compact('announcements'));
     }
 }
