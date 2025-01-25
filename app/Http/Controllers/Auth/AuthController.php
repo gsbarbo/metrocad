@@ -52,7 +52,7 @@ class AuthController extends Controller
                 $avatar = $discordUser->avatar;
             }
 
-            $user = User::create([
+            User::create([
                 'id' => $discordUser->user['id'],
                 'discord_name' => $discordUser->user['global_name'],
                 'discord_discriminator' => $discordUser->user['discriminator'],
@@ -62,6 +62,8 @@ class AuthController extends Controller
                 'last_login_at' => now(),
             ]);
         }
+
+        $user = User::where('id', $discordUser->getId())->first();
 
         return $user;
     }

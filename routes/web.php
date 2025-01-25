@@ -18,4 +18,9 @@ Route::middleware(['auth', 'MemberCheck'])->name('portal.')->prefix('portal')->g
     Route::get('/', DashboardController::class)->name('dashboard');
     // Route::get('department/{department}', [DepartmentController::class, 'show'])->name('department.show');
     // Route::get('department/{department}/roster', [DepartmentController::class, 'roster'])->name('department.roster');
+
+});
+
+Route::middleware(['auth', 'MemberCheck', 'can:admin:access'])->name('admin.')->prefix('admin')->group(function () {
+    require 'admin.php';
 });

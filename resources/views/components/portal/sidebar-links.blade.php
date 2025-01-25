@@ -103,7 +103,7 @@
         <hr>
 
         @can('admin:access')
-            <x-sidebar_link :active="request()->is('admin/*') || request()->is('admin')" :href="route('portal.dashboard')">
+            <x-sidebar_link :active="request()->is('admin/*') || request()->is('admin')" :href="route('admin.dashboard')">
                 <x-slot:icon>
                     <svg class="h-6 w-6 flex-shrink-0" class="feather feather-shield" fill="none" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"
