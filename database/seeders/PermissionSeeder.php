@@ -16,7 +16,19 @@ class PermissionSeeder extends Seeder
             [
                 'name' => 'admin:access',
                 'guard_name' => 'web',
-                'help_text' => 'Grants access to the Admin Dashboard.',
+                'help_text' => 'Grants access to the admin dashboard.',
+                'category' => 'admin',
+            ],
+            [
+                'name' => 'admin:announcement:access',
+                'guard_name' => 'web',
+                'help_text' => 'Grants access to the announcement.',
+                'category' => 'admin',
+            ],
+            [
+                'name' => 'admin:audit_log:access',
+                'guard_name' => 'web',
+                'help_text' => 'Grants access to the audit log.',
                 'category' => 'admin',
             ],
         ]);

@@ -19,7 +19,7 @@
                             src="{{ get_setting('community_logo') }}">
                         <div class="ml-4">
                             <h3 class="text-lg">{{ $announcement->title }}</h3>
-                            <p class="text-sm">{{ $announcement->text }}</p>
+                            <p class="text-sm">{!! markdown($announcement->text) !!}</p>
                             <div class="flex justify-between">
                                 <p class="text-xs">By: {{ $announcement->user->name }}</p>
                                 <p class="text-xs">Posted at:

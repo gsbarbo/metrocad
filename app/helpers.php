@@ -25,3 +25,13 @@ if (! function_exists('get_setting')) {
         return $settings[$setting_name];
     }
 }
+
+if (! function_exists('markdown')) {
+    function markdown($markdown, $options = null)
+    {
+        return str()->markdown($markdown, [
+            'html_input' => 'strip',
+            'allow_unsafe_links' => false,
+        ]);
+    }
+}
