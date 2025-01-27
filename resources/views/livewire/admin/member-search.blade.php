@@ -62,16 +62,11 @@
                         <div aria-labelledby="options-menu-0-button" aria-orientation="vertical"
                             class="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none"
                             role="menu" tabindex="-1" x-show="open">
-                            <!-- Active: "bg-gray-50", Not Active: "" -->
-                            <a class="block px-3 py-1 text-sm leading-6 text-gray-900" href="#"
-                                id="options-menu-0-item-0" role="menuitem" tabindex="-1">View profile<span
-                                    class="sr-only">, Leslie Alexander</span></a>
-                            <a class="block px-3 py-1 text-sm leading-6 text-gray-900" href="#"
-                                id="options-menu-0-item-0" role="menuitem" tabindex="-1">View Civilians<span
-                                    class="sr-only">, Leslie Alexander</span></a>
-                            <a class="block px-3 py-1 text-sm leading-6 text-gray-900" href="#"
-                                id="options-menu-0-item-0" role="menuitem" tabindex="-1">View Whatever<span
-                                    class="sr-only">, Leslie Alexander</span></a>
+                            <a class="block px-3 py-1 text-sm leading-6 text-gray-900"
+                                href="{{ route('admin.user.show', $user->id) }}" id="options-menu-0-item-0"
+                                role="menuitem" tabindex="-1">
+                                View Profile
+                            </a>
                         </div>
                     </div>
                 </div>

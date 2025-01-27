@@ -27,7 +27,7 @@ class UserDangerArea extends Component
     public function save()
     {
         if ($this->comment == '') {
-            session()->flash('alerts', [['message' => 'Comments are required to suspend/ban an user.', 'level' => 'error']]);
+            session()->flash('alerts', [['message' => 'Comments are required to retire/suspend/ban an user.', 'level' => 'error']]);
         } else {
 
             if ($this->type === 'suspend') {
@@ -47,10 +47,21 @@ class UserDangerArea extends Component
                         'subject_type' => 'user',
                         'subject_id' => $this->user->id,
                         'user_id' => auth()->user()->id,
-                        'description' => 'User Suspended. Reason: '.$this->comment,
+                        'description' => 'User banned. Reason: '.$this->comment,
                     ]);
 
                     $this->user->update(['status' => 4, 'became_member_at' => null]);
+                }
+            } elseif ($this->type === 'retire') {
+                if (auth()->user()->can('admin:user:retire')) {
+                    History::create([
+                        'subject_type' => 'user',
+                        'subject_id' => $this->user->id,
+                        'user_id' => auth()->user()->id,
+                        'description' => 'User Retired. Reason: '.$this->comment,
+                    ]);
+
+                    $this->user->update(['status' => 5, 'became_member_at' => null]);
                 }
             } else {
                 dd('There has been a huge mistake.');

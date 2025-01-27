@@ -69,17 +69,13 @@
         </li>
 
         <li class="py-3">
-            <p class="text-center">User History</p>
+            <p class="text-center">User History <span class="text-xs">Last 10</span></p>
         </li>
-
-        @foreach ($user->history as $history)
-            <li>{{ $history->description }}</li>
+        @foreach ($user->history->take(10) as $history)
+            <li>
+                <p>{{ $history->description }}</p>
+                <p>By: {{ $history->user->name }}</p>
+            </li>
         @endforeach
-
     </ul>
-
-    <div>
-        History/comments
-    </div>
-
 </div>

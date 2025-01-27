@@ -33,34 +33,36 @@
                         </div>
                     </div>
 
-                    @livewire('admin.user.update-user', ['user' => $user])
+                    @if ($user->status === 2)
+                        @livewire('admin.user.update-user', ['user' => $user])
 
-                    @livewire('admin.user.update-user-permissions', ['user' => $user])
+                        @livewire('admin.user.update-user-permissions', ['user' => $user])
 
-                    <div class="divide-y divide-gray-200 overflow-hidden rounded-lg bg-navbar shadow">
-                        <div class="border-b border-gray-200 bg-navbar px-4 py-5 sm:px-6">
-                            <h3 class="text-base font-semibold">Roles</h3>
+                        <div class="divide-y divide-gray-200 overflow-hidden rounded-lg bg-navbar shadow">
+                            <div class="border-b border-gray-200 bg-navbar px-4 py-5 sm:px-6">
+                                <h3 class="text-base font-semibold">Roles</h3>
+                            </div>
+                            <div class="px-4 py-5 sm:p-6">
+                                <p>List of all roles and a check box</p>
+                                <p>Discord roles shows what discord roles the member has in discord</p>
+                            </div>
                         </div>
-                        <div class="px-4 py-5 sm:p-6">
-                            <p>List of all roles and a check box</p>
-                            <p>Discord roles shows what discord roles the member has in discord</p>
-                        </div>
-                    </div>
 
-                    @livewire('admin.user.create-user-comment', ['user' => $user])
+                        @livewire('admin.user.create-user-comment', ['user' => $user])
 
-                    @can(['admin:user:suspend', 'admin:user:ban'])
-                        @livewire('admin.user.user-danger-area', ['user' => $user])
-                    @endcan
-                    <div class="divide-y divide-gray-200 overflow-hidden rounded-lg bg-navbar shadow">
-                        <div class="border-b border-gray-200 bg-navbar px-4 py-5 sm:px-6">
-                            <h3 class="text-base font-semibold">DA</h3>
+                        @can(['admin:user:suspend', 'admin:user:ban'])
+                            @livewire('admin.user.user-danger-area', ['user' => $user])
+                        @endcan
+                        <div class="divide-y divide-gray-200 overflow-hidden rounded-lg bg-navbar shadow">
+                            <div class="border-b border-gray-200 bg-navbar px-4 py-5 sm:px-6">
+                                <h3 class="text-base font-semibold">DA</h3>
+                            </div>
+                            <div class="px-4 py-5 sm:p-6">
+                                <p>List DAs in last 30 days</p>
+                                <p>To give a DA would have to go to Staff/Supervisor</p>
+                            </div>
                         </div>
-                        <div class="px-4 py-5 sm:p-6">
-                            <p>List DAs in last 30 days</p>
-                            <p>To give a DA would have to go to Staff/Supervisor</p>
-                        </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>

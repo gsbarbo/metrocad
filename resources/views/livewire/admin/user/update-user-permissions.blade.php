@@ -1,7 +1,15 @@
 <div class="divide-y divide-gray-200 overflow-hidden rounded-lg bg-navbar shadow">
     <div class="border-b border-gray-200 bg-navbar px-4 py-5 sm:px-6 flex justify-between items-center">
         <h3 class="text-base font-semibold">Override Permissions</h3>
-        <a class="text-blue-600 underline" href="#">Learn More</a>
+        <a class="text-white underline flex items-center" href="#">
+            Learn More
+            <svg class="size-5 ml-2" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                    stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </a>
     </div>
     <div class="px-4 py-5 sm:p-6 space-y-4">
         @if (auth()->user()->is_owner || auth()->user()->is_super_user)

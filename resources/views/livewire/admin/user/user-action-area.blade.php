@@ -44,11 +44,12 @@
                 </div>
             @endcan
         @endif
-        @if ($user->status === 6)
+        @if ($user->status === 6 || $user->status === 5)
             @can('admin:user:status:reset')
                 <div class="">
                     <h2 class="text-lg">Reset User</h2>
-                    <p>This is only to be used to take a member from Denied status to Pending User status.</p>
+                    <p>This is only to be used to take a member from Denied or Former Member status to Pending User status.
+                    </p>
                     <label class="label-dark" for="">Comment</label>
                     <textarea class="form-textarea-dark" wire:model='comment'></textarea>
                     <a class="btn bg-background text-white hover:opacity-85 mt-2 inline-block" wire:click='reset_user'>Reset
