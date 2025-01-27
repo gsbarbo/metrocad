@@ -1,0 +1,68 @@
+<div class="divide-y divide-gray-200 overflow-hidden rounded-lg bg-navbar shadow">
+    <div class="border-b border-gray-200 bg-navbar px-4 py-5 sm:px-6">
+        <h3 class="text-base font-semibold">Quick Action</h3>
+    </div>
+    <div class="px-4 py-5 sm:p-6 space-y-2 divide-y-2">
+        @if ($user->status === 1)
+            @can('admin:user:approve')
+                <div class="">
+                    <h2 class="text-lg">Approve User</h2>
+                    <p>You can either approve this user's account access or deny access. You must include a comment.</p>
+                    <label class="label-dark" for="">Comment</label>
+                    <textarea class="form-textarea-dark" wire:model='comment'></textarea>
+                    <a class="btn bg-green-600 text-white hover:opacity-85 mt-2 inline-block"
+                        wire:click='approve_member'>Approve
+                        User</a>
+                    <a class="btn bg-red-600 text-white hover:opacity-85 mt-2 inline-block" wire:click='deny_member'>Deny
+                        User</a>
+                </div>
+            @endcan
+        @endif
+        @if ($user->status === 3)
+            @can('admin:user:unsuspend')
+                <div class="">
+                    <h2 class="text-lg">Unsuspend Member</h2>
+                    <p>You can see why this user is suspended in the History section. You must include a comment.</p>
+                    <label class="label-dark" for="">Comment</label>
+                    <textarea class="form-textarea-dark" wire:model='comment'></textarea>
+                    <a class="btn bg-background text-white hover:opacity-85 mt-2 inline-block"
+                        wire:click='unsuspend'>Unsuspend
+                        Member</a>
+                </div>
+            @endcan
+        @endif
+        @if ($user->status === 4)
+            @can('admin:user:unban')
+                <div class="">
+                    <h2 class="text-lg">Unban User</h2>
+                    <p>You can see why this member is banned in the History section. This doesn't replace any user data.
+                        They will go back to "User" status to be reaccepted. You must include a comment.</p>
+                    <label class="label-dark" for="">Comment</label>
+                    <textarea class="form-textarea-dark" wire:model='comment'></textarea>
+                    <a class="btn bg-background text-white hover:opacity-85 mt-2 inline-block" wire:click='unban'>Unban
+                        User</a>
+                </div>
+            @endcan
+        @endif
+        @if ($user->status === 6)
+            @can('admin:user:status:reset')
+                <div class="">
+                    <h2 class="text-lg">Reset User</h2>
+                    <p>This is only to be used to take a member from Denied status to Pending User status.</p>
+                    <label class="label-dark" for="">Comment</label>
+                    <textarea class="form-textarea-dark" wire:model='comment'></textarea>
+                    <a class="btn bg-background text-white hover:opacity-85 mt-2 inline-block" wire:click='reset_user'>Reset
+                        User</a>
+                </div>
+            @endcan
+        @endif
+
+        @if ($user->status === 2)
+            <div class="">
+                <a class="btn bg-background text-white hover:opacity-85 mt-2 inline-block" href="#">Issue DA</a>
+                <a class="btn bg-background text-white hover:opacity-85 mt-2 inline-block" href="#">Manage
+                    Departments</a>
+            </div>
+        @endif
+    </div>
+</div>

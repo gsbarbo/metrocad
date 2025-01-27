@@ -1,0 +1,8 @@
+Admin menu
+- Manage Users
+- CAD Settings
+
+Staff/Supervisor menu
+- DA
+- Manage User Departments
+-

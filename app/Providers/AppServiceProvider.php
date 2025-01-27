@@ -36,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Gate::before(function ($user, $ability) {
-            return ($user->is_owner) ? true : null;
+            return ($user->is_owner || $user->is_super_user) ? true : null;
         });
 
         $this->configureModels();

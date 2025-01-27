@@ -88,20 +88,10 @@
                             </a>
                         @break
 
-                        @case(3)
-                            <p>Your account is Suspended. Please contact your supervisor to gain access to the CAD/MDT.</p>
-                        @break
-
-                        @case(4)
-                            <p>Your account is Temporary banned. Please contact your supervisor to gain access to the CAD/MDT.</p>
-                        @break
-
-                        @case(5)
-                            <p>Your account is Permanently banned. Please contact your supervisor to gain access to the CAD/MDT.</p>
-                        @break
-
                         @default
-                            <p>Your account status is not correct. Please contact your supervisor to gain access to the CAD/MDT.</p>
+                            <p>Your account is {{ auth()->user()->status_name }}. Please contact your supervisor to gain access to the
+                                CAD/MDT.
+                            </p>
                     @endswitch
 
                 </div>

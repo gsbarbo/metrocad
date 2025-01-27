@@ -1,10 +1,9 @@
 @extends('layouts.admin')
 
 @section('main')
-    <div class="flex justify-between items-baseline">
-        <h1 class="text-xl font-bold">Manage Members</h1>
-    </div>
-    <hr class="my-2">
+    <x-breadcrumb pageTitle="Users" route="{{ route('admin.dashboard') }}">
+        <x-breadcrumb-link route="{{ route('admin.user.index') }}">Users</x-breadcrumb-link>
+    </x-breadcrumb>
 
     <div class="">
 

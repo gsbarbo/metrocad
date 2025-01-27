@@ -2,36 +2,30 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Enum\User\UserStatuses;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, HasRoles, Notifiable;
+    use HasRoles, Notifiable;
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
+    protected $guarded = [];
+
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
+            'last_login_at' => 'datetime',
+            'became_member_at' => 'datetime:Y-m-d',
             'password' => 'hashed',
         ];
     }
@@ -52,5 +46,22 @@ class User extends Authenticatable
         }
 
         return $this->discord_name.'#'.$this->discord_discriminator;
+    }
+
+    public function getLastActivityAttribute()
+    {
+        $time = DB::table('sessions')->where('user_id', $this->id)->latest('last_activity')->first()->last_activity;
+
+        return $timestamp = Carbon::createFromTimestamp($time, config('app.timezone'))->format('M d, Y H:i');
+    }
+
+    public function getStatusNameAttribute()
+    {
+        return UserStatuses::USER_STATUSES[$this->status];
+    }
+
+    public function getHistoryAttribute()
+    {
+        return History::where('subject_type', 'user')->where('subject_id', $this->id)->latest()->get();
     }
 }
