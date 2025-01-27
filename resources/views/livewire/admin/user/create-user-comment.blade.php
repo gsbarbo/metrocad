@@ -15,7 +15,7 @@
                 </div>
             </form>
         @else
-            <p>You do not have permissions to leave comments.</p>
+            <p>You do not have permissions to leave comments. You need the 'admin:user:comment:create' permission.</p>
         @endcan
     </div>
 </div>

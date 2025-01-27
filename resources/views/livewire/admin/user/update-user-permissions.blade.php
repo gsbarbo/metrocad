@@ -62,7 +62,7 @@
                 verify the status you can refresh the page. It does update live with the toggle.</p>
             <p class="text-sm"><span class="font-bold">NOTE:</span> Only owners can edit super user statuses.</p>
         @else
-            <p>You can not change any permissions for this user.</p>
+            <p>You can not change any permissions for this user. You need to be an owner or a super user.</p>
         @endif
     </div>
 </div>

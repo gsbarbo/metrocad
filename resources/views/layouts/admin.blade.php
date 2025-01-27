@@ -12,7 +12,7 @@
         @include('inc.admin.sidebar')
         <div class="flex flex-col flex-1">
             @include('components.navbar')
-            <main class="h-full pb-16 overflow-y-auto">
+            <main class="pb-16 overflow-y-auto">
                 <div class="container mx-auto px-6 py-3">
                     @yield('main')
                 </div>

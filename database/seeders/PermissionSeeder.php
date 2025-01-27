@@ -79,6 +79,12 @@ class PermissionSeeder extends Seeder
                 'help_text' => 'Grants access to unban users.',
                 'category' => 'admin',
             ],
+            [
+                'name' => 'admin:user:update',
+                'guard_name' => 'web',
+                'help_text' => 'Grants access to update user information.',
+                'category' => 'admin',
+            ],
         ]);
 
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
