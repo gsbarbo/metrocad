@@ -6,7 +6,7 @@
             class="ml-2 text-xl font-medium duration-300 ease-in-out">{{ get_setting('community_name') }}</span>
     </a>
     <nav class="p-4 space-y-2">
-        <x-sidebar_link :active="request()->is('portal')" :href="route('portal.home')">
+        <x-sidebar_link :active="request()->is('portal')" :href="route('portal.dashboard')">
             <x-slot:icon>
                 <svg class="h-6 w-6 flex-shrink-0" fill="none" stroke-width="1.5" stroke="currentColor"
                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -15,9 +15,9 @@
                         stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
             </x-slot:icon>
-            Portal Home
+            Portal
         </x-sidebar_link>
-        <x-sidebar_link :active="request()->is('admin')" :href="route('admin.home')">
+        <x-sidebar_link :active="request()->is('admin')" :href="route('admin.dashboard')">
             <x-slot:icon>
                 <svg class="h-6 w-6 flex-shrink-0" class="feather feather-shield" fill="none" stroke-linecap="round"
                     stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"
@@ -25,7 +25,7 @@
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                 </svg>
             </x-slot:icon>
-            Admin Home
+            Admin
         </x-sidebar_link>
         <hr :class="isSidebarExpanded ? 'block' : 'hidden'">
         <x-sidebar_header>
@@ -172,7 +172,7 @@
         <x-sidebar_header>
             Values
         </x-sidebar_header>
-        <x-sidebar_link :active="request()->is('admin/settings/vehicletype') || request()->is('admin/settings/vehicletype/*')" :href="route('admin.settings.vehicletype.index')">
+        {{-- <x-sidebar_link :active="request()->is('admin/settings/vehicletype') || request()->is('admin/settings/vehicletype/*')" :href="route('admin.settings.vehicletype.index')">
             <x-slot:icon>
                 <svg class="h-6 w-6 flex-shrink-0" fill="none" stroke-width="1.5" stroke="currentColor"
                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -182,6 +182,6 @@
                 </svg>
             </x-slot:icon>
             Manage Vehicles
-        </x-sidebar_link>
+        </x-sidebar_link> --}}
     </nav>
 </div>

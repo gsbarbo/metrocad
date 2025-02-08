@@ -16,14 +16,14 @@ class AuthController extends Controller
 
         Auth::login($user, true);
 
-        return redirect()->intended('/')->with('alerts', [['message' => 'Welcome!', 'level' => 'success']]);
+        return redirect()->intended('/portal')->with('alerts', [['message' => 'Welcome!', 'level' => 'success']]);
     }
 
     public function logout()
     {
         Auth::logout();
 
-        return redirect()->route('public.home')->with('alerts', [['message' => 'Logged out.', 'level' => 'success']]);
+        return redirect()->route('home')->with('alerts', [['message' => 'Logged out.', 'level' => 'success']]);
     }
 
     protected function findOrNewUser($discordUser)

@@ -45,6 +45,9 @@
             @error('text')
                 <p class="text-red-600">{{ $message }}</p>
             @enderror
+            <p class="form-help-text-dark">This textbox supports markdown.
+                <a class="hover:underline" href="#">Learn more.</a>
+            </p>
         </div>
 
         <div class="flex justify-between items-center">

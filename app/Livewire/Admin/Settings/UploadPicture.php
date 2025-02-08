@@ -27,7 +27,7 @@ class UploadPicture extends Component
             session()->flash('alerts', [['message' => 'Picture is not updated.', 'level' => 'error']]);
             $this->redirectRoute('admin.settings.general');
         } else {
-            $path = $this->photo->storePubliclyAs('public/images', $this->setting_name.'.'.$this->photo->extension());
+            $path = $this->photo->storePubliclyAs('images', $this->setting_name.'.'.$this->photo->extension(), 'public');
 
             $url = url('storage/images/'.$this->setting_name.'.'.$this->photo->extension());
             $this->reset('photo');

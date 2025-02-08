@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Settings;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Settings\RoleCreateRequest;
+use App\Http\Requests\Admin\Settings\RoleRequest;
 use App\Models\Role;
 use App\Services\DiscordService;
 use Spatie\Permission\Models\Permission;
@@ -12,7 +12,7 @@ class RoleController extends Controller
 {
     public function index()
     {
-        $roles = Role::all();
+        $roles = Role::with('permissions')->get();
 
         return view('admin.settings.role.index', compact('roles'));
     }
@@ -30,7 +30,7 @@ class RoleController extends Controller
         return view('admin.settings.role.create', compact('permissions', 'discord_roles'));
     }
 
-    public function store(RoleCreateRequest $request)
+    public function store(RoleRequest $request)
     {
         $role = Role::create([
             'name' => $request->input('name'),
@@ -59,7 +59,7 @@ class RoleController extends Controller
         return view('admin.settings.role.edit', compact('role', 'permissions', 'discord_roles'));
     }
 
-    public function update(RoleCreateRequest $request, Role $role)
+    public function update(RoleRequest $request, Role $role)
     {
         $role->update([
             'name' => $request->input('name'),

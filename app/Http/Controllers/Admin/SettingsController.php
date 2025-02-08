@@ -31,7 +31,7 @@ class SettingsController extends Controller
 
     public function api_key()
     {
-        if (! in_array(auth()->user()->id, config('cad.owner_ids'))) {
+        if (! auth()->user()->is_owner) {
             return redirect()->route('admin.settings.general')->with('alerts', [['message' => 'API Key is only available to owners.', 'level' => 'error']]);
         }
 
@@ -40,7 +40,7 @@ class SettingsController extends Controller
 
     public function generate_api_key()
     {
-        if (! in_array(auth()->user()->id, config('cad.owner_ids'))) {
+        if (! auth()->user()->is_owner) {
             return redirect()->route('admin.settings.general')->with('alerts', [['message' => 'API Key is only available to owners.', 'level' => 'error']]);
         }
         $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
