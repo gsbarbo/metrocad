@@ -38,7 +38,7 @@
                                             scope="col">
                                             Permissions
                                         </th>
-                                        @if (get_setting('use_discord_roles'))
+                                        @if (get_setting('feature_use_discord_roles'))
                                             <th class="px-3 py-3.5 text-left text-sm font-semibold text-white hidden md:table-cell"
                                                 scope="col">
                                                 Discord Role
@@ -53,8 +53,18 @@
                                     @forelse ($roles as $role)
                                         <tr>
                                             <td
-                                                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-0">
-                                                {{ $role->name }}</td>
+                                                class="whitespace-nowrap flex items-center py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-0">
+                                                @if (is_null($role->discord_role_id))
+                                                    <svg class="size-6 mr-1 text-red-700" fill="none" stroke-width="1.5"
+                                                        stroke="currentColor" viewBox="0 0 24 24"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"
+                                                            stroke-linecap="round" stroke-linejoin="round" />
+                                                    </svg>
+                                                @endif
+                                                {{ $role->name }}
+                                            </td>
                                             <td class="hidden md:table-cell px-3 py-4 text-sm text-gray-300">
                                                 @forelse ($role->permissions as $permission)
                                                     <span
@@ -63,10 +73,20 @@
                                                     <p>No Permissions</p>
                                                 @endforelse
                                             </td>
-                                            @if (get_setting('use_discord_roles'))
+                                            @if (get_setting('feature_use_discord_roles'))
                                                 <td
                                                     class="hidden md:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-300">
-                                                    {{ $role->discord_role_name ?? 'No Discord Role' }}
+                                                    @if (is_null($role->discord_role_id))
+                                                        <svg class="size-6 text-red-700" fill="none" stroke-width="1.5"
+                                                            stroke="currentColor" viewBox="0 0 24 24"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"
+                                                                stroke-linecap="round" stroke-linejoin="round" />
+                                                        </svg>
+                                                    @elseif ($role->discord_role_id)
+                                                        {{ $role->discord_role_name }}
+                                                    @endif
                                                 </td>
                                             @endif
                                             <td

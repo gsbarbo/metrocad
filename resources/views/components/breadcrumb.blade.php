@@ -14,7 +14,7 @@
             {{ $slot }}
         </ol>
     </nav>
-    <h2 class="mb-4 text-lg font-thin leading-none tracking-tight md:text-2xl text-white">
+    <h2 class="text-xl font-thin leading-none tracking-tight md:text-2xl text-white">
         {{ $pageTitle }}
     </h2>
 </header>

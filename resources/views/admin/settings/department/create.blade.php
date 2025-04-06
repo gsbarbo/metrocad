@@ -1,46 +1,43 @@
 @extends('layouts.admin_settings')
 
 @section('main')
-    <div class="flex justify-between items-baseline">
-        <h1 class="text-xl font-bold">Manage Departments > <span class="font-thin text-lg">Create Department</span></h1>
-        <a class="text-red-600 hover:underline" href="{{ route('admin.settings.departments.index') }}">
-            Cancel
-        </a>
-    </div>
+    <x-breadcrumb pageTitle="Create Department" route="{{ route('admin.dashboard') }}">
+        <x-breadcrumb-link route="{{ route('admin.settings.general') }}">Settings</x-breadcrumb-link>
+        <x-breadcrumb-link route="{{ route('admin.settings.departments.index') }}">Departments</x-breadcrumb-link>
+        <x-breadcrumb-link route="{{ route('admin.settings.departments.create') }}">Create Department</x-breadcrumb-link>
+    </x-breadcrumb>
 
-    <form action="{{ route('admin.settings.departments.store') }}" class="divide-y" enctype="multipart/form-data"
-        method="POST">
+    <form action="{{ route('admin.settings.departments.store') }}" class="" enctype="multipart/form-data" method="POST">
         @csrf
-        <div class="p-3">
-            <label class="text-lg font-semibold" for="name">
+        <div class="mb-3">
+            <label class="label-dark" for="name">
                 Name
             </label>
-            <input autofocus class="text-input @error('name') !border-red-600 !border @enderror" id="name"
+            <input autofocus class="form-text-input-dark @error('name') !border-red-600 !border @enderror" id="name"
                 name="name" placeholder="" required type="text" value="{{ old('name') }}" />
-
             @error('name')
-                <p class="text-red-600">{{ $message }}</p>
+                <p class="form-error-text">{{ $message }}</p>
             @enderror
         </div>
 
-        <div class="p-3">
-            <label class="text-lg font-semibold" for="initials">
+        <div class="mb-3">
+            <label class="label-dark" for="initials">
                 Initials
             </label>
-            <input autofocus class="text-input @error('initials') !border-red-600 !border @enderror" id="initials"
+            <input class="form-text-input-dark @error('initials') !border-red-600 !border @enderror" id="initials"
                 name="initials" placeholder="" required type="text" value="{{ old('initials') }}" />
 
             @error('initials')
-                <p class="text-red-600">{{ $message }}</p>
+                <p class="form-error-text">{{ $message }}</p>
             @enderror
         </div>
 
-        <div class="p-3">
-            <label class="text-lg font-semibold" for="type">
+        <div class="mb-3">
+            <label class="label-dark" for="type">
                 Department Type
             </label>
 
-            <select class="select-input" id="type" name="type">
+            <select class="form-select-input-dark" id="type" name="type">
                 <option value="">Choose one</option>
                 <option @selected(old('type') == 1) value="1">Law Enforcement</option>
                 <option @selected(old('type') == 2) value="2">Dispatch</option>
@@ -51,7 +48,7 @@
             </select>
 
             @error('type')
-                <p class="text-red-600">{{ $message }}</p>
+                <p class="form-error-text">{{ $message }}</p>
             @enderror
         </div>
 
@@ -60,12 +57,12 @@
         ])
 
         @if (get_setting('feature_use_discord_department_roles'))
-            <div class="p-3">
-                <label class="text-lg font-semibold" for="discord_role_id">
+            <div class="mb-3">
+                <label class="label-dark" for="discord_role_id">
                     Discord Role
                 </label>
-                <select class="text-input @error('discord_role_id') !border-red-600 !border @enderror" id="discord_role_id"
-                    name="discord_role_id">
+                <select class="form-select-input-dark @error('discord_role_id') !border-red-600 !border @enderror"
+                    id="discord_role_id" name="discord_role_id">
                     <option value="">Choose Role</option>
                     @foreach ($discord_roles as $id => $discord_role)
                         @if ($id != 0 && $discord_role->managed != true)
@@ -75,12 +72,15 @@
                     @endforeach
                 </select>
                 @error('discord_role_id')
-                    <p class="text-red-600">{{ $message }}</p>
+                    <p class="form-error-text">{{ $message }}</p>
                 @enderror
             </div>
         @endif
 
-        <input class="btn bg-navbar text-white hover:opacity-85" type="submit" value="Create">
+        <div class="flex justify-between items-center">
+            <input class="btn bg-navbar text-white hover:opacity-85" type="submit" value="Save">
+            <a class="text-red-600 hover:underline" href="{{ route('admin.settings.departments.index') }}">Cancel</a>
+        </div>
 
     </form>
 @endsection

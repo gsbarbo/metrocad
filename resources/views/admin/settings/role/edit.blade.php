@@ -42,14 +42,14 @@
                 name="name" placeholder="Admin" required type="text" value="{{ old('name', $role->name) }}" />
 
             @error('name')
-                <p class="text-red-600">{{ $message }}</p>
+                <p class="form-error-text">{{ $message }}</p>
             @enderror
         </div>
 
         @if (get_setting('feature_use_discord_roles'))
             <div class="mb-3">
                 <label class="block mb-2 text-sm font-medium leading-6 text-white" for="discord_role_id">
-                    Discord Role ID
+                    Discord Role
                 </label>
                 <select class="form-select-input-dark @error('discord_role_id') !border-red-600 !border @enderror"
                     id="discord_role_id" name="discord_role_id">
@@ -62,7 +62,7 @@
                     @endforeach
                 </select>
                 @error('discord_role_id')
-                    <p class="text-red-600">{{ $message }}</p>
+                    <p class="form-error-text">{{ $message }}</p>
                 @enderror
             </div>
         @endif

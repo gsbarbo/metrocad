@@ -4,32 +4,43 @@
     </div>
     <div class="px-4 py-5 sm:p-6 space-y-2 divide-y-2">
         @if ($user->status === 1)
-            @can('admin:user:approve')
-                <div class="">
-                    <h2 class="text-lg">Approve User</h2>
-                    <p>You can either approve this user's account access or deny access. You must include a comment.</p>
-                    <label class="label-dark" for="">Comment</label>
-                    <textarea class="form-textarea-dark" wire:model='comment'></textarea>
-                    <a class="btn bg-green-600 text-white hover:opacity-85 mt-2 inline-block"
-                        wire:click='approve_member'>Approve
-                        User</a>
-                    <a class="btn bg-red-600 text-white hover:opacity-85 mt-2 inline-block" wire:click='deny_member'>Deny
-                        User</a>
-                </div>
-            @endcan
+            @if (get_setting('discord_auto_role_id', 0) != 0 && get_setting('feature_use_discord_roles'))
+                <p>User access is controlled by Discord Roles. You must assign them the correct role in the Discord
+                    server.</p>
+            @else
+                @can('admin:user:approve')
+                    <div class="">
+                        <h2 class="text-lg">Approve User</h2>
+                        <p>You can either approve this user's account access or deny access. You must include a comment.</p>
+                        <label class="label-dark" for="">Comment</label>
+                        <textarea class="form-textarea-dark" wire:model='comment'></textarea>
+                        <a class="btn bg-green-600 text-white hover:opacity-85 mt-2 inline-block"
+                            wire:click='approve_member'>Approve
+                            User</a>
+                        <a class="btn bg-red-600 text-white hover:opacity-85 mt-2 inline-block"
+                            wire:click='deny_member'>Deny
+                            User</a>
+                    </div>
+                @endcan
+            @endif
         @endif
         @if ($user->status === 3)
-            @can('admin:user:unsuspend')
-                <div class="">
-                    <h2 class="text-lg">Unsuspend Member</h2>
-                    <p>You can see why this user is suspended in the History section. You must include a comment.</p>
-                    <label class="label-dark" for="">Comment</label>
-                    <textarea class="form-textarea-dark" wire:model='comment'></textarea>
-                    <a class="btn bg-background text-white hover:opacity-85 mt-2 inline-block"
-                        wire:click='unsuspend'>Unsuspend
-                        Member</a>
-                </div>
-            @endcan
+            @if (get_setting('discord_suspended_role_id', 0) != 0 && get_setting('feature_use_discord_roles'))
+                <p>User access is controlled by Discord Roles. You must remove the suspend role in the Discord server.
+                </p>
+            @else
+                @can('admin:user:unsuspend')
+                    <div class="">
+                        <h2 class="text-lg">Unsuspend Member</h2>
+                        <p>You can see why this user is suspended in the History section. You must include a comment.</p>
+                        <label class="label-dark" for="">Comment</label>
+                        <textarea class="form-textarea-dark" wire:model='comment'></textarea>
+                        <a class="btn bg-background text-white hover:opacity-85 mt-2 inline-block"
+                            wire:click='unsuspend'>Unsuspend
+                            Member</a>
+                    </div>
+                @endcan
+            @endif
         @endif
         @if ($user->status === 4)
             @can('admin:user:unban')

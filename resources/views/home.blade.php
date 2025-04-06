@@ -94,6 +94,10 @@
                             </p>
                     @endswitch
 
+                    @if (get_setting('discord_auto_role_id', 0) != 0 && get_setting('feature_use_discord_roles'))
+                        <p class="form-help-text-dark">Discord auto role is on.</p>
+                    @endif
+
                 </div>
             @endauth
         </div>

@@ -37,3 +37,7 @@
 .form-help-text-light {
     @apply block my-1 text-xs font-thin text-gray-700;
 }
+
+.form-error-text {
+    @apply text-xs mb-3 mt-1 text-red-600;
+}

@@ -16,6 +16,11 @@
             you SUSPEND a member no member data is deleted. Just restricts access to the CAD. When
             you BAN or RETIRE a member you will remove all their data (Civilians, Vehicles etc).</p>
 
+        @if (get_setting('discord_auto_role_id', 0) != 0 && get_setting('feature_use_discord_roles'))
+            <p>User access is controlled by Discord Roles. Make sure you remove their role from the Discord server as
+                well.</p>
+        @endif
+
         @if ($user->status === 3)
             <p class="bg-red-700 px-3 py-2 rounded-lg">This user is already suspended. You can only ban the member from
                 here.</p>

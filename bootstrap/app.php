@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Middleware\MemberCheckMiddleware;
+use App\Http\Middleware\ownerCheckMiddleware;
+use App\Http\Middleware\userDiscordAutoRoleCheckMiddleware;
+use App\Http\Middleware\userDiscordSuspendedRoleCheckMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -16,11 +19,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->redirectGuestsTo('/');
         $middleware->appendToGroup('web', [
-            // forceSslMiddleware::class,
-            // userDiscordAutoRoleCheckMiddleware::class,
-            // userDiscordSuspendedRoleCheckMiddleware::class,
-            // ownerCheckMiddleware::class,
-            // userStatusCheckMiddleware::class,
+            userDiscordAutoRoleCheckMiddleware::class,
+            userDiscordSuspendedRoleCheckMiddleware::class,
+            ownerCheckMiddleware::class,
         ]);
 
         $middleware->alias([

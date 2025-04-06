@@ -28,32 +28,35 @@
                 name="name" placeholder="Admin" required type="text" value="{{ old('name') }}" />
 
             @error('name')
-                <p class="text-red-600">{{ $message }}</p>
+                <p class="form-error-text">{{ $message }}</p>
             @enderror
         </div>
 
         @if (get_setting('feature_use_discord_roles'))
             <div class="mb-3">
-                <label class="block mb-2 text-sm font-medium leading-6 text-white" for="discord_role_id">
+                <label class="label-dark" for="discord_role_id">
                     Discord Role ID
                 </label>
-                <select class="text-input @error('discord_role_id') !border-red-600 !border @enderror" id="discord_role_id"
-                    name="discord_role_id">
+                <select class="form-select-input-dark @error('discord_role_id') !border-red-600 !border @enderror"
+                    id="discord_role_id" name="discord_role_id">
                     <option value="">Choose Role</option>
                     @foreach ($discord_roles as $id => $discord_role)
                         @if ($id != 0 && $discord_role->managed != true)
-                            <option @selected(old('discord_auto_role_id', get_setting('discord_auto_role_id')) == $discord_role->id) value="{{ $discord_role->id }}">
+                            <option @selected(old('discord_role_id') == $discord_role->id) value="{{ $discord_role->id }}">
                                 {{ $discord_role->name }}</option>
                         @endif
                     @endforeach
                 </select>
                 @error('discord_role_id')
-                    <p class="text-red-600">{{ $message }}</p>
+                    <p class="form-error-text">{{ $message }}</p>
                 @enderror
             </div>
         @endif
         <div class="mb-3">
-            <label class="block mb-2 text-sm font-medium leading-6 text-white" for="text">Permissions</label>
+            <label class="label-dark" for="text">Permissions</label>
+            @error('permissions')
+                <p class="form-error-text">{{ $message }}</p>
+            @enderror
             <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                 @forelse ($permissions as $permission)
                     <label class="inline-flex items-center cursor-pointer">
@@ -65,7 +68,7 @@
                             class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">{{ $permission->name }}</span>
                     </label>
                 @empty
-                    <p>No Permissions</p>
+                    <p>There are no permissions in the Database. Contact support to fix.</p>
                 @endforelse
             </div>
         </div>

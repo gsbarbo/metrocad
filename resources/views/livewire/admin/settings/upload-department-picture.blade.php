@@ -1,6 +1,6 @@
-<div class="p-3">
+<div class="mb-3">
     <div class="flex justify-between">
-        <label class="text-lg font-semibold" for="initials">
+        <label class="label-dark" for="initials">
             {{ $title }}
         </label>
         @if ($photo)
@@ -16,7 +16,7 @@
         @endif
     </div>
 
-    <input accept="image/png, image/jpeg, image/gif" class="text-input mt-3" name="logo" type="file"
+    <input accept="image/png, image/jpeg, image/gif" class="form-text-input-dark mt-3" name="logo" type="file"
         wire:model="photo">
 
     @error('photo')

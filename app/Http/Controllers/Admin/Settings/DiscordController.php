@@ -8,6 +8,7 @@ use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Validator;
 
 class DiscordController extends Controller
 {
@@ -18,8 +19,16 @@ class DiscordController extends Controller
 
     public function update_guild_id(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'discord_guild_id' => 'required|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('admin.settings.discord.index')->withErrors($validator)->withInput();
+        }
+
         $response = Http::accept('application/json')
-            ->withHeaders(['Authorization' => config('cad.discord_bot_token')])
+            ->withHeaders(['Authorization' => config('metrocad.discord_bot_token')])
             ->get('https://discord.com/api/guilds/'.$request->input('discord_guild_id').'/roles');
 
         if ($response->status() != 200) {
@@ -29,7 +38,9 @@ class DiscordController extends Controller
             );
             Cache::forget('settings');
 
-            return redirect()->route('admin.settings.discord.index')->with('alerts', [['message' => 'Discord Bot is not in server. Review docs to fix issue.', 'level' => 'error']])->withInput($request->input());
+            $validator->errors()->add('discord_guild_id', 'The Discord bot is not in this server.');
+
+            return redirect()->route('admin.settings.discord.index')->with('alerts', [['message' => 'The Discord bot is not in this server.', 'level' => 'error']])->withErrors($validator)->withInput($request->input());
         }
 
         Setting::updateOrCreate(
@@ -50,7 +61,7 @@ class DiscordController extends Controller
         }
 
         $discord_guild_channels = Http::accept('application/json')
-            ->withHeaders(['Authorization' => config('cad.discord_bot_token')])
+            ->withHeaders(['Authorization' => config('metrocad.discord_bot_token')])
             ->get('https://discord.com/api/guilds/'.get_setting('discord_guild_id').'/channels')->body();
 
         $channel_choices = [];
@@ -78,7 +89,7 @@ class DiscordController extends Controller
         if (get_setting('feature_use_discord_roles') && get_setting('discord_guild_id')) {
             $response =
                 Http::accept('application/json')
-                    ->withHeaders(['Authorization' => config('cad.discord_bot_token')])
+                    ->withHeaders(['Authorization' => config('metrocad.discord_bot_token')])
                     ->get('https://discord.com/api/guilds/'.get_setting('discord_guild_id').'/roles');
 
             $discord_roles = json_decode($response->body());

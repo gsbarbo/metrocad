@@ -22,10 +22,25 @@ class RoleRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'name' => 'required|string',
             'permissions' => 'required|array',
-            'discord_role_id' => 'numeric|nullable',
+        ];
+
+        if (get_setting('feature_use_discord_roles')) {
+            $rules['discord_role_id'] = 'numeric|required';
+        } else {
+            $rules['discord_role_id'] = 'numeric|nullable';
+        }
+
+        return $rules;
+    }
+
+    public function messages()
+    {
+        return [
+            'discord_role_id.numeric' => 'You must choose a Discord role.',
+            'permissions.required' => 'You must choose at least one permission.',
         ];
     }
 }
