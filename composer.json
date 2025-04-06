@@ -11,10 +11,10 @@
     "require": {
         "php": "^8.2",
         "dyrynda/laravel-cascade-soft-deletes": "^4.4",
-        "laravel/framework": "^11.31",
+        "laravel/framework": "^12.0",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
-        "owen-it/laravel-auditing": "^13.6",
+        "owen-it/laravel-auditing": "^14.0",
         "socialiteproviders/discord": "^4.2",
         "socialiteproviders/steam": "^4.2",
         "spatie/laravel-markdown": "^2.7",
@@ -28,7 +28,7 @@
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.1",
-        "pestphp/pest": "^3.7",
+        "pestphp/pest": "^3.0",
         "pestphp/pest-plugin-laravel": "^3.0"
     },
     "autoload": {
