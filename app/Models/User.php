@@ -64,4 +64,19 @@ class User extends Authenticatable
     {
         return History::where('subject_type', 'user')->where('subject_id', $this->id)->latest()->get();
     }
+
+    public static function dec2hex($number)
+    {
+        $hexvalues = [
+            '0', '1', '2', '3', '4', '5', '6', '7',
+            '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
+        ];
+        $hexval = '';
+        while ($number != '0') {
+            $hexval = $hexvalues[bcmod($number, '16', 0)].$hexval;
+            $number = bcdiv($number, '16', 0);
+        }
+
+        return $hexval;
+    }
 }

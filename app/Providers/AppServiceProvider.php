@@ -27,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Event::listen(function (\SocialiteProviders\Manager\SocialiteWasCalled $event) {
             $event->extendSocialite('discord', \SocialiteProviders\Discord\Provider::class);
+            $event->extendSocialite('steam', \SocialiteProviders\Steam\Provider::class);
+
         });
 
         $this->app->bind('settings', function () {

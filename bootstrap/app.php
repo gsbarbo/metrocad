@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\MemberCheckMiddleware;
 use App\Http\Middleware\ownerCheckMiddleware;
+use App\Http\Middleware\steamLinkCheckMiddleware;
 use App\Http\Middleware\userDiscordAutoRoleCheckMiddleware;
 use App\Http\Middleware\userDiscordSuspendedRoleCheckMiddleware;
 use Illuminate\Foundation\Application;
@@ -26,6 +27,8 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'MemberCheck' => MemberCheckMiddleware::class,
+            'SteamLinkCheck' => steamLinkCheckMiddleware::class,
+
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

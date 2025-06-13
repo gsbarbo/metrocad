@@ -78,7 +78,7 @@
                             x-transition:leave="transition ease-in duration-150">
                             <li class="flex">
                                 <a class="flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                                    href="#">
+                                    href="{{ route('portal.user.settings') }}">
                                     <svg class="w-4 h-4 mr-3" fill="none" stroke-width="1.5" stroke="currentColor"
                                         viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path
