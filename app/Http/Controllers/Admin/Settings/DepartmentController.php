@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\Settings\DepartmentsUpdateRequest;
 use App\Models\Department;
 use App\Services\DiscordService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class DepartmentController extends Controller
@@ -39,25 +40,29 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        if (! in_array($request->logo->extension(), ['jpg', 'jpeg', 'png', 'gif'])) {
-            return redirect()->route('admin.settings.department.create')->with('alerts', [['message' => 'Invalid Image Type.', 'level' => 'error']]);
-        }
 
-        $path = $request->logo->storePubliclyAs('public/images/departments/', Str::slug($request->input('name')).'.'.$request->logo->extension());
-
-        $url = url('storage/images/departments/'.Str::slug($request->input('name')).'.'.$request->logo->extension());
-
-        $department = Department::create([
+        $create = [
             'name' => $request->input('name'),
             'initials' => $request->input('initials'),
             'type' => $request->input('type'),
             'slug' => Str::slug($request->input('name')),
-            'logo' => $url,
-        ]);
+        ];
+
+        if (! in_array($request->logo->extension(), ['jpg', 'jpeg', 'png', 'gif'])) {
+            return redirect()->route('admin.settings.department.create')->with('alerts', [['message' => 'Invalid Image Type.', 'level' => 'error']]);
+        }
+
+        $path = $request->logo->storePubliclyAs('images/departments/', Str::slug($create['slug']).'.'.$request->logo->extension(), 'public');
+
+        $url = url('storage/images/departments/'.Str::slug($create['slug']).'.'.$request->logo->extension());
+
+        $create['logo'] = $url;
 
         if (get_setting('feature_use_discord_department_roles')) {
-            $department->update(['discord_role_id' => $request->input('discord_role_id')]);
+            $create['discord_role_id'] = $request->input('discord_role_id');
         }
+
+        $department = Department::create($create);
 
         return redirect()->route('admin.settings.departments.index')->with('alerts', [['message' => 'Department Created.', 'level' => 'success']]);
     }
@@ -80,28 +85,31 @@ class DepartmentController extends Controller
      */
     public function update(DepartmentsUpdateRequest $request, Department $department)
     {
+        $update = [
+            'name' => $request->validated('name'),
+            'initials' => $request->validated('initials'),
+            'type' => $request->validated('type'),
+            'slug' => Str::slug($request->validated('name')),
+        ];
+
         if ($request->file('logo')) {
             if (! in_array($request->logo->extension(), ['jpg', 'jpeg', 'png', 'gif'])) {
                 return redirect()->route('admin.settings.department.edit', $department->slug)->with('alerts', [['message' => 'Invalid Image Type.', 'level' => 'error']]);
             }
 
-            $path = $request->logo->storePubliclyAs('public/images/departments/', Str::slug($request->validated('name')).'.'.$request->logo->extension());
+            $path = $request->logo->storePubliclyAs('images/departments/', Str::slug($request->validated('name')).'.'.$request->logo->extension(), 'public');
 
             $url = url('storage/images/departments/'.Str::slug($request->validated('name')).'.'.$request->logo->extension());
 
-            $department->update(['logo' => $url]);
+            $update['logo'] = $url;
         }
-
-        $department->update([
-            'name' => $request->validated('name'),
-            'initials' => $request->validated('initials'),
-            'type' => $request->validated('type'),
-            'slug' => Str::slug($request->validated('name')),
-        ]);
 
         if (get_setting('feature_use_discord_department_roles')) {
             $department->update(['discord_role_id' => $request->input('discord_role_id')]);
+            $update['discord_role_id'] = $request->input('discord_role_id');
         }
+
+        $department->update($update);
 
         return redirect()->route('admin.settings.departments.index')->with('alerts', [['message' => 'Department Saved.', 'level' => 'success']]);
     }
@@ -111,6 +119,10 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
+        $file_name = explode('/', $department->logo);
+        $file = end($file_name);
+        Storage::disk('public')->delete('images/departments/'.$file);
+
         $department->delete();
 
         return redirect()->route('admin.settings.departments.index')->with('alerts', [['message' => 'Department Deleted.', 'level' => 'success']]);

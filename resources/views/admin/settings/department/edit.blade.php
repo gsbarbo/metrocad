@@ -14,10 +14,10 @@
         @csrf
         @method('put')
         <div class="p-3">
-            <label class="text-lg font-semibold" for="name">
+            <label class="label-dark" for="name">
                 Name
             </label>
-            <input autofocus class="text-input @error('name') !border-red-600 !border @enderror" id="name"
+            <input autofocus class="form-text-input-dark @error('name') !border-red-600 !border @enderror" id="name"
                 name="name" placeholder="" required type="text" value="{{ old('name', $department->name) }}" />
 
             @error('name')
@@ -26,11 +26,11 @@
         </div>
 
         <div class="p-3">
-            <label class="text-lg font-semibold" for="initials">
+            <label class="label-dark" for="initials">
                 Initials
             </label>
-            <input autofocus class="text-input @error('initials') !border-red-600 !border @enderror" id="initials"
-                name="initials" placeholder="" required type="text"
+            <input autofocus class="form-text-input-dark @error('initials') !border-red-600 !border @enderror"
+                id="initials" name="initials" placeholder="" required type="text"
                 value="{{ old('initials', $department->initials) }}" />
 
             @error('initials')
@@ -39,11 +39,11 @@
         </div>
 
         <div class="p-3">
-            <label class="text-lg font-semibold" for="type">
+            <label class="label-dark" for="type">
                 Department Type
             </label>
 
-            <select class="select-input" id="type" name="type">
+            <select class="form-select-input-dark" id="type" name="type">
                 <option value="">Choose one</option>
                 <option @selected(old('type', $department->type) == 1) value="1">Law Enforcement</option>
                 <option @selected(old('type', $department->type) == 2) value="2">Dispatch</option>
@@ -65,11 +65,11 @@
 
         @if (get_setting('feature_use_discord_department_roles'))
             <div class="p-3">
-                <label class="text-lg font-semibold" for="discord_role_id">
+                <label class="label-dark" for="discord_role_id">
                     Discord Role
                 </label>
-                <select class="text-input @error('discord_role_id') !border-red-600 !border @enderror" id="discord_role_id"
-                    name="discord_role_id">
+                <select class="form-text-input-dark @error('discord_role_id') !border-red-600 !border @enderror"
+                    id="discord_role_id" name="discord_role_id">
                     <option value="">Choose Role</option>
                     @foreach ($discord_roles as $id => $discord_role)
                         @if ($id != 0 && $discord_role->managed != true)
