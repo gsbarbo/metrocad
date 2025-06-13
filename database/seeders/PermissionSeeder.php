@@ -85,6 +85,36 @@ class PermissionSeeder extends Seeder
                 'help_text' => 'Grants access to update user information.',
                 'category' => 'admin',
             ],
+            [
+                'name' => 'admin:roles:access',
+                'guard_name' => 'web',
+                'help_text' => 'Grants access to update user information.',
+                'category' => 'admin',
+            ],
+            [
+                'name' => 'admin:settings:general',
+                'guard_name' => 'web',
+                'help_text' => 'Grants access to update General Settings except the API Key.',
+                'category' => 'admin',
+            ],
+            [
+                'name' => 'admin:settings:management',
+                'guard_name' => 'web',
+                'help_text' => 'Grants access to update Management Settings.',
+                'category' => 'admin',
+            ],
+            [
+                'name' => 'admin:settings:discord',
+                'guard_name' => 'web',
+                'help_text' => 'Grants access to update Discord Settings.',
+                'category' => 'admin',
+            ],
+            [
+                'name' => 'admin:settings:api_key',
+                'guard_name' => 'web',
+                'help_text' => 'Grants access to view and reset the API Key.',
+                'category' => 'admin',
+            ],
         ]);
 
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();

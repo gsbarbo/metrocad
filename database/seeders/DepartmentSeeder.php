@@ -12,6 +12,7 @@ class DepartmentSeeder extends Seeder
      */
     public function run(): void
     {
+        // TODO: Add new picture links
         DB::table('departments')->insert([
             [
                 'name' => 'Blane County Sheriffs Office',
