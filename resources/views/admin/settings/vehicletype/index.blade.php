@@ -5,14 +5,24 @@
         <x-breadcrumb-link route="{{ route('admin.settings.general') }}">Settings</x-breadcrumb-link>
         <x-breadcrumb-text>Values - Vehicles</x-breadcrumb-text>
     </x-breadcrumb>
+    <div>
+        <a class="flex text-sm items-center text-blue-600 underline" href="#">Learn
+            More
+            <svg class="w-4 h-4 ml-2" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                    stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </a>
+    </div>
 
     <div class="">
         <div class="py-10">
             <div class="px-4 sm:px-6 lg:px-8">
                 <div class="sm:flex sm:items-center">
                     <div class="sm:flex-auto">
-                        <h1 class="text-xl font-bold leading-6 text-white">Vehicle Types</h1>
-                        <p class="mt-2 text-sm text-gray-300">A list of all the vehicle types.</p>
+
                     </div>
                     <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none flex space-x-2">
                         <a href="{{ route('admin.settings.vehicletype.create') }}">
@@ -76,7 +86,8 @@
                                     @csrf
 
                                     <input accept=".json" class="form-text-input-dark" name="file" type="file">
-
+                                    <p class="form-help-text-dark">Please read the documentation found on the top of this
+                                        page for more information and correct file format.</p>
                                     <input class="btn-default" type="submit" value="Import Vehicles">
                                 </form>
                             </div>
