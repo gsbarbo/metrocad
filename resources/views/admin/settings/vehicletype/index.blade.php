@@ -1,10 +1,9 @@
 @extends('layouts.admin_settings')
 
 @section('main')
-    <x-breadcrumb pageTitle="Vehicle Types">
-        <x-breadcrumb-link route="{{ route('admin.home') }}">Admin</x-breadcrumb-link>
+    <x-breadcrumb pageTitle="Vehicle Types" route="{{ route('admin.dashboard') }}">
         <x-breadcrumb-link route="{{ route('admin.settings.general') }}">Settings</x-breadcrumb-link>
-        <x-breadcrumb-text>Vehicle Types</x-breadcrumb-text>
+        <x-breadcrumb-text>Values - Vehicles</x-breadcrumb-text>
     </x-breadcrumb>
 
     <div class="">

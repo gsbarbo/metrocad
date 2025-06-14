@@ -19,7 +19,7 @@ class Civilian extends Model implements Auditable
 
     public $incrementing = false;
 
-    protected $cascadeDeletes = ['licenses'];
+    protected $cascadeDeletes = ['licenses']; // vehicles, licenses, medical, firearms,
 
     protected $guarded = [];
 

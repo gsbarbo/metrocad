@@ -13,7 +13,7 @@ class Department extends Model implements Auditable
 {
     use AuditingAuditable, CascadeSoftDeletes, SoftDeletes;
 
-    protected $cascadeDeletes = ['announcements'];
+    protected $cascadeDeletes = ['announcements']; // userDepartments,
 
     protected $auditExclude = [];
 

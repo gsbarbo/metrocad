@@ -1,10 +1,9 @@
 @extends('layouts.admin_settings')
 
 @section('main')
-    <x-breadcrumb pageTitle="Create Vehicle Type">
-        <x-breadcrumb-link route="{{ route('admin.home') }}">Admin</x-breadcrumb-link>
+    <x-breadcrumb pageTitle="Create Vehicle" route="{{ route('admin.dashboard') }}">
         <x-breadcrumb-link route="{{ route('admin.settings.general') }}">Settings</x-breadcrumb-link>
-        <x-breadcrumb-link route="{{ route('admin.settings.vehicletype.index') }}">Settings</x-breadcrumb-link>
+        <x-breadcrumb-link route="{{ route('admin.settings.vehicletype.index') }}">Values - Vehicles</x-breadcrumb-link>
         <x-breadcrumb-text>Create</x-breadcrumb-text>
     </x-breadcrumb>
 
@@ -38,7 +37,7 @@
 
             <div>
                 <label class="label-dark" for="price">Price</label>
-                <input class="form-text-input-dark" name="price" type="number" value="{{ old('price') }}">
+                <input class="form-text-input-dark" name="price" type="number" value="{{ old('price', 0) }}">
                 @error('price')
                     <p class="text-red-600">{{ $message }}</p>
                 @enderror
@@ -65,7 +64,16 @@
             </div>
 
             <div>
-                <input class="btn-default" type="submit" value="{{ __('global.buttons.create') }}">
+                <label class="label-dark" for="notes">Notes</label>
+                <p class="form-help-text-dark">This will show for civilians when creating a new vehicle.</p>
+                <input class="form-text-input-dark" name="notes" type="text" value="{{ old('notes') }}">
+                @error('notes')
+                    <p class="text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
+                <input class="btn-default" type="submit" value="Create Vehicle">
             </div>
         </form>
     </div>

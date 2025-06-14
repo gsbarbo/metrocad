@@ -1,11 +1,10 @@
 @extends('layouts.admin_settings')
 
 @section('main')
-    <x-breadcrumb pageTitle="Edit Vehicle Type">
-        <x-breadcrumb-link route="{{ route('admin.home') }}">Admin</x-breadcrumb-link>
+    <x-breadcrumb pageTitle="Edit Vehicle" route="{{ route('admin.dashboard') }}">
         <x-breadcrumb-link route="{{ route('admin.settings.general') }}">Settings</x-breadcrumb-link>
-        <x-breadcrumb-link route="{{ route('admin.settings.vehicletype.index') }}">Vehicle Types</x-breadcrumb-link>
-        <x-breadcrumb-text>Edit {{ $vehicle_type->make . ' ' . $vehicle_type->model }}</x-breadcrumb-text>
+        <x-breadcrumb-link route="{{ route('admin.settings.vehicletype.index') }}">Values - Vehicles</x-breadcrumb-link>
+        <x-breadcrumb-text>Edit - {{ $vehicle_type->make . ' ' . $vehicle_type->model }}</x-breadcrumb-text>
     </x-breadcrumb>
 
     <div class="max-w-3xl mx-auto">
@@ -71,7 +70,16 @@
             </div>
 
             <div>
-                <input class="btn-default" type="submit" value="{{ __('global.buttons.save') }}">
+                <label class="label-dark" for="notes">Notes</label>
+                <p class="form-help-text-dark">This will show for civilians when creating a new vehicle.</p>
+                <input class="form-text-input-dark" name="notes" type="text" value="{{ old('notes') }}">
+                @error('notes')
+                    <p class="text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
+                <input class="btn-default" type="submit" value="Save">
             </div>
         </form>
 
@@ -80,8 +88,8 @@
             <p class="">Deleting this vehicle type will delete the following information that can <span
                     class="font-bold text-red-600">NOT</span> be recovered:</p>
             <ul class="list-inside list-disc ml-5">
-                <li>Civilian Vehicles</li>
-                <li>Any tickets associated with a vehicle of this type</li>
+                <li>Civilian vehicles</li>
+                <li>Any tickets associated with those vehicles</li>
             </ul>
             <p>Are you sure you wish to continue?</p>
             <form action="{{ route('admin.settings.vehicletype.destroy', $vehicle_type->id) }}"
@@ -98,7 +106,7 @@
                     @enderror
                 </div>
 
-                <input class="btn-red" type="submit" value="{{ __('global.buttons.delete') }}">
+                <input class="btn-red" type="submit" value="Delete">
             </form>
         </div>
     </div>

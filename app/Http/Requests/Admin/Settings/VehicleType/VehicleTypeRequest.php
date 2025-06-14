@@ -28,6 +28,7 @@ class VehicleTypeRequest extends FormRequest
             'price' => 'nullable|numeric',
             'is_emergency_vehicle' => 'required|boolean',
             'spawn_code' => 'nullable|string',
+            'notes' => 'nullable|string',
         ];
     }
 }

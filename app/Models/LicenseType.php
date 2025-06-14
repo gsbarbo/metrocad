@@ -11,7 +11,7 @@ class LicenseType extends Model implements Auditable
 {
     use AuditingAuditable, CascadeSoftDeletes;
 
-    protected $cascadeDeletes = [];
+    protected $cascadeDeletes = []; // licenses,
 
     protected $guarded = [];
 }

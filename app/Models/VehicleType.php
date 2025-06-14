@@ -14,5 +14,5 @@ class VehicleType extends Model implements Auditable
 
     protected $guarded = [];
 
-    protected $cascadeDeletes = [];
+    protected $cascadeDeletes = []; // vehicles
 }
