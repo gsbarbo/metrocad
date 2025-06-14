@@ -6,3 +6,6 @@ Supervisor menu
 - DA
 - Manage User Departments
 -
+
+Civilian
+- Civilian Levels

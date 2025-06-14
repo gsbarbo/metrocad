@@ -41,4 +41,15 @@ class SteamLinkController extends Controller
 
         return false;
     }
+
+    public function unlink()
+    {
+        auth()->user()->update([
+            'steam_hex' => null,
+            'steam_id' => null,
+            'steam_name' => null,
+        ]);
+
+        return redirect()->route('portal.user.settings')->with('alerts', [['message' => 'Steam account unlinked.', 'level' => 'success']]);
+    }
 }

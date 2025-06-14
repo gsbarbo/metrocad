@@ -24,7 +24,9 @@ Route::middleware(['auth', 'MemberCheck', 'SteamLinkCheck'])->name('portal.')->p
     Route::get('link/steam', function () {
         return Socialite::driver('steam')->redirect();
     })->name('link.steam')->withoutMiddleware('SteamLinkCheck');
-    Route::get('link/steam/handle', [SteamLinkController::class, 'handle'])->name('portal.link.steam.handle')->withoutMiddleware('SteamLinkCheck');
+
+    Route::get('link/steam/handle', [SteamLinkController::class, 'handle'])->name('link.steam.handle')->withoutMiddleware('SteamLinkCheck');
+    Route::get('link/steam/unlink', [SteamLinkController::class, 'unlink'])->name('link.steam.unlink')->withoutMiddleware('SteamLinkCheck');
 
     // Route::get('department/{department}', [DepartmentController::class, 'show'])->name('department.show');
     // Route::get('department/{department}/roster', [DepartmentController::class, 'roster'])->name('department.roster');
