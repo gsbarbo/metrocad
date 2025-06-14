@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Settings\DepartmentController;
 use App\Http\Controllers\Admin\Settings\DiscordController;
 use App\Http\Controllers\Admin\Settings\RoleController;
+use App\Http\Controllers\Admin\Settings\Values\LicensesController;
 use App\Http\Controllers\Admin\Settings\VehicleTypeController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\UserController;
@@ -24,6 +25,10 @@ Route::name('settings.')->prefix('settings')->group(function () {
     Route::get('vehicletype/import', [VehicleTypeController::class, 'import_view'])->name('vehicletype.import_view');
     Route::post('vehicletype/import', [VehicleTypeController::class, 'import'])->name('vehicletype.import');
     Route::resource('vehicletype', VehicleTypeController::class);
+
+    Route::get('license_type/import', [LicensesController::class, 'import_view'])->name('license_type.import_view');
+    Route::post('license_type/import', [LicensesController::class, 'import'])->name('license_type.import');
+    Route::resource('license_type', LicensesController::class);
 
     Route::post('/', [SettingsController::class, 'update'])->name('update');
 
