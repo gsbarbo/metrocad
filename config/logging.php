@@ -65,6 +65,18 @@ return [
             'replace_placeholders' => true,
         ],
 
+        'metrocad' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/metrocad.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+        ],
+
+        'metrocad-api' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/metrocad-api.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+        ],
+
         'daily' => [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),
