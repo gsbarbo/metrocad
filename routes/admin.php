@@ -26,7 +26,7 @@ Route::name('settings.')->prefix('settings')->group(function () {
     Route::post('vehicletype/import', [VehicleTypeController::class, 'import'])->name('vehicletype.import');
     Route::resource('vehicletype', VehicleTypeController::class);
 
-    Route::name('licenseValues.')->prefix('license-values')->group(function () {
+    Route::name('licenseValues.')->prefix('license-values')->middleware('can:admin:settings:values')->group(function () {
         Route::get('/', [LicensesController::class, 'index'])->name('index');
         Route::get('create', [LicensesController::class, 'create'])->name('create');
         Route::post('/', [LicensesController::class, 'store'])->name('store');
