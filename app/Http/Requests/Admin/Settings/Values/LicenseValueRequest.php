@@ -24,7 +24,7 @@ class LicenseValueRequest extends FormRequest
         return [
             'name' => 'required',
             'format' => ['required', 'min:5', 'max:25', 'regex:/^[A#]+$/i'],
-            'prefix' => 'nullable|string',
+            'prefix' => ['nullable', 'string'],
         ];
     }
 }

@@ -1,11 +1,12 @@
 @extends('layouts.admin_settings')
 
 @section('main')
-    <x-breadcrumb pageTitle="License Types" route="{{ route('admin.dashboard') }}">
+    <x-breadcrumb pageTitle="License Values" route="{{ route('admin.dashboard') }}">
         <x-breadcrumb-link route="{{ route('admin.settings.general') }}">Settings</x-breadcrumb-link>
         <x-breadcrumb-text>Values - Licenses</x-breadcrumb-text>
     </x-breadcrumb>
     <div>
+        <p class="form-help-text-dark">This allows you to create license types for civilians to create.</p>
         <a class="flex text-sm items-center text-blue-600 underline" href="#">Learn
             More
             <svg class="w-4 h-4 ml-2" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
@@ -25,7 +26,7 @@
 
                     </div>
                     <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none flex space-x-2">
-                        <a href="{{ route('admin.settings.license_type.create') }}">
+                        <a href="{{ route('admin.settings.licenseValues.create') }}">
                             <button class="btn-default" type="button">Add License</button>
                         </a>
                     </div>
@@ -52,7 +53,7 @@
                                             <td
                                                 class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-0">
                                                 <a
-                                                    href="{{ route('admin.settings.license_type.edit', $license_type->id) }}">Edit</a>
+                                                    href="{{ route('admin.settings.licenseValues.edit', $license_type->id) }}">Edit</a>
                                             </td>
                                         </tr>
                                     @empty

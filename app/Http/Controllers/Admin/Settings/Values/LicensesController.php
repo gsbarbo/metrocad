@@ -17,7 +17,7 @@ class LicensesController extends Controller
     {
         $license_types = LicenseType::orderBy('type', 'asc')->get();
 
-        return view('admin.settings.license_type.index', compact('license_types'));
+        return view('admin.settings.licenseValues.index', compact('license_types'));
     }
 
     /**
@@ -25,7 +25,7 @@ class LicensesController extends Controller
      */
     public function create()
     {
-        return view('admin.settings.license_type.create');
+        return view('admin.settings.licenseValues.create');
     }
 
     /**
@@ -37,43 +37,43 @@ class LicensesController extends Controller
         $data['perm_name'] = Str::slug($data['name']);
         LicenseType::create($data);
 
-        return redirect()->route('admin.settings.license_type.index')->with('alerts', [['message' => 'License added.', 'level' => 'success']]);
+        return redirect()->route('admin.settings.licenseValues.index')->with('alerts', [['message' => 'License added.', 'level' => 'success']]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(LicenseType $license_type)
+    public function edit(LicenseType $licenseValue)
     {
-        return view('admin.settings.license_type.edit', compact('license_type'));
+        return view('admin.settings.licenseValues.edit', compact('licenseValue'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(LicenseValueRequest $request, LicenseType $license_type)
+    public function update(LicenseValueRequest $request, LicenseType $licenseValue)
     {
         $data = $request->validated();
         $data['perm_name'] = Str::slug($data['name']);
-        $license_type->update($data);
+        $licenseValue->update($data);
 
-        return redirect()->route('admin.settings.license_type.index')->with('alerts', [['message' => 'License updated.', 'level' => 'success']]);
+        return redirect()->route('admin.settings.licenseValues.index')->with('alerts', [['message' => 'License updated.', 'level' => 'success']]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, LicenseType $license_type)
+    public function destroy(Request $request, LicenseType $licenseValue)
     {
         $confirm = $request->input('confirm');
 
-        if ($confirm == $license_type->name) {
-            $license_type->delete();
+        if ($confirm == $licenseValue->name) {
+            $licenseValue->delete();
 
-            return redirect()->route('admin.settings.license_type.index')->with('alerts', [['message' => 'License deleted.', 'level' => 'success']]);
+            return redirect()->route('admin.settings.licenseValues.index')->with('alerts', [['message' => 'License deleted.', 'level' => 'success']]);
         }
 
-        return redirect()->route('admin.settings.license_type.edit', $license_type->id)->with('alerts', [['message' => 'License delete confirm check didn\'t match.', 'level' => 'error']]);
+        return redirect()->route('admin.settings.licenseValues.edit', $licenseValue->id)->with('alerts', [['message' => 'License delete confirm check didn\'t match.', 'level' => 'error']]);
 
     }
 }

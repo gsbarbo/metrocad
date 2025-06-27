@@ -26,9 +26,14 @@ Route::name('settings.')->prefix('settings')->group(function () {
     Route::post('vehicletype/import', [VehicleTypeController::class, 'import'])->name('vehicletype.import');
     Route::resource('vehicletype', VehicleTypeController::class);
 
-    Route::get('license_type/import', [LicensesController::class, 'import_view'])->name('license_type.import_view');
-    Route::post('license_type/import', [LicensesController::class, 'import'])->name('license_type.import');
-    Route::resource('license_type', LicensesController::class);
+    Route::name('licenseValues.')->prefix('license-values')->group(function () {
+        Route::get('/', [LicensesController::class, 'index'])->name('index');
+        Route::get('create', [LicensesController::class, 'create'])->name('create');
+        Route::post('/', [LicensesController::class, 'store'])->name('store');
+        Route::get('{licenseValue}/edit', [LicensesController::class, 'edit'])->name('edit');
+        Route::put('{licenseValue}', [LicensesController::class, 'update'])->name('update');
+        Route::delete('{licenseValue}', [LicensesController::class, 'destroy'])->name('destroy');
+    });
 
     Route::post('/', [SettingsController::class, 'update'])->name('update');
 

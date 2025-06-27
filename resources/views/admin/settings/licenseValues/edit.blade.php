@@ -1,10 +1,10 @@
 @extends('layouts.admin_settings')
 
 @section('main')
-    <x-breadcrumb pageTitle="Create License" route="{{ route('admin.dashboard') }}">
+    <x-breadcrumb pageTitle="Edit License" route="{{ route('admin.dashboard') }}">
         <x-breadcrumb-link route="{{ route('admin.settings.general') }}">Settings</x-breadcrumb-link>
-        <x-breadcrumb-link route="{{ route('admin.settings.license_type.index') }}">Values - License</x-breadcrumb-link>
-        <x-breadcrumb-text>Create</x-breadcrumb-text>
+        <x-breadcrumb-link route="{{ route('admin.settings.licenseValues.index') }}">Values - License</x-breadcrumb-link>
+        <x-breadcrumb-text>Edit {{ $licenseValue->name }}</x-breadcrumb-text>
     </x-breadcrumb>
     <div>
         <a class="flex text-sm items-center text-blue-600 underline" href="#">Learn
@@ -19,12 +19,15 @@
     </div>
 
     <div class="max-w-3xl mx-auto">
-        <form action="{{ route('admin.settings.license_type.store') }}" class="space-y-3" method="POST">
+        <form action="{{ route('admin.settings.licenseValues.update', $licenseValue->id) }}" class="space-y-3"
+            method="POST">
             @csrf
+            @method('put')
 
             <div>
                 <label class="label-dark" for="name">Name<span class="text-red-600">*</span></label>
-                <input class="form-text-input-dark" name="name" required type="text" value="{{ old('name') }}">
+                <input class="form-text-input-dark" name="name" required type="text"
+                    value="{{ old('name', $licenseValue->name) }}">
                 @error('name')
                     <p class="text-red-600">{{ $message }}</p>
                 @enderror
@@ -37,7 +40,7 @@
                     <br>(Guide: A - Letter; # - Number). Do not use spaces or dashes. Default is 9 numbers.
                 </p>
                 <input class="form-text-input-dark" name="format" required type="text"
-                    value="{{ old('format', '#########') }}">
+                    value="{{ old('format', $licenseValue->format) }}">
                 @error('format')
                     <p class="text-red-600">{{ $message }}</p>
                 @enderror
@@ -47,15 +50,43 @@
                 <label class="label-dark" for="prefix">Prefix<span class="text-red-600"></span></label>
                 <p class="form-help-text-dark">What the license should start with. ie if you want all drivers licenses to
                     start with DL##### you would want to put DL here. This is in addition to the above format.</p>
-                <input class="form-text-input-dark" name="prefix" type="text" value="{{ old('prefix') }}">
+                <input class="form-text-input-dark" name="prefix" type="text"
+                    value="{{ old('prefix', $licenseValue->prefix) }}">
                 @error('prefix')
                     <p class="text-red-600">{{ $message }}</p>
                 @enderror
             </div>
 
             <div>
-                <input class="btn-default" type="submit" value="Create License">
+                <input class="btn-default" type="submit" value="Update License">
             </div>
         </form>
+
+        <div class="border-red-600 border-2 p-3">
+            <h3 class="text-red-600 text-lg font-bold">Danger Zone</h3>
+            <p class="">Deleting this license value will delete the following information that can <span
+                    class="font-bold text-red-600">NOT</span> be recovered:</p>
+            <ul class="list-inside list-disc ml-5">
+                <li>Civilian licenses</li>
+                <li>Any tickets associated with those licenses</li>
+            </ul>
+            <p>Are you sure you wish to continue?</p>
+            <form action="{{ route('admin.settings.licenseValues.destroy', $licenseValue->id) }}"
+                class="mt-5 block space-y-3" method="POST">
+                @csrf
+                @method('delete')
+
+                <div>
+                    <label class="label-dark" for="confirm">Please type the license name
+                        ({{ $licenseValue->name }}) to confirm</label>
+                    <input class="form-text-input-dark" name="confirm" type="text" value="">
+                    @error('confirm')
+                        <p class="text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <input class="btn-red" type="submit" value="Delete">
+            </form>
+        </div>
     </div>
 @endsection

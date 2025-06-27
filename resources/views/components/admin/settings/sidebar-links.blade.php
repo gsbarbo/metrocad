@@ -183,7 +183,7 @@
             </x-slot:icon>
             Vehicles
         </x-sidebar_link>
-        <x-sidebar_link :active="request()->is('admin/settings/license_types') || request()->is('admin/settings/license_types/*')" :href="route('admin.settings.license_type.index')">
+        <x-sidebar_link :active="request()->is('admin/settings/license-values') || request()->is('admin/settings/license-values/*')" :href="route('admin.settings.licenseValues.index')">
             <x-slot:icon>
                 <svg class="size-6 flex-shrink-0" fill="none" stroke-width="1.5" stroke="currentColor"
                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
