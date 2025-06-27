@@ -1,7 +1,7 @@
 <?php
 
 if (! function_exists('get_setting')) {
-    function get_setting($setting_name, $default = '')
+    function get_setting(string $setting_name, string|int $default = '')
     {
         $settings = [];
         $settings = app('settings');
@@ -27,7 +27,7 @@ if (! function_exists('get_setting')) {
 }
 
 if (! function_exists('markdown')) {
-    function markdown($markdown, $options = null)
+    function markdown(string $markdown)
     {
         return str()->markdown($markdown, [
             'html_input' => 'strip',
