@@ -36,3 +36,7 @@ Route::middleware(['auth', 'MemberCheck', 'SteamLinkCheck'])->name('portal.')->p
 Route::middleware(['auth', 'MemberCheck', 'can:admin:access', 'SteamLinkCheck'])->name('admin.')->prefix('admin')->group(function () {
     require 'admin.php';
 });
+
+Route::middleware(['auth', 'MemberCheck', 'SteamLinkCheck'])->name('civilians.')->prefix('civilians')->group(function () {
+    require 'civilian.php';
+});

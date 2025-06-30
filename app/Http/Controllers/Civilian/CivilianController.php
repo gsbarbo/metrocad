@@ -3,18 +3,15 @@
 namespace App\Http\Controllers\Civilian;
 
 use App\Http\Controllers\Controller;
-use App\Models\Civilian;
 use App\Http\Requests\StoreCivilianRequest;
 use App\Http\Requests\UpdateCivilianRequest;
+use App\Models\Civilian;
 
 class CivilianController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return view('civilians.index');
     }
 
     /**
