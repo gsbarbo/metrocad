@@ -21,17 +21,17 @@
                 well.</p>
         @endif
 
-        @if ($user->status === 3)
+        @if ($user->status === \App\Enum\User\UserStatuses::SUSPENDED)
             <p class="bg-red-700 px-3 py-2 rounded-lg">This user is already suspended. You can only ban the member from
                 here.</p>
         @endif
 
-        @if ($user->status === 5)
+        @if ($user->status === \App\Enum\User\UserStatuses::FORMER)
             <p class="bg-red-700 px-3 py-2 rounded-lg">This user is already retired. You can only ban the member from
                 here.</p>
         @endif
 
-        @if ($user->status === 4)
+        @if ($user->status === \App\Enum\User\UserStatuses::BANNED)
             <p class="bg-red-700 px-3 py-2 rounded-lg">This user is already banned.</p>
         @else
             <form class="" wire:submit="save">

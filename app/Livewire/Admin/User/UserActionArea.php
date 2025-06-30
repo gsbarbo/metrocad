@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\User;
 
+use App\Enum\User\UserStatuses;
 use App\Models\History;
 use App\Models\User;
 use Livewire\Component;
@@ -35,7 +36,7 @@ class UserActionArea extends Component
                     'description' => 'User unsuspend. Reason: '.$this->comment,
                 ]);
 
-                $this->user->update(['status' => 2]);
+                $this->user->update(['status' => UserStatuses::MEMBER]);
             }
         }
 
@@ -55,7 +56,7 @@ class UserActionArea extends Component
                     'description' => 'User unban. Reason: '.$this->comment,
                 ]);
 
-                $this->user->update(['status' => 1, 'became_member_at' => null]);
+                $this->user->update(['status' => UserStatuses::PENDING, 'became_member_at' => null]);
             }
         }
 
@@ -75,7 +76,7 @@ class UserActionArea extends Component
                     'description' => 'User approved. Reason: '.$this->comment,
                 ]);
 
-                $this->user->update(['status' => 2, 'became_member_at' => now()]);
+                $this->user->update(['status' => UserStatuses::MEMBER, 'became_member_at' => now()]);
             }
         }
 
@@ -95,7 +96,7 @@ class UserActionArea extends Component
                     'description' => 'User denied. Reason: '.$this->comment,
                 ]);
 
-                $this->user->update(['status' => 6, 'became_member_at' => null]);
+                $this->user->update(['status' => UserStatuses::DENIED, 'became_member_at' => null]);
             }
         }
 
@@ -115,7 +116,7 @@ class UserActionArea extends Component
                     'description' => 'User Reset. Reason: '.$this->comment,
                 ]);
 
-                $this->user->update(['status' => 1, 'became_member_at' => null]);
+                $this->user->update(['status' => UserStatuses::PENDING, 'became_member_at' => null]);
             }
         }
 

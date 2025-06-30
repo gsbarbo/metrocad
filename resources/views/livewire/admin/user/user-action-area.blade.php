@@ -3,7 +3,7 @@
         <h3 class="text-base font-semibold">Quick Action</h3>
     </div>
     <div class="px-4 py-5 sm:p-6 space-y-2 divide-y-2">
-        @if ($user->status === 1)
+        @if ($user->status === \App\Enum\User\UserStatuses::PENDING)
             @if (get_setting('discord_auto_role_id', 0) != 0 && get_setting('feature_use_discord_roles'))
                 <p>User access is controlled by Discord Roles. You must assign them the correct role in the Discord
                     server.</p>
@@ -24,7 +24,7 @@
                 @endcan
             @endif
         @endif
-        @if ($user->status === 3)
+        @if ($user->status === \App\Enum\User\UserStatuses::SUSPENDED)
             @if (get_setting('discord_suspended_role_id', 0) != 0 && get_setting('feature_use_discord_roles'))
                 <p>User access is controlled by Discord Roles. You must remove the suspend role in the Discord server.
                 </p>
@@ -42,7 +42,7 @@
                 @endcan
             @endif
         @endif
-        @if ($user->status === 4)
+        @if ($user->status === \App\Enum\User\UserStatuses::BANNED)
             @can('admin:user:unban')
                 <div class="">
                     <h2 class="text-lg">Unban User</h2>
@@ -55,7 +55,7 @@
                 </div>
             @endcan
         @endif
-        @if ($user->status === 6 || $user->status === 5)
+        @if ($user->status === \App\Enum\User\UserStatuses::FORMER || $user->status === \App\Enum\User\UserStatuses::DENIED)
             @can('admin:user:status:reset')
                 <div class="">
                     <h2 class="text-lg">Reset User</h2>
@@ -69,7 +69,7 @@
             @endcan
         @endif
 
-        @if ($user->status === 2)
+        @if ($user->status === \App\Enum\User\UserStatuses::MEMBER)
             <div class="">
                 <a class="btn bg-background text-white hover:opacity-85 mt-2 inline-block" href="#">Issue DA</a>
                 <a class="btn bg-background text-white hover:opacity-85 mt-2 inline-block" href="#">Manage

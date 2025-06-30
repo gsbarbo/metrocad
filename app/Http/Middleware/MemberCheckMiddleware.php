@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Enum\User\UserStatuses;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +17,7 @@ class MemberCheckMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if ($request->user()) {
-            if ($request->user()->status != 2) {
+            if ($request->user()->status != UserStatuses::MEMBER) {
                 return redirect()->route('home');
             }
         }

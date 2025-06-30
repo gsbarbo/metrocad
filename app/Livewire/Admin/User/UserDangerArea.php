@@ -39,7 +39,7 @@ class UserDangerArea extends Component
                         'description' => 'User Suspended. Reason: '.$this->comment,
                     ]);
 
-                    $this->user->update(['status' => 3]);
+                    $this->user->update(['status' => \App\Enum\User\UserStatuses::SUSPENDED]);
                 }
             } elseif ($this->type === 'ban') {
                 if (auth()->user()->can('admin:user:ban')) {
@@ -50,7 +50,7 @@ class UserDangerArea extends Component
                         'description' => 'User banned. Reason: '.$this->comment,
                     ]);
 
-                    $this->user->update(['status' => 4, 'became_member_at' => null]);
+                    $this->user->update(['status' => \App\Enum\User\UserStatuses::BANNED, 'became_member_at' => null]);
                 }
             } elseif ($this->type === 'retire') {
                 if (auth()->user()->can('admin:user:retire')) {
@@ -61,7 +61,7 @@ class UserDangerArea extends Component
                         'description' => 'User Retired. Reason: '.$this->comment,
                     ]);
 
-                    $this->user->update(['status' => 5, 'became_member_at' => null]);
+                    $this->user->update(['status' => \App\Enum\User\UserStatuses::FORMER, 'became_member_at' => null]);
                 }
             } else {
                 dd('There has been a huge mistake.');

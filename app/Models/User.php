@@ -27,6 +27,7 @@ class User extends Authenticatable
             'last_login_at' => 'datetime',
             'became_member_at' => 'datetime:Y-m-d',
             'password' => 'hashed',
+            'status' => UserStatuses::class,
         ];
     }
 
@@ -50,15 +51,19 @@ class User extends Authenticatable
 
     public function getLastActivityAttribute()
     {
-        $time = DB::table('sessions')->where('user_id', $this->id)->latest('last_activity')->first()->last_activity;
+        $time = DB::table('sessions')->where('user_id', $this->id)->latest('last_activity')->first();
 
-        return $timestamp = Carbon::createFromTimestamp($time, config('app.timezone'))->format('M d, Y H:i');
+        if (! $time) {
+            return 'No recent activity';
+        }
+
+        return $timestamp = Carbon::createFromTimestamp($time->last_activity, config('app.timezone'))->format('M d, Y H:i');
     }
 
-    public function getStatusNameAttribute()
-    {
-        return UserStatuses::USER_STATUSES[$this->status];
-    }
+    // public function getStatusNameAttribute()
+    // {
+    //     return UserStatuses::USER_STATUSES[$this->status];
+    // }
 
     public function getHistoryAttribute()
     {

@@ -7,12 +7,12 @@
     <ul class="px-3 py-2 mt-3 divide-y">
         <li class="py-3 flex justify-between">
             <p>Status</p>
-            <p class="ml-auto text-sm">{{ $user->status_name }}</p>
+            <p class="ml-auto text-sm">{{ $user->status->name() }}</p>
         </li>
         <li class="py-3 flex justify-between">
             <p>Member since</p>
             <p class="ml-auto text-sm">
-                @if ($user->status == 2)
+                @if ($user->status === \App\Enum\User\UserStatuses::MEMBER)
                     {{ $user->became_member_at?->format('M d, Y') ?? 'Date not set' }}
                 @else
                     Not a member

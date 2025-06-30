@@ -14,8 +14,8 @@
             <label class="label-dark" for="">Filter by Status</label>
             <select class="form-select-input-dark" wire:model.live="statusFilter">
                 <option selected value="0">All</option>
-                @foreach ($user_statuses as $id => $name)
-                    <option selected value="{{ $id }}">{{ $name }}</option>
+                @foreach ($user_statuses as $status)
+                    <option selected value="{{ $status->value }}">{{ $status->name() }}</option>
                 @endforeach
             </select>
         </div>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="flex shrink-0 items-center gap-x-6">
                     <div class="hidden sm:flex sm:flex-col sm:items-end">
-                        <p class="text-sm leading-6 text-white">{{ $user->status_name }}</p>
+                        <p class="text-sm leading-6 text-white">{{ $user->status->name() }}</p>
                         <p class="mt-1 text-xs leading-5 text-gray-400">Last Login
                             {{ $user->last_login_at->format('m/d/Y') }}</p>
                     </div>

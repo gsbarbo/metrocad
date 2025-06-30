@@ -89,7 +89,8 @@
                         @break
 
                         @default
-                            <p>Your account is {{ auth()->user()->status_name }}. Please contact your supervisor to gain access to the
+                            <p>Your account is {{ auth()->user()->status->name() }}. Please contact your supervisor to gain
+                                access to the
                                 CAD/MDT.
                             </p>
                     @endswitch

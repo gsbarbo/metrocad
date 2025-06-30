@@ -33,7 +33,7 @@
                         </div>
                     </div>
 
-                    @if ($user->status === 2)
+                    @if ($user->status === \App\Enum\User\UserStatuses::MEMBER)
                         @livewire('admin.user.update-user', ['user' => $user])
 
                         @livewire('admin.user.update-user-permissions', ['user' => $user])
