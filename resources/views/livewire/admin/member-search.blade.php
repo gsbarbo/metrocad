@@ -1,18 +1,19 @@
 <div>
     <div class="grid md:grid-cols-3 gap-4">
         <div>
-            <label class="label-dark" for="">Filter by Discord ID</label>
-            <input class="form-text-input-dark" placeholder="Discord ID" type="text"
+            <label class="label-dark" for="filterByDiscordId">Filter by Discord ID</label>
+            <input class="form-text-input-dark" id="filterByDiscordId" placeholder="Discord ID" type="text"
                 wire:model.live.debounce.500ms="discordIdSearch">
         </div>
         <div>
-            <label class="label-dark" for="">Filter by Name</label>
-            <input autofocus class="form-text-input-dark" placeholder="Display Name/Discord Username/Discord Name"
-                type="text" wire:model.live.debounce.500ms="name_search">
+            <label class="label-dark" for="filterByName">Filter by Name</label>
+            <input autofocus class="form-text-input-dark" id="filterByName"
+                placeholder="Display Name/Discord Username/Discord Name" type="text"
+                wire:model.live.debounce.500ms="name_search">
         </div>
         <div>
-            <label class="label-dark" for="">Filter by Status</label>
-            <select class="form-select-input-dark" wire:model.live="statusFilter">
+            <label class="label-dark" for="filterByStatus">Filter by Status</label>
+            <select class="form-select-input-dark" id="filterByStatus" wire:model.live="statusFilter">
                 <option selected value="0">All</option>
                 @foreach ($user_statuses as $status)
                     <option selected value="{{ $status->value }}">{{ $status->name() }}</option>
@@ -27,7 +28,9 @@
     </p>
     <ul class="divide-y divide-gray-100" role="list">
         @forelse ($users as $user)
-            <li class="flex justify-between gap-x-6 py-5">
+            @php $borderColor = 'border-'.$user->status->color().'-600'; @endphp
+
+            <li class="flex justify-between gap-x-6 py-5 border-l-4 {{ $borderColor }} pl-2">
                 <div class="flex min-w-0 gap-x-4">
                     <img alt="" class="h-12 w-12 flex-none rounded-full bg-gray-50" src="{{ $user->avatar }}">
                     <div class="min-w-0 flex-auto">
