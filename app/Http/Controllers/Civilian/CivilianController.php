@@ -11,7 +11,9 @@ class CivilianController extends Controller
 {
     public function index()
     {
-        return view('civilians.index');
+        $civilians = Civilian::ownedByCurrentUser()->get();
+
+        return view('civilians.index', compact('civilians'));
     }
 
     /**
