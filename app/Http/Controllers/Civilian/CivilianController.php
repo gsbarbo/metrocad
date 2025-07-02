@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Civilian;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreCivilianRequest;
-use App\Http\Requests\UpdateCivilianRequest;
+use App\Http\Requests\Civilian\StoreCivilianRequest;
 use App\Models\Civilian;
 
 class CivilianController extends Controller
@@ -16,49 +15,34 @@ class CivilianController extends Controller
         return view('civilians.index', compact('civilians'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('civilians.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreCivilianRequest $request)
     {
-        //
+        Civilian::create($request->validated());
+
+        return redirect()->route('civilians.index')->with('alerts', [['message' => 'Civilian Created', 'level' => 'success']]);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Civilian $civilian)
     {
-        //
+        return view('civilians.show', compact('civilian'));
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Civilian $civilian)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateCivilianRequest $request, Civilian $civilian)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Civilian $civilian)
     {
         //

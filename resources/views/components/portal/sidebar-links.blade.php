@@ -19,7 +19,7 @@
             Portal
         </x-sidebar_link>
 
-        <x-sidebar_link :active="request()->is('civilian/civilians') || request()->is('civilian/civilians/*')" :href="route('portal.dashboard')">
+        <x-sidebar_link :active="request()->is('civilians/') || request()->is('civilians/*')" :href="route('civilians.index')">
             <x-slot:icon>
                 <svg class="h-6 w-6 flex-shrink-0" fill="none" stroke-width="1.5" stroke="currentColor"
                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
