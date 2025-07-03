@@ -38,7 +38,7 @@
             <p class="">Age: {{ $civilian->age }}</p>
             <p class="">Height: {{ $civilian->height }}</p>
             <p class="">Weight: {{ $civilian->weight }}</p>
-            <p class="">Address: {{ $civilian->address }}</p>
+            <p class="">Home Address: {{ $civilian->address->full_address }}</p>
             <p class="">Occupation: {{ $civilian->occupation }}</p>
         </div>
         <div class="md:col-span-3 divide-y space-y-2">

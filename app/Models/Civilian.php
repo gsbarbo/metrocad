@@ -45,10 +45,10 @@ class Civilian extends Model implements Auditable
         return $this->first_name.' '.$this->last_name;
     }
 
-    public function getAddressAttribute()
-    {
-        return $this->postal.' '.$this->street.' '.$this->city;
-    }
+    // public function getAddressAttribute()
+    // {
+    //     return $this->postal.' '.$this->street.' '.$this->city;
+    // }
 
     public function getAgeAttribute()
     {
@@ -61,6 +61,11 @@ class Civilian extends Model implements Auditable
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(AddressValues::class, 'address_values_id');
     }
 
     public function licenses()

@@ -31,9 +31,10 @@ class StoreCivilianRequest extends FormRequest
             'occupation' => ['string', 'nullable'],
             'gender' => ['required'],
             'race' => ['required'],
-            'postal' => ['required', 'numeric'],
-            'street' => ['required'],
-            'city' => ['required'],
+            'postal' => ['nullable', 'numeric'],
+            'street' => ['nullable'],
+            'city' => ['nullable'],
+            'address_values_id' => ['required', 'numeric'],
             'phone_number' => ['string', 'nullable'],
         ];
     }

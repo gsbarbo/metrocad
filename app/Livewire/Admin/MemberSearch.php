@@ -40,8 +40,6 @@ class MemberSearch extends Component
 
         $this->search_count = $this->users->count();
 
-        // dd(UserStatuses::cases());
-
         return view('livewire.admin.member-search', ['user_statuses' => UserStatuses::cases()]);
     }
 

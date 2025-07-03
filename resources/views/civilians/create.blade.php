@@ -95,7 +95,7 @@
                     @enderror
                 </div>
 
-                <div class="space-y-2">
+                {{-- <div class="space-y-2">
                     <label class="label-dark" for="postal">Postal <span class="text-red-600">*</span></label>
                     <input class="form-text-input-dark" name="postal" type="number" value="{{ old('postal') }}">
                     @error('postal')
@@ -117,12 +117,13 @@
                     @error('city')
                         <p class="text-sm text-red-600">{{ $message }}</p>
                     @enderror
+                </div> --}}
+                <div class="md:col-span-6">
+                    @livewire('civilian.address-selection')
                 </div>
-
                 <div class="md:col-span-2">
                     <label class="label-dark" for="occupation">Occupation</label>
-                    <input class="form-text-input-dark" name="occupation" type="text"
-                        value="{{ old('occupation') }}">
+                    <input class="form-text-input-dark" name="occupation" type="text" value="{{ old('occupation') }}">
                     @error('occupation')
                         <p class="text-sm text-red-600">{{ $message }}</p>
                     @enderror
