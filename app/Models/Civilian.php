@@ -65,7 +65,7 @@ class Civilian extends Model implements Auditable
 
     public function address()
     {
-        return $this->belongsTo(AddressValues::class, 'address_values_id');
+        return $this->belongsTo(Address::class, 'address_values_id');
     }
 
     public function licenses()

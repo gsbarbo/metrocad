@@ -1,7 +1,7 @@
 <?php
 
 use App\Enum\CivilianStatuses;
-use App\Models\AddressValues;
+use App\Models\Address;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -28,7 +28,7 @@ return new class extends Migration
             $table->integer('postal')->nullable();
             $table->string('street')->nullable();
             $table->string('city')->nullable();
-            $table->foreignIdFor(AddressValues::class)->nullable();
+            $table->foreignIdFor(Address::class)->nullable();
 
             $table->string('occupation')->nullable();
 

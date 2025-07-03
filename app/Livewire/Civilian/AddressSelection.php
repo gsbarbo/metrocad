@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Civilian;
 
-use App\Models\AddressValues;
+use App\Models\Address;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
@@ -19,7 +19,7 @@ class AddressSelection extends Component
         if (empty($this->addressSearch)) {
             $this->addresses = collect(); // empty collection
         } else {
-            $this->addresses = AddressValues::query()
+            $this->addresses = Address::query()
                 ->where(function (Builder $query) {
                     $query->where('postal', 'like', '%'.$this->addressSearch.'%')
                         ->orWhere('street', 'like', '%'.$this->addressSearch.'%')

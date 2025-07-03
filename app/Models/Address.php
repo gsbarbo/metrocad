@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable as AuditingAuditable;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class AddressValues extends Model implements Auditable
+class Address extends Model implements Auditable
 {
     use AuditingAuditable, SoftDeletes;
 
