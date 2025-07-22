@@ -1,4 +1,4 @@
-<div class="">
+<div class="bg-gray-800">
     <a class="h-16 flex items-center px-4 bg-navbar hover:text-gray-100 hover:bg-opacity-50 focus:outline-none focus:text-gray-100 focus:bg-opacity-50 overflow-hidden"
         href="#">
         <img alt="Community Logo" class="h-12 w-12" src="{{ get_setting('community_logo') }}">
@@ -193,6 +193,17 @@
                 </svg>
             </x-slot:icon>
             Licenses
+        </x-sidebar_link>
+        <x-sidebar_link :active="request()->is('admin/settings/address-values') || request()->is('admin/settings/address-values/*')" :href="route('admin.settings.licenseValues.index')">
+            <x-slot:icon>
+                <svg class="size-6 flex-shrink-0" fill="none" stroke-width="1.5" stroke="currentColor"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </x-slot:icon>
+            Addresses
         </x-sidebar_link>
     </nav>
 </div>

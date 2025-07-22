@@ -1,4 +1,4 @@
-<div class="">
+<div class="bg-gray-800">
     <a class="h-16 flex items-center px-4 bg-navbar hover:text-gray-100 hover:bg-opacity-50 focus:outline-none focus:text-gray-100 focus:bg-opacity-50 overflow-hidden"
         href="#">
         <img alt="Community Logo" class="h-12 w-12" src="{{ get_setting('community_logo') }}">
