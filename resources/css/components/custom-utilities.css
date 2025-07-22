@@ -1,0 +1,5 @@
+@layer utilities {
+    .markdown {
+        @apply h-40;
+    }
+}

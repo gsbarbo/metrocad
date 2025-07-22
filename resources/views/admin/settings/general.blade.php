@@ -30,7 +30,7 @@
                 <p class="label-dark">Community Intro</p>
                 <p class="form-help-text-dark">Text shown on the home page of the CAD. Basically a small
                     about us section.</p>
-                <textarea class="form-textarea-dark" id="community_intro" name="community_intro">
+                <textarea class="form-textarea-dark markdown" id="community_intro" name="community_intro">
                     {{ old('community_intro', get_setting('community_intro')) }}
                 </textarea>
                 <p class="form-help-text-dark">This textbox supports markdown.

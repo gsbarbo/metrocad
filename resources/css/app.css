@@ -1,4 +1,5 @@
 @import "components/buttons.css";
+@import "components/custom-utilities.css";
 @import "components/forms.css";
 
 @tailwind base;
