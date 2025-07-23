@@ -23,7 +23,7 @@ class Civilian extends Model implements Auditable
 
     public $incrementing = false;
 
-    protected $cascadeDeletes = ['licenses']; // vehicles, licenses, medical, firearms,
+    protected $cascadeDeletes = ['licenses', 'vehicles']; // vehicles, licenses, medical, firearms,
 
     protected $guarded = [];
 
@@ -66,6 +66,11 @@ class Civilian extends Model implements Auditable
     public function licenses()
     {
         return $this->hasMany(License::class);
+    }
+
+    public function vehicles()
+    {
+        return $this->hasMany(Vehicle::class);
     }
 
     #[Scope]

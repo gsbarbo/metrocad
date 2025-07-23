@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Civilian;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Civilian\StoreCivilianRequest;
 use App\Models\Civilian;
+use App\Models\VehicleType;
 use App\Services\CivilianService;
 
 class CivilianController extends Controller
@@ -31,8 +32,9 @@ class CivilianController extends Controller
     public function show(Civilian $civilian)
     {
         $available_licenses = CivilianService::getAvailableLicenses($civilian, auth()->user());
+        $vehicleOptions = VehicleType::where('is_emergency_vehicle', 0)->orderBy('type', 'asc')->orderBy('make', 'asc')->orderBy('model', 'asc')->get();
 
-        return view('civilians.show', compact('civilian', 'available_licenses'));
+        return view('civilians.show', compact('civilian', 'available_licenses', 'vehicleOptions'));
     }
 
     public function edit(Civilian $civilian)

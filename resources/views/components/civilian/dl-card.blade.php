@@ -40,7 +40,6 @@
 
                 <p class="text-base font-semibold"><span class="text-xs font-light">WGT</span>
                     {{ $civilian->weight }}</p>
-
             </div>
             <div class="p-2 relative">
                 <p class="text-base font-semibold"><span class="text-xs font-light">ISS</span>
