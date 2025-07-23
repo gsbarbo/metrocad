@@ -34,7 +34,7 @@ class StoreCivilianRequest extends FormRequest
             'postal' => ['nullable', 'numeric'],
             'street' => ['nullable'],
             'city' => ['nullable'],
-            'address_values_id' => ['required', 'numeric'],
+            'address_id' => ['required', 'numeric'],
             'phone_number' => ['string', 'nullable'],
         ];
     }

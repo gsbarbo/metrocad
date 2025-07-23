@@ -6,10 +6,10 @@
     </div>
 
     <div class="mt-2">
-        <select class="form-select-input-dark" id="address_values_id" name="address_values_id"
-            wire:model.live='addressesSelected'>
+        <select class="form-select-input-dark" id="address_id" name="address_id" wire:model.live='addressesSelected'>
             @forelse ($addresses as $address)
-                <option @selected(old('address_values_id') == $address->id) value="{{ $address->id }}">{{ $address->full_address }}
+                <option @selected(old('address_id') == $address->id) value="{{ $address->id }}">{{ $address->full_address }}
+                    {{ $address->name ? '(' . $address->name . ')' : '' }}
                 </option>
             @empty
                 @if ($addressSearch)
@@ -19,7 +19,7 @@
                 @endif
             @endforelse
         </select>
-        @error('address_values_id')
+        @error('address_id')
             <p class="text-sm text-red-600">{{ $message }}</p>
         @enderror
     </div>

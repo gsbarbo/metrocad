@@ -21,10 +21,10 @@ class AddressSelection extends Component
         } else {
             $this->addresses = Address::query()
                 ->where(function (Builder $query) {
-                    $query->where('postal', 'like', '%'.$this->addressSearch.'%')
-                        ->orWhere('street', 'like', '%'.$this->addressSearch.'%')
-                        ->orWhere('city', 'like', '%'.$this->addressSearch.'%');
+                    $query->whereAny(['postal', 'street', 'city', 'name'], 'like', '%'.$this->addressSearch.'%');
                 })
+                ->where('is_ownable', 1)
+                ->where('is_home', 1)
                 ->get();
         }
 
