@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('licenses', function (Blueprint $table) {
             $table->id();
             $table->string('number');
-            $table->foreignIdFor(Civilian::class);
-            $table->foreignIdFor(LicenseType::class);
+            $table->foreignIdFor(Civilian::class)->constrained();
+            $table->foreignIdFor(LicenseType::class)->constrained();
             $table->date('expires_at');
             $table->integer('status')->default(1);
             $table->integer('points')->default(0);
