@@ -54,13 +54,14 @@
 
         <div class="mb-3">
             <label class="label-dark" for="text">Text</label>
-            <textarea class="form-textarea-dark h-40 overflow-visible @error('text') !border-red-600 !border @enderror"
-                id="text" name="text" placeholder="test" required>{{ old('text', $announcement->text) }}</textarea>
+            <textarea class="form-textarea-dark markdown @error('text') !border-red-600 !border @enderror" id="text"
+                name="text" placeholder="test" required>{{ old('text', $announcement->text) }}</textarea>
             @error('text')
                 <p class="text-red-600">{{ $message }}</p>
             @enderror
             <p class="form-help-text-dark">This textbox supports markdown.
-                <a class="hover:underline" href="#">Learn more.</a>
+                <a class="hover:underline"
+                    href="https://metrocad.gitbook.io/docs/settings/basic-markdown-syntax-guide">Learn more.</a>
             </p>
         </div>
 

@@ -34,7 +34,8 @@
                     {{ old('community_intro', get_setting('community_intro')) }}
                 </textarea>
                 <p class="form-help-text-dark">This textbox supports markdown.
-                    <a class="hover:underline" href="#">Learn more.</a>
+                    <a class="hover:underline"
+                        href="https://metrocad.gitbook.io/docs/settings/basic-markdown-syntax-guide">Learn more.</a>
                 </p>
             </div>
 
