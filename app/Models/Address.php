@@ -17,6 +17,6 @@ class Address extends Model implements Auditable
 
     public function getFullAddressAttribute()
     {
-        return $this->postal.' '.$this->street.' '.$this->city;
+        return $this->postal.' '.$this->street.', '.$this->city;
     }
 }

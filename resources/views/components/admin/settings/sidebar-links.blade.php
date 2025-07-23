@@ -194,7 +194,7 @@
             </x-slot:icon>
             Licenses
         </x-sidebar_link>
-        <x-sidebar_link :active="request()->is('admin/settings/address-values') || request()->is('admin/settings/address-values/*')" :href="route('admin.settings.licenseValues.index')">
+        <x-sidebar_link :active="request()->is('admin/settings/addresses') || request()->is('admin/settings/addresses/*')" :href="route('admin.settings.addresses.index')">
             <x-slot:icon>
                 <svg class="size-6 flex-shrink-0" fill="none" stroke-width="1.5" stroke="currentColor"
                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Settings\DepartmentController;
 use App\Http\Controllers\Admin\Settings\DiscordController;
 use App\Http\Controllers\Admin\Settings\RoleController;
+use App\Http\Controllers\Admin\Settings\Values\AddressController;
 use App\Http\Controllers\Admin\Settings\Values\LicensesController;
 use App\Http\Controllers\Admin\Settings\VehicleTypeController;
 use App\Http\Controllers\Admin\SettingsController;
@@ -33,6 +34,17 @@ Route::name('settings.')->prefix('settings')->group(function () {
         Route::get('{licenseValue}/edit', [LicensesController::class, 'edit'])->name('edit');
         Route::put('{licenseValue}', [LicensesController::class, 'update'])->name('update');
         Route::delete('{licenseValue}', [LicensesController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::name('addresses.')->prefix('addresses')->middleware('can:admin:settings:values')->group(function () {
+        Route::get('/', [AddressController::class, 'index'])->name('index');
+        Route::get('create', [AddressController::class, 'create'])->name('create');
+        Route::post('/', [AddressController::class, 'store'])->name('store');
+        Route::get('{address}/edit', [AddressController::class, 'edit'])->name('edit');
+        Route::put('{address}', [AddressController::class, 'update'])->name('update');
+        Route::delete('{address}', [AddressController::class, 'destroy'])->name('destroy');
+        Route::post('import', [AddressController::class, 'import'])->name('import');
+
     });
 
     Route::post('/', [SettingsController::class, 'update'])->name('update');
