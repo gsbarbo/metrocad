@@ -45,6 +45,8 @@ class LicensesController extends Controller
      */
     public function edit(LicenseType $licenseValue)
     {
+        abort_if($licenseValue->id === 1 || $licenseValue->id === 2, 403);
+
         return view('admin.settings.licenseValues.edit', compact('licenseValue'));
     }
 
@@ -53,6 +55,8 @@ class LicensesController extends Controller
      */
     public function update(LicenseValueRequest $request, LicenseType $licenseValue)
     {
+        abort_if($licenseValue->id === 1 || $licenseValue->id === 2, 403);
+
         $data = $request->validated();
         $data['perm_name'] = Str::slug($data['name']);
         $licenseValue->update($data);

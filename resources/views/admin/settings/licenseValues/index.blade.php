@@ -52,8 +52,12 @@
                                                 {{ $license_type->name }}</td>
                                             <td
                                                 class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-0">
-                                                <a
-                                                    href="{{ route('admin.settings.licenseValues.edit', $license_type->id) }}">Edit</a>
+                                                @if ($license_type->id === 1 || $license_type->id === 2)
+                                                    <p>You can not edit this license.</p>
+                                                @else
+                                                    <a
+                                                        href="{{ route('admin.settings.licenseValues.edit', $license_type->id) }}">Edit</a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @empty
