@@ -4,6 +4,7 @@
 <head>
     <title>{{ get_setting('community_name') }} | Civilian</title>
     @include('inc.layouts.header')
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@100..400&display=swap" rel="stylesheet">
 </head>
 
 <body class="bg-background antialiased text-white" x-data="{ isSidebarExpanded: false }">

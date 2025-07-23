@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Http\Requests\Civilian;
+
+use App\Enum\LicenseStatuses;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class LicenseRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'license_type_id' => ['required', 'numeric'],
+            'status' => ['required', 'numeric', Rule::enum(LicenseStatuses::class)],
+        ];
+    }
+}

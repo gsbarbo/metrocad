@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             [
                 DepartmentSeeder::class,
                 DiscordChannelSeeder::class,
+                LicenseTypeSeeder::class,
                 PermissionSeeder::class,
                 SettingSeeder::class,
             ]

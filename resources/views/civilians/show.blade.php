@@ -20,14 +20,14 @@
     <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
         <div class="divide-y space-y-2">
             @if (is_null($civilian->picture))
-                <svg class="h-48 w-48 mx-auto" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
+                <svg class="h-48 w-48 mx-auto rounded-full" fill="none" stroke-width="1.5" stroke="currentColor"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
                         stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
             @else
-                <img alt="picture" class="h-48 w-48 mx-auto" src="{{ $civilian->picture }}">
+                <img alt="picture" class="h-48 w-48 mx-auto rounded-full" src="{{ $civilian->picture }}">
             @endif
 
             <p class="">SNN: {{ $civilian->s_n_n }}</p>
@@ -42,46 +42,9 @@
             <p class="">Occupation: {{ $civilian->occupation }}</p>
         </div>
         <div class="md:col-span-3 divide-y space-y-2">
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-2">
-                <a class="border-indigo-800 hover:bg-sidebar border-4 p-2 rounded-lg text-center"
-                    href="{{ route('civilians.index') }}">
-                    <p class="text-xl font-bold">{{ get_setting('dmv_initials') }}</p>
-                    <p class="text-sm">{{ get_setting('dmv_name') }}</p>
-                </a>
-                <a class="border-indigo-800 hover:bg-sidebar border-4 p-2 rounded-lg text-center" href="#">
-                    <p class="text-xl font-bold">{{ get_setting('atf_initials') }}</p>
-                    <p class="text-sm">{{ get_setting('atf_name') }}</p>
-                </a>
-                <a class="border-indigo-800 hover:bg-sidebar border-4 p-2 rounded-lg text-center" href="#">
-                    <p class="text-xl font-bold">BBB</p>
-                    <p class="text-sm">Better Business Bureau</p>
-                </a>
-                <a class="border-indigo-800 hover:bg-sidebar border-4 p-2 rounded-lg text-center" href="#">
-                    <p class="text-xl font-bold">DOW</p>
-                    <p class="text-sm">Department of Wildlife</p>
-                </a>
-                <a class="border-indigo-800 hover:bg-sidebar border-4 p-2 rounded-lg text-center" href="#">
-                    <p class="text-xl font-bold">MB</p>
-                    <p class="text-sm">Maze Bank</p>
-                </a>
-                <a class="border-indigo-800 hover:bg-sidebar border-4 p-2 rounded-lg text-center" href="#">
-                    <p class="text-xl font-bold">LMP</p>
-                    <p class="text-sm">Lifeinvader Marketplace</p>
-                </a>
-                <a class="border-indigo-800 hover:bg-sidebar border-4 p-2 rounded-lg text-center" href="#">
-                    <p class="text-xl font-bold">PHMC</p>
-                    <p class="text-sm">Pillbox Hill Medical Center</p>
-                </a>
-                <a class="border-indigo-800 hover:bg-sidebar border-4 p-2 rounded-lg text-center" href="#">
-                    <p class="text-xl font-bold">SACS</p>
-                    <p class="text-sm">Sate of {{ get_setting('state') }} Court System</p>
-                </a>
-            </div>
-
-            {{-- <div class="" x-data="{ open: true }">
-                <div @click="open = !open" class="flex justify-between items-center">
-                    <h2 class="text-2xl font-semibold cursor-pointer select-none">{{ __('civilian/global.licenses') }}
+            <div class="" x-data="{ open: true }">
+                <div @click="open = !open" class="flex justify-between items-center cursor-pointer select-none">
+                    <h2 class="text-2xl font-semibold">Licenses
                     </h2>
                     <div>
                         <svg class="size-6" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
@@ -95,6 +58,58 @@
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2" x-show="open">
+                    @if (count($available_licenses) !== 0)
+                        <div class="col-span-2" x-data="{ openSub: false }">
+                            <div @click="openSub = !openSub"
+                                class="bg-green-400 p-1 select-none cursor-pointer flex justify-between items-center">
+                                <h2 class="text-lg text-green-900">New License</h2>
+                                <p class="text-sm text-green-800 ml-3">Click to open</p>
+                            </div>
+                            <div class="border border-green-400" x-show="openSub">
+                                <form action=" {{ route('civilians.license.store', $civilian->id) }}"
+                                    class="grid gap-3 p-3 grid-cols-1 md:grid-cols-3" method="POST">
+                                    @csrf
+                                    <div class="">
+                                        <label class="label-dark" for="license_type_id">
+                                            Type
+                                        </label>
+                                        <select class="form-select-input-dark" id="license_type_id" name="license_type_id">
+                                            <option value="">License Type</option>
+                                            @foreach ($available_licenses as $license)
+                                                <option value="{{ $license->id }}">{{ $license->name }}</option>
+                                            @endforeach
+                                        </select>
+
+                                        @error('license_type_id')
+                                            <p class="text-red-600">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <div class="">
+                                        <label class="label-dark" for="status">
+                                            Initial Status
+                                        </label>
+                                        <select class="form-select-input-dark" id="status" name="status">
+                                            <option value="">Status</option>
+                                            @foreach (App\Enum\LicenseStatuses::cases() as $status)
+                                                <option value="{{ $status->value }}">{{ $status->name() }}</option>
+                                            @endforeach
+                                        </select>
+
+                                        @error('status')
+                                            <p class="text-red-600">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <div class="">
+                                        <p class="form-help-text-dark">Status can not be changed without an officer after
+                                            this.
+                                        </p>
+                                        <button class="btn-default" type="submit">Get License</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    @endif
+
                     @forelse ($civilian->licenses as $license)
                         <div>
                             @switch($license->license_type_id)
@@ -118,8 +133,8 @@
                             <p>{{ $civilian->name }} doesn't have any licenses yet.</p>
                         @endforelse
                     </div>
-                    <p class="text-center mt-3">License can be updated by going to the {{ get_setting('dmv_name') }}.</p>
-                </div> --}}
+                </div>
+            </div>
             {{--
             <div class="" x-data="{ open: false }">
                 <div @click="open = !open" class="flex justify-between items-center">
@@ -260,5 +275,5 @@
                 </div>
             </div> --}}
         </div>
-    </div>
-@endsection
+        </div>
+    @endsection

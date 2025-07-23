@@ -22,24 +22,24 @@
             </div>
             <div class="p-2 uppercase">
                 <p class="text-base font-semibold"><span class="text-xs font-light">LIC. No.</span>
-                    {{ $license->license_type->prefix }}{{ $license->id }}</p>
+                    {{ $license->number }}</p>
 
                 <p class="text-base font-semibold"><span class="text-xs font-light">DOB</span>
                     {{ $civilian->date_of_birth->format(get_setting('date_format')) }}</p>
 
                 <p class="text-base font-semibold">{{ $civilian->last_name }}</p>
                 <p class="text-base font-semibold">{{ $civilian->first_name }}</p>
-                <p class="text-sm font-semibold">{{ $civilian->postal }} {{ $civilian->street }}</p>
-                <p class="text-sm font-semibold">{{ $civilian->city }}, {{ get_setting('state') }}</p>
+                <p class="text-sm font-semibold">{{ $civilian->address->postal }} {{ $civilian->address->street }}</p>
+                <p class="text-sm font-semibold">{{ $civilian->address->city }}, {{ get_setting('state') }}</p>
 
                 <p class="text-base font-semibold"><span class="text-xs font-light">SEX</span>
                     {{ $civilian->gender }}</p>
 
                 <p class="text-base font-semibold"><span class="text-xs font-light">HGT</span>
-                    {{ $civilian->height_format }}</p>
+                    {{ $civilian->height }}</p>
 
                 <p class="text-base font-semibold"><span class="text-xs font-light">WGT</span>
-                    {{ $civilian->weight_format }}</p>
+                    {{ $civilian->weight }}</p>
 
             </div>
             <div class="p-2 relative">

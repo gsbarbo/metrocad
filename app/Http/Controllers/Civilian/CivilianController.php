@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Civilian;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Civilian\StoreCivilianRequest;
 use App\Models\Civilian;
+use App\Services\CivilianService;
 
 class CivilianController extends Controller
 {
@@ -29,8 +30,9 @@ class CivilianController extends Controller
 
     public function show(Civilian $civilian)
     {
-        return view('civilians.show', compact('civilian'));
+        $available_licenses = CivilianService::getAvailableLicenses($civilian, auth()->user());
 
+        return view('civilians.show', compact('civilian', 'available_licenses'));
     }
 
     public function edit(Civilian $civilian)
