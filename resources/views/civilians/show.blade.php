@@ -18,6 +18,7 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+
         <div class="divide-y space-y-2">
             @if (is_null($civilian->picture))
                 <svg class="h-48 w-48 mx-auto rounded-full" fill="none" stroke-width="1.5" stroke="currentColor"
@@ -41,9 +42,10 @@
             <p class="">Home Address: {{ $civilian->address->full_address }}</p>
             <p class="">Occupation: {{ $civilian->occupation }}</p>
         </div>
+
         <div class="md:col-span-3 divide-y space-y-2">
 
-            <div class="" x-data="{ open: false }">
+            <div class="" x-data="{ open: true }">
                 <div @click="open = !open" class="flex justify-between items-center cursor-pointer select-none">
                     <h2 class="text-2xl font-semibold">Licenses
                         <span class="text-sm">({{ $civilian->licenses->count() }})</span>
@@ -350,6 +352,109 @@
 
                     @empty
                         <p>You have no firearms.</p>
+                    @endforelse
+                </div>
+            </div>
+
+            <div class="" x-data="{ open: false }">
+                <div @click="open = !open" class="flex justify-between items-center cursor-pointer select-none">
+                    <h2 class="text-2xl font-semibold">Medical Records
+                        <span class="text-sm">({{ $civilian->medical_records->count() }})</span>
+                    </h2>
+                    <div>
+                        <svg class="size-6" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                            x-show="!open" xmlns="http://www.w3.org/2000/svg">
+                            <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <svg class="size-6" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                            x-show="open" xmlns="http://www.w3.org/2000/svg">
+                            <path d="m4.5 15.75 7.5-7.5 7.5 7.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-2 mt-2" x-show="open">
+                    <div class="col-span-3" x-data="{ openSub: false }">
+                        <div @click="openSub = !openSub"
+                            class="bg-green-400 p-1 select-none cursor-pointer flex justify-between items-center">
+                            <h2 class="text-lg text-green-900">New Medical Record</h2>
+                            <p class="text-sm text-green-800 ml-3">Click to open</p>
+                        </div>
+                        <div class="border border-green-400" x-show="openSub">
+                            <form action=" {{ route('civilians.medicalRecords.store', $civilian->id) }}"
+                                class="grid gap-3 p-3 grid-cols-1 md:grid-cols-3 items-baseline" method="POST">
+                                @csrf
+                                <div class="">
+                                    <label class="label-dark" for="name">
+                                        Name<span class="text-red-600">*</span>
+                                    </label>
+                                    <select class="form-select-input-dark" name="name">
+                                        <option value="">Choose one</option>
+                                        <option {{ old('name') == 'Allergy' ? 'selected' : '' }} value="Allergy">Allergy
+                                        </option>
+                                        <option {{ old('name') == 'Blood Type' ? 'selected' : '' }} value="Blood Type">
+                                            Blood Type
+                                        </option>
+                                        <option {{ old('name') == 'Medications' ? 'selected' : '' }} value="Medications">
+                                            Medications
+                                        </option>
+                                        <option {{ old('name') == 'Health Conditions' ? 'selected' : '' }}
+                                            value="Health Conditions">
+                                            Health
+                                            Conditions</option>
+                                        <option {{ old('name') == 'Other' ? 'selected' : '' }} value="Other">Other
+                                        </option>
+                                    </select>
+
+                                    @error('name')
+                                        <p class="text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div class="">
+                                    <label class="label-dark" for="value">
+                                        Value<span class="text-red-600">*</span>
+                                    </label>
+                                    <input class="form-text-input-dark" id="value" name="value" type="text">
+
+                                    @error('value')
+                                        <p class="text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div class="">
+                                    <button class="btn-default" type="submit">Register Record</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    @forelse ($civilian->medical_records as $medical_record)
+                        <div class="bg-gray-200 rounded-lg p-2 text-black text-sm">
+                            <div class="mt-1 flex">
+                                {{-- <svg class="size-12 text-red-800" fill="none" stroke-width="1.5"
+                                    stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12 10.5v6m3-3H9m4.06-7.19-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg> --}}
+
+                                <svg class="size-14 text-red-800" fill="none" stroke-width="1.5"
+                                    stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 4.5v15m7.5-7.5h-15" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+
+                                <div class="ml-4">
+                                    <p class="text-xl font-thin">{{ $medical_record->name }}</p>
+                                    <p class="text-2xl">{{ $medical_record->value }}</p>
+                                </div>
+
+                            </div>
+                            <div class="mt-1 flex">
+
+                            </div>
+                            <div class="border-t-2 border-black flex justify-between">
+
+                            </div>
+                        </div>
+                    @empty
+                        <p>You have no medical records.</p>
                     @endforelse
                 </div>
             </div>
