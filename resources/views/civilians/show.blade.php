@@ -121,7 +121,7 @@
                 </div>
             </div>
 
-            <div class="" x-data="{ open: true }">
+            <div class="" x-data="{ open: false }">
                 <div @click="open = !open" class="flex justify-between items-center cursor-pointer select-none">
                     <h2 class="text-2xl font-semibold">Vehicles
                         <span class="text-sm">({{ $civilian->vehicles->count() }})</span>
@@ -240,6 +240,116 @@
                         </div>
                     @empty
                         <p>You have no vehicles.</p>
+                    @endforelse
+                </div>
+            </div>
+
+            <div class="" x-data="{ open: false }">
+                <div @click="open = !open" class="flex justify-between items-center cursor-pointer select-none">
+                    <h2 class="text-2xl font-semibold">Firearms
+                        <span class="text-sm">({{ $civilian->firearms->count() }})</span>
+                    </h2>
+                    <div>
+                        <svg class="size-6" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                            x-show="!open" xmlns="http://www.w3.org/2000/svg">
+                            <path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <svg class="size-6" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                            x-show="open" xmlns="http://www.w3.org/2000/svg">
+                            <path d="m4.5 15.75 7.5-7.5 7.5 7.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2" x-show="open">
+                    <div class="col-span-2" x-data="{ openSub: false }">
+                        <div @click="openSub = !openSub"
+                            class="bg-green-400 p-1 select-none cursor-pointer flex justify-between items-center">
+                            <h2 class="text-lg text-green-900">New Firearm</h2>
+                            <p class="text-sm text-green-800 ml-3">Click to open</p>
+                        </div>
+                        <div class="border border-green-400" x-show="openSub">
+                            <form action=" {{ route('civilians.firearm.store', $civilian->id) }}"
+                                class="grid gap-3 p-3 grid-cols-1 md:grid-cols-3" method="POST">
+                                @csrf
+                                <div class="">
+                                    <label class="label-dark" for="model">
+                                        Model<span class="text-red-600">*</span>
+                                    </label>
+                                    <input class="form-text-input-dark" id="model" name="model" type="text">
+
+                                    @error('model')
+                                        <p class="text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div class="">
+                                    <label class="label-dark" for="status">
+                                        Initial Status<span class="text-red-600">*</span>
+                                    </label>
+                                    <select class="form-select-input-dark" id="status" name="status">
+                                        <option value="">Status</option>
+                                        @foreach (App\Enum\FirearmStatus::cases() as $status)
+                                            <option value="{{ $status->value }}">{{ $status->name() }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    @error('status')
+                                        <p class="text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div class="">
+                                    <label class="label-dark" for="serial_number">
+                                        Serial Number
+                                    </label>
+
+                                    <input class="form-text-input-dark" id="serial_number" name="serial_number"
+                                        placeholder="Leave empty for default" type="text">
+                                    @error('serial_number')
+                                        <p class="text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div class="">
+                                    <p class="form-help-text-dark">Status can not be changed without an officer after
+                                        this.
+                                    </p>
+                                    <button class="btn-default" type="submit">Register Firearm</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    @forelse ($civilian->firearms as $firearm)
+                        <div class="bg-gray-200 rounded-lg p-2 text-black text-sm">
+                            <div class="">
+                                <p class="text-lg text-center">Serial Number</p>
+                            </div>
+                            <div class="mt-1 flex items-center justify-around">
+                                <p class="text-3xl text-center">{{ $firearm->serial_number }}</p>
+                            </div>
+                            <div class="mt-1 flex ">
+                                <p class=""><span class="text-blue-500 text-xs">MK</span>
+                                    {{ $firearm->model }}
+                                </p>
+                                <p class="ml-3">
+                                    <span class="text-blue-500 text-xs">RO</span> {{ $civilian->last_name }},
+                                    {{ $civilian->first_name }}
+                                </p>
+                            </div>
+                            <div class="border-t-2 border-black flex justify-between">
+                                @if ($firearm->status == App\Enum\FirearmStatus::VALID->value)
+                                    <span class="text-green-500">VALID</span>
+                                @elseif($firearm->status == App\Enum\FirearmStatus::STOLEN->value)
+                                    <span class="text-red-500">Stolen</span>
+                                @elseif($firearm->status == App\Enum\FirearmStatus::FORSALE->value)
+                                    <span class="text-red-500">For Sale</span>
+                                @elseif($firearm->status == App\Enum\FirearmStatus::IMPOUNDED->value)
+                                    <span class="text-red-500">Impounded</span>
+                                @elseif($firearm->status == App\Enum\FirearmStatus::PENDING->value)
+                                    <span class="text-blue-500">Pending</span>
+                                @endif
+                            </div>
+                        </div>
+
+                    @empty
+                        <p>You have no firearms.</p>
                     @endforelse
                 </div>
             </div>

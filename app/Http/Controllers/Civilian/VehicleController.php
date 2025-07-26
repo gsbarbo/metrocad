@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Civilian\VehicleRequest;
 use App\Models\Civilian;
 use App\Models\Vehicle;
-use Illuminate\Http\Request;
 
 class VehicleController extends Controller
 {
@@ -32,21 +31,5 @@ class VehicleController extends Controller
         Vehicle::create($data);
 
         return redirect()->route('civilians.show', $civilian->id)->with('alerts', [['message' => 'Vehicle created', 'level' => 'success']]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Vehicle $vehicle)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Vehicle $vehicle)
-    {
-        //
     }
 }

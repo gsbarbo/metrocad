@@ -35,3 +35,29 @@ if (! function_exists('markdown')) {
         ]);
     }
 }
+
+if (! function_exists('generateRandomString')) {
+    function generateRandomString(int $length = 10, bool $upperLetters = true, bool $lowerLetters = true, bool $numbers = true)
+    {
+        $upperLetterPool = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $lowerLetterPool = 'abcdefghijklmnopqrstuvwxyz';
+        $numberPool = '0123456789';
+        $pool = '';
+
+        if ($upperLetters) {
+            $pool .= $upperLetterPool;
+        }
+
+        if ($lowerLetters) {
+            $pool .= $lowerLetterPool;
+        }
+
+        if ($numbers) {
+            $pool .= $numberPool;
+        }
+
+        $key = substr(str_shuffle(str_repeat($pool, $length)), 0, $length);
+
+        return $key;
+    }
+}

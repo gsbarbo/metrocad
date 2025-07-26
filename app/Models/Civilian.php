@@ -73,6 +73,11 @@ class Civilian extends Model implements Auditable
         return $this->hasMany(Vehicle::class);
     }
 
+    public function firearms()
+    {
+        return $this->hasMany(Firearm::class);
+    }
+
     #[Scope]
     protected function ownedByCurrentUser(Builder $query): void
     {
