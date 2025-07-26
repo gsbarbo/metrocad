@@ -43,9 +43,7 @@ class SettingsController extends Controller
         if (! auth()->user()->is_owner) {
             return redirect()->route('admin.settings.general')->with('alerts', [['message' => 'API Key is only available to owners.', 'level' => 'error']]);
         }
-        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-        $key = substr(str_shuffle(str_repeat($pool, 64)), 0, 64);
+        $key = generateRandomString(length: 64);
         Setting::updateOrCreate(
             ['name' => 'api_key'],
             ['value' => $key]
