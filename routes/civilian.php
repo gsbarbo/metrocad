@@ -17,5 +17,9 @@ Route::delete('{civilian}', [CivilianController::class, 'destroy'])->name('destr
 
 Route::post('{civilian}/license', [LicenseController::class, 'store'])->name('license.store');
 Route::post('{civilian}/vehicle', [VehicleController::class, 'store'])->name('vehicle.store');
+
 Route::post('{civilian}/firearm', [FirearmController::class, 'store'])->name('firearm.store');
+Route::delete('{civilian}/firearm/{firearm}', [FirearmController::class, 'destroy'])->name('firearm.destroy');
+
 Route::post('{civilian}/medical-records', [MedicalRecordController::class, 'store'])->name('medicalRecords.store');
+Route::delete('{civilian}/medical-records/{medicalRecord}', [MedicalRecordController::class, 'destroy'])->name('medicalRecords.destroy');

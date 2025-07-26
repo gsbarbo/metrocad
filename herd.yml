@@ -1,2 +1,5 @@
 integrations:
-  forge: {}
+  forge:
+    alpha.metrocad.app:
+      site-id: 2795858
+      server-id: 692325
