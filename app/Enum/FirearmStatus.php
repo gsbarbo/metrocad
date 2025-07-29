@@ -6,31 +6,31 @@ use App\Interface\StatusEnumInterface;
 
 enum FirearmStatus: int implements StatusEnumInterface
 {
-    case VALID = 1;
-    case STOLEN = 2;
-    case FORSALE = 3;
-    case IMPOUNDED = 4;
-    case PENDING = 5;
+    case Valid = 1;
+    case Stolen = 2;
+    case ForSale = 3;
+    case Impounded = 4;
+    case Pending = 5;
 
     public function name(): string
     {
         return match ($this) {
-            self::VALID => 'Valid',
-            self::STOLEN => 'Stolen',
-            self::FORSALE => 'For Sale',
-            self::IMPOUNDED => 'Impounded',
-            self::PENDING => 'Pending',
+            self::Valid => 'Valid',
+            self::Stolen => 'Stolen',
+            self::ForSale => 'For Sale',
+            self::Impounded => 'Impounded',
+            self::Pending => 'Pending',
         };
     }
 
     public function color(): string
     {
         return match ($this) {
-            self::VALID => 'green',
-            self::STOLEN => 'red',
-            self::FORSALE => 'green',
-            self::IMPOUNDED => 'red',
-            self::PENDING => 'blue',
+            self::Valid => 'green',
+            self::Stolen => 'red',
+            self::ForSale => 'green',
+            self::Impounded => 'red',
+            self::Pending => 'blue',
         };
     }
 }

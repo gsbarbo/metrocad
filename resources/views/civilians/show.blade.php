@@ -337,15 +337,15 @@
                             </div>
                             <div class="border-t-2 border-black flex justify-between">
                                 <div>
-                                    @if ($firearm->status == App\Enum\FirearmStatus::VALID->value)
+                                    @if ($firearm->status == App\Enum\FirearmStatus::Valid->value)
                                         <span class="text-green-500">VALID</span>
-                                    @elseif($firearm->status == App\Enum\FirearmStatus::STOLEN->value)
+                                    @elseif($firearm->status == App\Enum\FirearmStatus::Stolen->value)
                                         <span class="text-red-500">Stolen</span>
-                                    @elseif($firearm->status == App\Enum\FirearmStatus::FORSALE->value)
+                                    @elseif($firearm->status == App\Enum\FirearmStatus::ForSale->value)
                                         <span class="text-red-500">For Sale</span>
-                                    @elseif($firearm->status == App\Enum\FirearmStatus::IMPOUNDED->value)
+                                    @elseif($firearm->status == App\Enum\FirearmStatus::Impounded->value)
                                         <span class="text-red-500">Impounded</span>
-                                    @elseif($firearm->status == App\Enum\FirearmStatus::PENDING->value)
+                                    @elseif($firearm->status == App\Enum\FirearmStatus::Pending->value)
                                         <span class="text-blue-500">Pending</span>
                                     @endif
                                 </div>

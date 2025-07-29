@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('serial_number');
             $table->string('model');
             $table->string('type')->nullable();
-            $table->integer('status')->default(FirearmStatus::VALID);
+            $table->integer('status')->default(FirearmStatus::Valid);
             $table->foreignIdFor(Civilian::class)->constrained();
             $table->timestamps();
             $table->softDeletes();
