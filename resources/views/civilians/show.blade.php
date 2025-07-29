@@ -158,7 +158,8 @@
                                         <option value="">Vehicles</option>
                                         @foreach ($vehicleOptions as $vehicle)
                                             <option value="{{ $vehicle->id }}">
-                                                {{ $vehicle->make }} {{ $vehicle->model }}
+                                                {{ $vehicle->make }} {{ $vehicle->model }} ({{ $vehicle->type }}) -
+                                                ${{ number_format($vehicle->price) }}
                                             </option>
                                         @endforeach
                                     </select>

@@ -40,3 +40,22 @@ Route::middleware(['auth', 'MemberCheck', 'can:admin:access', 'SteamLinkCheck'])
 Route::middleware(['auth', 'MemberCheck', 'SteamLinkCheck'])->name('civilians.')->prefix('civilians')->group(function () {
     require 'civilian.php';
 });
+
+// Route::get('generateCsv', function () {
+//     $vehicles = json_decode(file_get_contents('https://raw.githubusercontent.com/kevinldg/gtav-vehicle-database/refs/heads/main/data/vehicles.json'));
+
+//     foreach ($vehicles as $vehicle) {
+//         $import[] = [
+//             'type' => ucfirst(strtolower($vehicle->Class)),
+//             'make' => $vehicle->ManufacturerDisplayName->English,
+//             'model' => $vehicle->DisplayName->English,
+//             'price' => $vehicle->MonetaryValue,
+//             'is_emergency_vehicle' => 0,
+//             'spawn_code' => null,
+//         ];
+//     }
+
+//     $format = json_encode($import);
+//     dd($format);
+
+// });

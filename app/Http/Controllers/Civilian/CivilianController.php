@@ -32,7 +32,7 @@ class CivilianController extends Controller
     public function show(Civilian $civilian)
     {
         $available_licenses = CivilianService::getAvailableLicenses($civilian, auth()->user());
-        $vehicleOptions = VehicleType::where('is_emergency_vehicle', 0)->orderBy('type', 'asc')->orderBy('make', 'asc')->orderBy('model', 'asc')->get();
+        $vehicleOptions = VehicleType::where('is_emergency_vehicle', 0)->orderBy('make', 'asc')->orderBy('model', 'asc')->get();
 
         return view('civilians.show', compact('civilian', 'available_licenses', 'vehicleOptions'));
     }
