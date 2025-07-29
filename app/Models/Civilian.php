@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enum\CivilianStatuses;
+use App\Enum\CivilianStatus;
 use App\Support\Civilian\GenderOptions;
 use App\Support\Civilian\HeightOptions;
 use App\Support\Civilian\RaceOptions;
@@ -32,7 +32,7 @@ class Civilian extends Model implements Auditable
         'deleted_at' => 'datetime',
         'updated_at' => 'datetime',
         'date_of_birth' => 'date',
-        'status' => CivilianStatuses::class,
+        'status' => CivilianStatus::class,
     ];
 
     public function getSNNAttribute()

@@ -1,6 +1,6 @@
 <?php
 
-use App\Enum\CivilianStatuses;
+use App\Enum\CivilianStatus;
 use App\Models\Address;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -32,7 +32,7 @@ return new class extends Migration
 
             $table->string('occupation')->nullable();
 
-            $table->integer('status')->default(CivilianStatuses::ALIVE->value);
+            $table->integer('status')->default(CivilianStatus::Alive->value);
             $table->boolean('is_active')->default(0);
 
             $table->string('phone_number')->nullable();

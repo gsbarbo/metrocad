@@ -4,37 +4,37 @@ namespace App\Enum;
 
 use App\Interface\StatusEnumInterface;
 
-enum CivilianStatuses: int implements StatusEnumInterface
+enum CivilianStatus: int implements StatusEnumInterface
 {
-    case ALIVE = 1;
+    case Alive = 1;
 
-    case WANTED = 2;
+    case Wanted = 2;
 
-    case JAILED = 3;
+    case Jailed = 3;
 
-    case DEAD = 4;
+    case Dead = 4;
 
-    case HOSPITALIZED = 5;
+    case Hospitalized = 5;
 
     public function name(): string
     {
         return match ($this) {
-            self::ALIVE => 'Alive',
-            self::WANTED => 'Wanted',
-            self::JAILED => 'Jailed',
-            self::DEAD => 'Deceased',
-            self::HOSPITALIZED => 'Hospitalized',
+            self::Alive => 'Alive',
+            self::Wanted => 'Wanted',
+            self::Jailed => 'Jailed',
+            self::Dead => 'Deceased',
+            self::Hospitalized => 'Hospitalized',
         };
     }
 
     public function color(): string
     {
         return match ($this) {
-            self::ALIVE => 'green',
-            self::WANTED => 'red',
-            self::JAILED => 'red',
-            self::DEAD => 'red',
-            self::HOSPITALIZED => 'yellow',
+            self::Alive => 'green',
+            self::Wanted => 'red',
+            self::Jailed => 'red',
+            self::Dead => 'red',
+            self::Hospitalized => 'yellow',
         };
     }
 }
