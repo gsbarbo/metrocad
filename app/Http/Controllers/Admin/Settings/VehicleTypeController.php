@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Admin\Settings;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Settings\VehicleType\VehicleTypeRequest;
 use App\Models\VehicleType;
+use App\Rules\Admin\DuplicateVehicleTypeRule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class VehicleTypeController extends Controller
 {
@@ -60,57 +63,55 @@ class VehicleTypeController extends Controller
 
     public function import(Request $request)
     {
-        if (! in_array($request->file->extension(), ['json'])) {
-            return redirect()->route('admin.settings.vehicletype.index')->with('alerts', [['message' => 'Invalid file type. You can only import .json files', 'level' => 'error']]);
-        }
+        $request->validate([
+            'file' => 'required|file|mimes:csv,txt',
+        ]);
 
-        $json = file_get_contents($request->file);
+        $file = fopen($request->file('file')->getRealPath(), 'r');
 
-        $vehicle_types = VehicleType::orderBy('make', 'asc')->orderBy('model', 'asc')->get(['make', 'model']);
-        $vehicles = [];
-        foreach ($vehicle_types as $vehicle_type) {
-            $vehicles[] = $vehicle_type->make.' '.$vehicle_type->model;
-        }
+        $header = fgetcsv($file);
 
+        $imported = 0;
+        $skipped = 0;
         $import = [];
 
-        $failed = 0;
-        $duplicate = 0;
-        $import_count = 0;
+        while (($row = fgetcsv($file)) !== false) {
+            try {
+                $data = array_combine($header, $row);
+            } catch (\Throwable $th) {
+                Log::channel('metrocad')->error('Vehicle import file in wrong format.');
 
-        foreach (json_decode($json) as $vehicle) {
-            if (isset($vehicle->type, $vehicle->make, $vehicle->model)) {
-                if (in_array($vehicle->make.' '.$vehicle->model, array_values($vehicles))) {
-                    $duplicate = $duplicate + 1;
-
-                    continue;
-                }
-                $import[] = [
-                    'type' => $vehicle->type,
-                    'make' => $vehicle->make,
-                    'model' => $vehicle->model,
-                    'price' => $vehicle->price ?? 0,
-                    'is_emergency_vehicle' => $vehicle->is_emergency_vehicle ?? 0,
-                    'spawn_code' => $vehicle->spawn_code ?? null,
-                ];
-                $import_count = $import_count + 1;
-            } else {
-                $failed = $failed + 1;
+                return redirect()->route('admin.settings.vehicletype.index')->with('alerts', [['message' => 'Vehicle import file in wrong format.', 'level' => 'error']]);
             }
-        }
 
-        $alert = [['message' => $import_count.' vehicles imported.', 'level' => 'success']];
+            $validator = Validator::make($data, [
+                'type' => ['required', 'string'],
+                'make' => ['required', 'string'],
+                'model' => ['required', 'string', new DuplicateVehicleTypeRule],
+                'price' => ['nullable', 'numeric'],
+                'is_emergency_vehicle' => ['required', 'boolean'],
+                'spawn_code' => ['nullable', 'string'],
+            ]);
 
-        if ($failed != 0) {
-            $alert[] = ['message' => $failed.' vehicles failed to import.', 'level' => 'error'];
-        }
+            if ($validator->fails()) {
+                $context = [];
+                $skipped++;
+                $context['data'] = $data;
+                $context['errors'] = $validator->errors()->toArray();
+                Log::channel('metrocad')->error('Validation Errors for Vehicle Import', $context);
 
-        if ($duplicate != 0) {
-            $alert[] = ['message' => $duplicate.' duplicates skipped.', 'level' => 'warning'];
+                continue;
+            }
+
+            $import[] = $data;
+
+            $imported++;
         }
 
         VehicleType::insert($import);
 
-        return redirect()->route('admin.settings.vehicletype.index')->with('alerts', $alert);
+        fclose($file);
+
+        return redirect()->route('admin.settings.vehicletype.index')->with('alerts', [['message' => "Imported: $imported | Skipped: $skipped", 'level' => 'info']]);
     }
 }
