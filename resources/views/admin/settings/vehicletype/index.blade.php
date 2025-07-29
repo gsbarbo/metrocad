@@ -6,7 +6,8 @@
         <x-breadcrumb-text>Values - Vehicles</x-breadcrumb-text>
     </x-breadcrumb>
     <div>
-        <a class="flex text-sm items-center text-blue-600 underline" href="#">Learn
+        <a class="flex text-sm items-center text-blue-600 underline"
+            href="https://metrocad.gitbook.io/docs/settings/vehicle-values" target="_blank">Learn
             More
             <svg class="w-4 h-4 ml-2" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg">
@@ -85,7 +86,7 @@
                                     enctype="multipart/form-data" method="POST">
                                     @csrf
 
-                                    <input accept=".json" class="form-text-input-dark" name="file" type="file">
+                                    <input accept=".csv" class="form-text-input-dark" name="file" type="file">
                                     <p class="form-help-text-dark">Please read the documentation found on the top of this
                                         page for more information and correct file format.</p>
                                     <input class="btn-default" type="submit" value="Import Vehicles">

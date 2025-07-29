@@ -76,34 +76,6 @@
                 </div>
             </div>
 
-            <div class="p-3">
-                <p class="label-dark">ATF Name</p>
-                <p class="form-help-text-dark">What you want the ATF to be named in the Civilian Portal.</p>
-                <input class="form-text-input-dark" name="atf_name" type="text"
-                    value="{{ old('atf_name', get_setting('atf_name', 'Alcohol, Tobacco and Firearms')) }}">
-            </div>
-
-            <div class="p-3">
-                <p class="label-dark">ATF Initials</p>
-                <p class="form-help-text-dark">What you want the ATF to be initials in the Civilian Portal.</p>
-                <input class="form-text-input-dark" name="atf_initials" type="text"
-                    value="{{ old('atf_initials', get_setting('atf_initials', 'ATF')) }}">
-            </div>
-
-            <div class="p-3">
-                <p class="label-dark">DMV Name</p>
-                <p class="form-help-text-dark">What you want the DMV to be named in the Civilian Portal.</p>
-                <input class="form-text-input-dark" name="dmv_name" type="text"
-                    value="{{ old('dmv_name', get_setting('dmv_name', 'Department of Motor Vehicles')) }}">
-            </div>
-
-            <div class="p-3">
-                <p class="label-dark">DMV Initials</p>
-                <p class="form-help-text-dark">What you want the DMV to be initials in the Civilian Portal.</p>
-                <input class="form-text-input-dark" name="dmv_initials" type="text"
-                    value="{{ old('dmv_initials', get_setting('dmv_initials', 'DMV')) }}">
-            </div>
-
             <div class="p-3 flex justify-end">
                 <input class="btn bg-navbar text-white hover:opacity-85" type="submit" value="Save">
             </div>
