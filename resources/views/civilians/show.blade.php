@@ -94,7 +94,7 @@
                                         </label>
                                         <select class="form-select-input-dark" id="status" name="status">
                                             <option value="">Status</option>
-                                            @foreach (App\Enum\LicenseStatuses::cases() as $status)
+                                            @foreach (App\Enum\LicenseStatus::cases() as $status)
                                                 <option value="{{ $status->value }}">{{ $status->name() }}</option>
                                             @endforeach
                                         </select>

@@ -4,25 +4,21 @@ namespace App\Enum;
 
 use App\Interface\StatusEnumInterface;
 
-enum VehicleStatus: int implements StatusEnumInterface
+enum LicenseStatus: int implements StatusEnumInterface
 {
     case Valid = 1;
     case Expired = 2;
-    case Stolen = 3;
-    case Impounded = 4;
-    case Booted = 5;
-    case ForSale = 6;
-    case Pending = 7;
+    case Suspended = 3;
+    case Revoked = 4;
+    case Pending = 5;
 
     public function name(): string
     {
         return match ($this) {
             self::Valid => 'Valid',
             self::Expired => 'Expired',
-            self::Stolen => 'Stolen',
-            self::Impounded => 'Impounded',
-            self::Booted => 'Booted',
-            self::ForSale => 'For Sale',
+            self::Suspended => 'Suspended',
+            self::Revoked => 'Revoked',
             self::Pending => 'Pending',
         };
     }
@@ -32,10 +28,8 @@ enum VehicleStatus: int implements StatusEnumInterface
         return match ($this) {
             self::Valid => 'green',
             self::Expired => 'red',
-            self::Stolen => 'yellow',
-            self::Impounded => 'red',
-            self::Booted => 'yellow',
-            self::ForSale => 'green',
+            self::Suspended => 'red',
+            self::Revoked => 'red',
             self::Pending => 'blue',
         };
     }

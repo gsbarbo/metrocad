@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Civilian;
 
-use App\Enum\LicenseStatuses;
+use App\Enum\LicenseStatus;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -25,7 +25,7 @@ class LicenseRequest extends FormRequest
     {
         return [
             'license_type_id' => ['required', 'numeric'],
-            'status' => ['required', 'numeric', Rule::enum(LicenseStatuses::class)],
+            'status' => ['required', 'numeric', Rule::enum(LicenseStatus::class)],
         ];
     }
 }

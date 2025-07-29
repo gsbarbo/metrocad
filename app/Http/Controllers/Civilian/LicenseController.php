@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Civilian;
 
-use App\Enum\LicenseStatuses;
+use App\Enum\LicenseStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Civilian\LicenseRequest;
 use App\Models\Civilian;
@@ -21,9 +21,9 @@ class LicenseController extends Controller
         $data['expires_at'] = date('Y-m-d', strtotime('+30 Days'));
         $data['number'] = LicenseService::generateLicenseNumber($licenseTypeData->format, $licenseTypeData->prefix);
 
-        if ($data['status'] == LicenseStatuses::EXPIRED->value) {
+        if ($data['status'] == LicenseStatus::Expired->value) {
             $data['expires_at'] = date('Y-m-d', strtotime('-30 Days'));
-            $data['status'] = LicenseStatuses::VALID->value;
+            $data['status'] = LicenseStatus::Valid->value;
         }
 
         License::create($data);

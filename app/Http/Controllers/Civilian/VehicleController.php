@@ -23,9 +23,9 @@ class VehicleController extends Controller
         $data['expires_at'] = date('Y-m-d', strtotime('+30 Days'));
         $data['plate'] = strtoupper($data['plate']);
 
-        if ($data['status'] == VehicleStatus::EXPIRED->value) {
+        if ($data['status'] == VehicleStatus::Expired->value) {
             $data['expires_at'] = date('Y-m-d', strtotime('-30 Days'));
-            $data['status'] = VehicleStatus::VALID->value;
+            $data['status'] = VehicleStatus::Valid->value;
         }
 
         Vehicle::create($data);
