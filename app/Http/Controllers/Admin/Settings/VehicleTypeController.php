@@ -14,7 +14,7 @@ class VehicleTypeController extends Controller
 {
     public function index()
     {
-        $vehicle_types = VehicleType::orderBy('type', 'asc')->orderBy('make', 'asc')->orderBy('model', 'asc')->get();
+        $vehicle_types = getTableCache('vehicle_types')->where('is_emergency_vehicle', 0)->sortBy([['make', 'asc'], ['model', 'asc']]);
 
         return view('admin.settings.vehicletype.index', compact('vehicle_types'));
     }

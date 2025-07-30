@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+
 if (! function_exists('get_setting')) {
     function get_setting(string $setting_name, string|int $default = '')
     {
@@ -33,6 +36,34 @@ if (! function_exists('markdown')) {
             'html_input' => 'strip',
             'allow_unsafe_links' => false,
         ]);
+    }
+}
+
+if (! function_exists('getTableCache')) {
+    function getTableCache(string $tableName)
+    {
+        try {
+            return Cache::rememberForever($tableName, function () use ($tableName) {
+                return DB::table($tableName)->where('deleted_at', null)->get();
+            });
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+}
+
+if (! function_exists('setTableCache')) {
+    function setTableCache(string $tableName)
+    {
+        try {
+            Cache::forget($tableName);
+
+            return Cache::rememberForever($tableName, function () use ($tableName) {
+                return DB::table($tableName)->where('deleted_at', null)->get();
+            });
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 }
 

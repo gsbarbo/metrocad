@@ -99,7 +99,7 @@
             <p class="">Deleting this vehicle type will delete the following information that can <span
                     class="font-bold text-red-600">NOT</span> be recovered:</p>
             <ul class="list-inside list-disc ml-5">
-                <li>Civilian vehicles</li>
+                <li>Civilian vehicles ({{ $vehicle_type->vehicles->count() }})</li>
                 <li>Any tickets associated with those vehicles</li>
             </ul>
             <p>Are you sure you wish to continue?</p>
