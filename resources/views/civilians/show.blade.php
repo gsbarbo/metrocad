@@ -41,6 +41,52 @@
             <p class="">Weight: {{ $civilian->weight }}</p>
             <p class="">Home Address: {{ $civilian->address->full_address }}</p>
             <p class="">Occupation: {{ $civilian->occupation }}</p>
+            <p class="pt-2 flex justify-between">
+                <a class="" href="{{ route('civilians.edit', $civilian->id) }}">
+                    <button class="btn btn-md btn-with-icon btn-blue btn-rounded">
+                        <svg class="size-4" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        Edit
+                    </button>
+                </a>
+            </p>
+            <div class="border-red-600 border-2 p-3">
+                <h3 class="text-red-600 text-lg font-bold">Danger Zone</h3>
+                <p class="">Deleting this civilian will delete the following information that can <span
+                        class="font-bold text-red-600">NOT</span> be recovered:</p>
+                <ul class="list-inside list-disc ml-5">
+                    <li>All licenses, vehicles, firearms and medical records</li>
+                    <li>Any tickets and calls associated with this civilian</li>
+                </ul>
+                <p>Are you sure you wish to continue?</p>
+                <form action="{{ route('civilians.destroy', $civilian->id) }}" class="mt-5 block space-y-3" method="POST">
+                    @csrf
+                    @method('delete')
+
+                    <div>
+                        <label class="label-dark" for="confirm">Please type the full name
+                            ({{ $civilian->name }}) to confirm</label>
+                        <input class="form-text-input-dark" name="confirm" type="text" value="">
+                        @error('confirm')
+                            <p class="text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <button class="btn btn-md btn-with-icon btn-red btn-rounded" type="submit">
+                        <svg class="size-4" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        Delete
+                    </button>
+                </form>
+            </div>
         </div>
 
         <div class="md:col-span-3 divide-y space-y-2">
@@ -77,7 +123,8 @@
                                         <label class="label-dark" for="license_type_id">
                                             Type
                                         </label>
-                                        <select class="form-select-input-dark" id="license_type_id" name="license_type_id">
+                                        <select class="form-select-input-dark" id="license_type_id"
+                                            name="license_type_id">
                                             <option value="">License Type</option>
                                             @foreach ($available_licenses as $license)
                                                 <option value="{{ $license->id }}">{{ $license->name }}</option>

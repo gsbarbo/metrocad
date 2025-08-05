@@ -128,6 +128,17 @@
                         <p class="text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
+
+                <div class="md:col-span-4">
+                    <label class="label-dark" for="image_url">Picture
+                        <span class="form-help-text-dark">Must be a Discord link.</span>
+                    </label>
+                    <input class="form-text-input-dark" name="image_url" type="text" value="{{ old('image_url') }}">
+
+                    @error('image_url')
+                        <p class="text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
             </div>
 
             <div class="mt-5">

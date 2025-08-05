@@ -32,7 +32,7 @@
     }
 
     .form-help-text-dark {
-        @apply block my-1 text-xs font-thin text-gray-400;
+        @apply my-1 text-xs font-thin text-gray-400;
     }
 
     .form-help-text-light {

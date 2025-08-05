@@ -1,12 +1,66 @@
 @layer components {
 
+    /* Default Styles */
+    .btn {
+        @apply cursor-pointer font-medium;
+    }
+
+    /* Sizes */
+    .btn-sm {
+        @apply py-1 px-3 text-xs;
+    }
+
+    .btn-md {
+        @apply py-2 px-4 text-sm;
+    }
+
+    .btn-lg {
+        @apply py-2 px-4;
+    }
+
+    .btn-sqr {
+        @apply py-2 px-2;
+    }
+
+    /* Colors */
+    .btn-blue {
+        @apply bg-blue-600 hover:bg-blue-800 outline-blue-800 text-white;
+    }
+
+    .btn-red {
+        @apply bg-red-600 hover:bg-red-800 outline-red-800 text-white;
+    }
+
+    .btn-green {
+        @apply bg-green-600 hover:bg-green-800 outline-green-800 text-white;
+    }
+
+    /* Types */
+    .btn-rounded {
+        @apply rounded-md;
+    }
+
+    .btn-outline {
+        @apply bg-transparent -outline-offset-2 outline outline-2 text-current rounded-md;
+    }
+
+    .btn-pill {
+        @apply rounded-full;
+    }
+
+    .btn-with-icon {
+        @apply inline-flex gap-2 items-center;
+    }
+
+    /* Old Styles */
+
     .primary-btn {
         @apply px-2 py-1 text-white rounded bg-indigo-500 hover:bg-indigo-400;
     }
 
-    .btn {
+    /* .btn {
         @apply px-4 py-2 rounded-lg cursor-pointer;
-    }
+    } */
 
     .sm-btn {
         @apply px-2 py-1 rounded-lg cursor-pointer;
@@ -22,23 +76,29 @@
         @apply cursor-pointer py-2.5 px-5 me-2 mb-2 text-sm font-medium focus:outline-none rounded-lg border focus:z-10 focus:ring-4 focus:ring-gray-700 bg-gray-800 text-gray-200 border-gray-600 hover:text-white hover:bg-gray-700;
     }
 
-    .btn-green {
+    /* .btn-green {
         @apply cursor-pointer text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-green-800;
     }
 
     .btn-green-sm {
         @apply cursor-pointer text-white focus:ring-4 font-medium rounded-lg text-sm px-3 py-2 me-2 mb-2 bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-green-800;
-    }
+    } */
 
-    .btn-red {
+    /* .btn-red {
         @apply cursor-pointer text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-red-800;
-    }
+    } */
 
-    .btn-blue {
+    /* .btn-blue {
         @apply cursor-pointer text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800;
     }
+
+    .btn-blue-sm {
+        @apply py-1 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none;
+    } */
 
     .btn-yellow {
         @apply cursor-pointer text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-yellow-800;
     }
+
+
 }

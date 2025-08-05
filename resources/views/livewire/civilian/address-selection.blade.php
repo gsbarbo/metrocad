@@ -13,9 +13,9 @@
                 </option>
             @empty
                 @if ($addressSearch)
-                    <option value="0">No address matching search of {{ $addressSearch }}.</option>
+                    <option value="">No address matching search of {{ $addressSearch }}.</option>
                 @else
-                    <option value="0">Need to search above for an address.</option>
+                    <option value="">Need to search above for an address.</option>
                 @endif
             @endforelse
         </select>

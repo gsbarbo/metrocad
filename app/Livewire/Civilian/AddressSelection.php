@@ -14,6 +14,15 @@ class AddressSelection extends Component
 
     public $addressesSelected;
 
+    public $civilian;
+
+    public function mount()
+    {
+        if (isset($this->civilian)) {
+            $this->addressSearch = $this->civilian->address->postal;
+        }
+    }
+
     public function render()
     {
         if (empty($this->addressSearch)) {

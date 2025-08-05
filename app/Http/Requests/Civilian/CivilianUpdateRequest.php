@@ -5,7 +5,7 @@ namespace App\Http\Requests\Civilian;
 use App\Rules\Civilian\UniqueCivilianName;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCivilianRequest extends FormRequest
+class CivilianUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,17 +23,14 @@ class StoreCivilianRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => ['required', 'alpha', 'max:255'],
-            'last_name' => ['required', 'max:255', new UniqueCivilianName],
-            'date_of_birth' => ['required', 'date'],
+            // 'first_name' => ['required', 'alpha', 'max:255'],
+            // 'last_name' => ['required', 'max:255', new UniqueCivilianName],
+            // 'date_of_birth' => ['required', 'date'],
             'height' => ['required', 'numeric'],
             'weight' => ['required', 'numeric'],
             'occupation' => ['string', 'nullable'],
-            'gender' => ['required'],
-            'race' => ['required'],
-            'postal' => ['nullable', 'numeric'],
-            'street' => ['nullable'],
-            'city' => ['nullable'],
+            // 'gender' => ['required'],
+            // 'race' => ['required'],
             'address_id' => ['required', 'numeric'],
             'phone_number' => ['string', 'nullable'],
             'image_url' => ['url', 'nullable'],
