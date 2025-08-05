@@ -24,6 +24,7 @@
                 @endcan
             @endif
         @endif
+
         @if ($user->status === \App\Enum\User\UserStatuses::SUSPENDED)
             @if (get_setting('discord_suspended_role_id', 0) != 0 && get_setting('feature_use_discord_roles'))
                 <p>User access is controlled by Discord Roles. You must remove the suspend role in the Discord server.
@@ -42,6 +43,7 @@
                 @endcan
             @endif
         @endif
+
         @if ($user->status === \App\Enum\User\UserStatuses::BANNED)
             @can('admin:user:unban')
                 <div class="">
@@ -55,6 +57,7 @@
                 </div>
             @endcan
         @endif
+
         @if ($user->status === \App\Enum\User\UserStatuses::FORMER || $user->status === \App\Enum\User\UserStatuses::DENIED)
             @can('admin:user:status:reset')
                 <div class="">
@@ -71,8 +74,8 @@
 
         @if ($user->status === \App\Enum\User\UserStatuses::MEMBER)
             <div class="">
-                <a class="btn bg-background text-white hover:opacity-85 mt-2 inline-block" href="#">Issue DA</a>
-                <a class="btn bg-background text-white hover:opacity-85 mt-2 inline-block" href="#">Manage
+                <a class="btn btn-md btn-primary btn-pill"
+                    href="{{ route('admin.user.userDepartments.index', $user->id) }}">Manage
                     Departments</a>
             </div>
         @endif

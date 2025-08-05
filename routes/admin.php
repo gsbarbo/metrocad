@@ -9,12 +9,22 @@ use App\Http\Controllers\Admin\Settings\Values\AddressController;
 use App\Http\Controllers\Admin\Settings\Values\LicensesController;
 use App\Http\Controllers\Admin\Settings\VehicleTypeController;
 use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\User\UserDepartmentController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', DashboardController::class)->name('dashboard');
 
 Route::resource('announcement', AnnouncementController::class)->except(['show'])->middleware('can:admin:announcement:access');
+
+Route::name('user.userDepartments.')->prefix('user/{user}/user-departments')->middleware('can:admin:settings:values')->group(function () {
+    Route::get('/', [UserDepartmentController::class, 'index'])->name('index');
+    Route::get('create', [UserDepartmentController::class, 'create'])->name('create');
+    Route::post('/', [UserDepartmentController::class, 'store'])->name('store');
+    Route::get('{userDepartment}/edit', [UserDepartmentController::class, 'edit'])->name('edit');
+    Route::put('{userDepartment}', [UserDepartmentController::class, 'update'])->name('update');
+    Route::delete('{userDepartment}', [UserDepartmentController::class, 'destroy'])->name('destroy');
+});
 Route::resource('user', UserController::class)->except(['create', 'store'])->middleware('can:admin:user:access');
 
 Route::name('settings.')->prefix('settings')->group(function () {
@@ -44,7 +54,6 @@ Route::name('settings.')->prefix('settings')->group(function () {
         Route::put('{address}', [AddressController::class, 'update'])->name('update');
         Route::delete('{address}', [AddressController::class, 'destroy'])->name('destroy');
         Route::post('import', [AddressController::class, 'import'])->name('import');
-
     });
 
     Route::post('/', [SettingsController::class, 'update'])->name('update');

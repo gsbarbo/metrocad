@@ -70,6 +70,11 @@ class User extends Authenticatable
         return History::where('subject_type', 'user')->where('subject_id', $this->id)->latest()->get();
     }
 
+    public function userDepartments()
+    {
+        return $this->hasMany(UserDepartment::class)->with('department');
+    }
+
     public static function dec2hex($number)
     {
         $hexvalues = [
