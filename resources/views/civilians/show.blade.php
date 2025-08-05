@@ -19,7 +19,7 @@
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
 
-        <div class="divide-y space-y-2">
+        <div class="space-y-2">
             @if (is_null($civilian->picture))
                 <svg class="h-48 w-48 mx-auto rounded-full" fill="none" stroke-width="1.5" stroke="currentColor"
                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -30,30 +30,77 @@
             @else
                 <img alt="picture" class="h-48 w-48 mx-auto rounded-full" src="{{ $civilian->picture }}">
             @endif
+            <div class="divide-y">
+                <p class="">SNN: {{ $civilian->s_n_n }}</p>
+                <p class="">DOB: {{ $civilian->date_of_birth->format(get_setting('date_format', 'm/d/Y')) }}</p>
+                <p class="">Race: {{ $civilian->race }}</p>
+                <p class="">Gender: {{ $civilian->gender }}</p>
 
-            <p class="">SNN: {{ $civilian->s_n_n }}</p>
-            <p class="">DOB: {{ $civilian->date_of_birth->format(get_setting('date_format', 'm/d/Y')) }}</p>
-            <p class="">Race: {{ $civilian->race }}</p>
-            <p class="">Gender: {{ $civilian->gender }}</p>
+                <p class="">Age: {{ $civilian->age }}</p>
+                <p class="">Height: {{ $civilian->height }}</p>
+                <p class="">Weight: {{ $civilian->weight }}</p>
+                <p class="">Home Address: {{ $civilian->address->full_address }}</p>
+                <p class="">Occupation: {{ $civilian->occupation }}</p>
 
-            <p class="">Age: {{ $civilian->age }}</p>
-            <p class="">Height: {{ $civilian->height }}</p>
-            <p class="">Weight: {{ $civilian->weight }}</p>
-            <p class="">Home Address: {{ $civilian->address->full_address }}</p>
-            <p class="">Occupation: {{ $civilian->occupation }}</p>
-            <p class="pt-2 flex justify-between">
-                <a class="" href="{{ route('civilians.edit', $civilian->id) }}">
-                    <button class="btn btn-md btn-with-icon btn-blue btn-rounded">
-                        <svg class="size-4" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        Edit
-                    </button>
-                </a>
-            </p>
+                @if ($civilian->user_department)
+                    <p class="">Department: {{ $civilian->user_department->department->name }}</p>
+                @endif
+
+                <p class="pt-2 flex justify-between">
+                    <a class="" href="{{ route('civilians.edit', $civilian->id) }}">
+                        <button class="btn btn-md btn-with-icon btn-blue btn-rounded">
+                            <svg class="size-4" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            Edit
+                        </button>
+                    </a>
+                </p>
+            </div>
+            <div class="border-blue-600 border-2 p-3">
+                <h3 class="text-blue-600 text-lg font-bold">Officer</h3>
+                @if ($civilian->user_department)
+                    <p class="">This civilian belongs to a department. You may remove them below.</p>
+                    <form action="{{ route('civilians.userDepartment.destroy', $civilian->id) }}" method="POST">
+                        @csrf
+                        @method('delete')
+                        <button class="btn btn-md btn-with-icon btn-red btn-rounded" type="submit">
+                            <svg class="size-4" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            Leave Department
+                        </button>
+                    </form>
+                @else
+                    <p class="">If this civilian is also a law enforcement officer or firefighter you need to add them
+                        to
+                        a department below.</p>
+                    <form action="{{ route('civilians.userDepartment.update', $civilian->id) }}"
+                        class="mt-5 block space-y-3" method="POST">
+                        @csrf
+                        @method('put')
+
+                        <select class="form-select-input-dark" id="user_department_id" name="user_department_id">
+                            @foreach ($userDepartments as $userDepartment)
+                                <option value="{{ $userDepartment->id }}">{{ $userDepartment->department->name }}</option>
+                            @endforeach
+
+                        </select>
+
+                        <button class="btn btn-md btn-blue btn-rounded" type="submit">
+                            Save
+                        </button>
+                    </form>
+                @endif
+
+            </div>
+
             <div class="border-red-600 border-2 p-3">
                 <h3 class="text-red-600 text-lg font-bold">Danger Zone</h3>
                 <p class="">Deleting this civilian will delete the following information that can <span
@@ -87,6 +134,7 @@
                     </button>
                 </form>
             </div>
+
         </div>
 
         <div class="md:col-span-3 divide-y space-y-2">

@@ -59,8 +59,9 @@ class CivilianController extends Controller
     {
         $available_licenses = CivilianService::getAvailableLicenses($civilian, auth()->user());
         $vehicleOptions = getTableCache('vehicle_types')->where('is_emergency_vehicle', 0)->sortBy([['make', 'asc'], ['model', 'asc']]);
+        $userDepartments = auth()->user()->userDepartments;
 
-        return view('civilians.show', compact('civilian', 'available_licenses', 'vehicleOptions'));
+        return view('civilians.show', compact('civilian', 'available_licenses', 'vehicleOptions', 'userDepartments'));
     }
 
     public function edit(Civilian $civilian)

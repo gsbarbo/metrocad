@@ -4,6 +4,7 @@ use App\Http\Controllers\Civilian\CivilianController;
 use App\Http\Controllers\Civilian\FirearmController;
 use App\Http\Controllers\Civilian\LicenseController;
 use App\Http\Controllers\Civilian\MedicalRecordController;
+use App\Http\Controllers\Civilian\UserDepartmentController;
 use App\Http\Controllers\Civilian\VehicleController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,8 @@ Route::delete('{civilian}', [CivilianController::class, 'destroy'])->name('destr
 
 Route::post('{civilian}/license', [LicenseController::class, 'store'])->name('license.store');
 Route::post('{civilian}/vehicle', [VehicleController::class, 'store'])->name('vehicle.store');
+Route::put('{civilian}/user-department', [UserDepartmentController::class, 'update'])->name('userDepartment.update');
+Route::delete('{civilian}/user-department', [UserDepartmentController::class, 'destroy'])->name('userDepartment.destroy');
 
 Route::post('{civilian}/firearm', [FirearmController::class, 'store'])->name('firearm.store');
 Route::delete('{civilian}/firearm/{firearm}', [FirearmController::class, 'destroy'])->name('firearm.destroy');
