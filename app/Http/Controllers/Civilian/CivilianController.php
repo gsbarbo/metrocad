@@ -15,7 +15,7 @@ class CivilianController extends Controller
 {
     public function index()
     {
-        $civilians = Civilian::ownedByCurrentUser()->get();
+        $civilians = Civilian::ownedByCurrentUser()->with('user_department')->orderBy('user_department_id', 'desc')->orderBy('is_active', 'desc')->get();
 
         return view('civilians.index', compact('civilians'));
     }

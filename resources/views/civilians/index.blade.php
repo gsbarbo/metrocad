@@ -21,7 +21,7 @@
 
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 mt-2">
         @forelse ($civilians as $civilian)
-            <a class="@if ($civilian->is_active) border-green-600 @else border-navbar @endif border-4 p-2 rounded-lg text-center"
+            <a class="@if ($civilian->is_active) !border-green-600 @endif @if ($civilian->user_department_id) !border-blue-600 @endif border-navbar border-4 p-2 rounded-lg text-center"
                 href="{{ route('civilians.show', $civilian->id) }}">
                 @if (is_null($civilian->picture))
                     <svg class="h-12 w-12 md:h-16 md:w-16 mx-auto" fill="none" stroke-width="1.5" stroke="currentColor"
@@ -37,9 +37,15 @@
 
                 <p class="text-lg">{{ $civilian->name }}</p>
                 @if ($civilian->is_active)
-                    <span
-                        class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-green-900 dark:text-green-300">Current
-                        Active Civilian</span>
+                    <p class="text-xs font-medium px-2.5 py-0.5 rounded-sm bg-green-900 text-green-300">
+                        Current
+                        Active Civilian</p>
+                @endif
+
+                @if ($civilian->user_department)
+                    <p class="text-xs font-medium px-2.5 py-0.5 rounded-sm bg-blue-900 text-blue-300">
+                        {{ $civilian->user_department->department->name }}
+                    </p>
                 @endif
             </a>
         @empty
