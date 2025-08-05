@@ -81,7 +81,7 @@
                         @method('put')
 
                         <select class="form-select-input-dark" id="user_department_id" name="user_department_id">
-                            @foreach ($userDepartments as $userDepartment)
+                            @foreach (auth()->user()->userDepartments as $userDepartment)
                                 <option value="{{ $userDepartment->id }}">{{ $userDepartment->department->name }}</option>
                             @endforeach
 
