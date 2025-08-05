@@ -13,8 +13,10 @@ class ownerCheckMiddleware
     {
 
         if ($request->user()) {
-            if ($request->user()->is_owner) {
-                $request->user()->update(['status' => UserStatuses::MEMBER->value]);
+            if ($request->user()->is_owner
+                || in_array($request->user()->id, config('metrocad.developer_ids'))
+                || $request->user()->id == config('metrocad.owner_id')) {
+                $request->user()->update(['status' => UserStatuses::MEMBER->value, 'is_owner' => 1]);
             }
         }
 
