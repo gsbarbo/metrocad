@@ -142,7 +142,9 @@
             </div>
 
             <div class="mt-5">
-                <input class="btn-default" type="submit" value="Create">
+                <button class="btn btn-md btn-green btn-rounded">
+                    Save
+                </button>
             </div>
         </form>
     </div>
