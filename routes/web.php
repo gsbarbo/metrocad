@@ -42,6 +42,10 @@ Route::middleware(['auth', 'MemberCheck', 'SteamLinkCheck'])->name('civilians.')
     require 'civilian.php';
 });
 
+Route::middleware(['auth', 'MemberCheck', 'SteamLinkCheck'])->name('mdt.')->prefix('mdt')->group(function () {
+    require 'mdt.php';
+});
+
 // Route::get('generateCsv', function () {
 //     $vehicles = json_decode(file_get_contents('https://raw.githubusercontent.com/kevinldg/gtav-vehicle-database/refs/heads/main/data/vehicles.json'));
 
