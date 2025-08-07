@@ -39,7 +39,7 @@ return [
     'discord' => [
         'client_id' => env('DISCORD_CLIENT_ID'),
         'client_secret' => env('DISCORD_CLIENT_SECRET'),
-        'redirect' => env('DISCORD_REDIRECT_URI'),
+        'redirect' => env('DISCORD_REDIRECT_URI', '/login/discord/handle'),
 
         // optional
         'allow_gif_avatars' => (bool) env('DISCORD_AVATAR_GIF', true),
@@ -49,10 +49,10 @@ return [
     'steam' => [
         'client_id' => null,
         'client_secret' => env('STEAM_CLIENT_SECRET'),
-        'redirect' => env('STEAM_REDIRECT_URI'),
+        'redirect' => env('STEAM_REDIRECT_URI', '/portal/link/steam/handle'),
         'force_https' => true,
         'allowed_hosts' => [
-            env('STEAM_ALLOWED_HOSTS'),
+            env('STEAM_ALLOWED_HOSTS', str_replace(['http://', 'https://'], '', env('APP_URL'))),
         ],
     ],
 
