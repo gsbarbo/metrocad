@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\User;
 use App\Enum\User\UserStatuses;
 use App\Models\History;
 use App\Models\User;
+use App\Services\DiscordService;
 use Livewire\Component;
 
 class UserActionArea extends Component
@@ -119,6 +120,14 @@ class UserActionArea extends Component
                 $this->user->update(['status' => UserStatuses::PENDING, 'became_member_at' => null]);
             }
         }
+
+        return redirect(request()->header('Referer'));
+    }
+
+    public function discordRoleSync()
+    {
+        DiscordService::discordRoleSync($this->user->id);
+        session()->flash('alerts', [['message' => 'Discord Roles Synced.', 'level' => 'success']]);
 
         return redirect(request()->header('Referer'));
     }

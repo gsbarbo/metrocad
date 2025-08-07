@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Http;
 
 class DiscordService
 {
-    public static function get_server_roles()
+    public static function get_server_roles(): mixed
     {
         return Cache::remember('discord_roles', 60, function () {
             $response =
@@ -22,9 +22,10 @@ class DiscordService
         });
     }
 
-    public static function discordRoleSync($user_id)
+    // TODO: I think this is broken, needs to be tested
+    public static function discordRoleSync($user_id): void
     {
-        $userRoles = DiscordService::get_user_roles(auth()->user()->id);
+        $userRoles = DiscordService::get_user_roles($user_id);
 
         $departments = Department::query()->get(['id', 'discord_role_id'])->pluck('discord_role_id',
             'id')->toArray();
@@ -34,25 +35,26 @@ class DiscordService
             if (! is_null($discordId) && in_array($discordId, array_values($userRoles))) {
 
                 $user_department = UserDepartment::query()
-                    ->where('user_id', auth()->user()->id)
+                    ->where('user_id', $user_id)
                     ->where('department_id', $departmentId)
                     ->get()->first();
 
                 if (! $user_department) {
                     UserDepartment::query()->create([
-                        'user_id' => auth()->user()->id,
+                        'user_id' => $user_id,
                         'department_id' => $departmentId,
                         'rank' => 'NEEDS SET',
                         'badge_number' => 'NEEDS SET',
                     ]);
                 }
             } else {
-                $userDepartment = UserDepartment::query()->where('user_id', auth()->user()->id)
+                $userDepartment = UserDepartment::query()->where('user_id', $user_id)
                     ->where('department_id', $departmentId)->get()->first();
 
                 if ($userDepartment) {
+                    // TODO: Change this if we want to allow multiple civilians per department
                     $civilian = Civilian::query()->where('user_department_id', $userDepartment->id)->get()->first();
-                    $civilian->update([
+                    $civilian?->update([
                         'user_department_id' => null,
                     ]);
                     $userDepartment->delete();
@@ -61,7 +63,7 @@ class DiscordService
         }
     }
 
-    public static function get_user_roles($user_id)
+    public static function get_user_roles($user_id): mixed
     {
         return Cache::remember('user_discord_roles_'.$user_id, 30, function () use ($user_id) {
             $response = Http::accept('application/json')
