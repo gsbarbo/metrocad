@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Civilian;
 
 use App\Enum\VehicleStatus;
+use App\Rules\Civilian\UniqueVehiclePlateRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -27,7 +28,7 @@ class VehicleRequest extends FormRequest
             'vehicle_type_id' => ['required', 'numeric'],
             'status' => ['required', 'numeric', Rule::enum(VehicleStatus::class)],
             'color' => ['required', 'string'],
-            'plate' => ['required', 'string'],
+            'plate' => ['required', 'string', UniqueVehiclePlateRule::class],
         ];
     }
 }
