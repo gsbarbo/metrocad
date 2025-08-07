@@ -20,15 +20,19 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    protected function casts(): array
+    public static function dec2hex($number)
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'last_login_at' => 'datetime',
-            'became_member_at' => 'datetime:Y-m-d',
-            'password' => 'hashed',
-            'status' => UserStatuses::class,
+        $hexvalues = [
+            '0', '1', '2', '3', '4', '5', '6', '7',
+            '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
         ];
+        $hexval = '';
+        while ($number != '0') {
+            $hexval = $hexvalues[bcmod($number, '16', 0)].$hexval;
+            $number = bcdiv($number, '16', 0);
+        }
+
+        return $hexval;
     }
 
     public function getNameAttribute()
@@ -53,11 +57,12 @@ class User extends Authenticatable
     {
         $time = DB::table('sessions')->where('user_id', $this->id)->latest('last_activity')->first();
 
-        if (! $time) {
+        if (!$time) {
             return 'No recent activity';
         }
 
-        return $timestamp = Carbon::createFromTimestamp($time->last_activity, config('app.timezone'))->format('M d, Y H:i');
+        return $timestamp = Carbon::createFromTimestamp($time->last_activity,
+            config('app.timezone'))->format('M d, Y H:i');
     }
 
     // public function getStatusNameAttribute()
@@ -75,18 +80,14 @@ class User extends Authenticatable
         return $this->hasMany(UserDepartment::class)->with('department');
     }
 
-    public static function dec2hex($number)
+    protected function casts(): array
     {
-        $hexvalues = [
-            '0', '1', '2', '3', '4', '5', '6', '7',
-            '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
+        return [
+            'email_verified_at' => 'datetime',
+            'last_login_at' => 'datetime',
+            'became_member_at' => 'datetime:Y-m-d',
+            'password' => 'hashed',
+            'status' => UserStatuses::class,
         ];
-        $hexval = '';
-        while ($number != '0') {
-            $hexval = $hexvalues[bcmod($number, '16', 0)].$hexval;
-            $number = bcdiv($number, '16', 0);
-        }
-
-        return $hexval;
     }
 }

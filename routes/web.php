@@ -20,6 +20,7 @@ Route::middleware(['auth', 'MemberCheck', 'SteamLinkCheck'])->name('portal.')->p
     Route::get('/', DashboardController::class)->name('dashboard');
 
     Route::get('/user/settings/edit', [SettingsController::class, 'edit'])->name('user.settings')->withoutMiddleware('SteamLinkCheck');
+    Route::get('/user/settings/discordSync', [SettingsController::class, 'discordSync'])->name('user.settings.discordSync')->withoutMiddleware('SteamLinkCheck');
 
     Route::get('link/steam', function () {
         return Socialite::driver('steam')->redirect();
