@@ -30,7 +30,7 @@ Route::resource('user', UserController::class)->except(['create', 'store'])->mid
 Route::name('settings.')->prefix('settings')->group(function () {
     Route::get('general', [SettingsController::class, 'general'])->name('general')->middleware('can:admin:settings:general');
     Route::get('civilian', [SettingsController::class, 'civilian'])->name('civilian')->middleware('can:admin:settings:general');
-    Route::get('cad', [SettingsController::class, 'cad'])->name('cad')->middleware('can:admin:settings:general');
+    Route::get('mdt', [SettingsController::class, 'cad'])->name('mdt')->middleware('can:admin:settings:general');
     Route::get('features', [SettingsController::class, 'features'])->name('features')->middleware('can:admin:settings:general');
 
     Route::get('vehicletype/import', [VehicleTypeController::class, 'import_view'])->name('vehicletype.import_view');

@@ -1,31 +1,32 @@
 <div class="">
     <a class="h-16 flex items-center px-4 bg-navbar hover:text-gray-100 hover:bg-opacity-50 focus:outline-none focus:text-gray-100 focus:bg-opacity-50 overflow-hidden"
-        href="#">
+       href="#">
         <img alt="Community Logo" class="h-12 w-12" src="{{ get_setting('community_logo') }}">
         <span :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'"
-            class="ml-2 text-xl font-medium duration-300 ease-in-out">{{ get_setting('community_name') }}</span>
+              class="ml-2 text-xl font-medium duration-300 ease-in-out">{{ get_setting('community_name') }}</span>
     </a>
     <nav class="p-4 space-y-2">
         <x-sidebar_link :active="request()->is('portal')" :href="route('portal.dashboard')">
             <x-slot:icon>
                 <svg class="h-6 w-6 flex-shrink-0" fill="none" stroke-width="1.5" stroke="currentColor"
-                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
-                        stroke-linecap="round" stroke-linejoin="round" />
+                        stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
 
             </x-slot:icon>
             Portal
         </x-sidebar_link>
 
-        <x-sidebar_link :active="request()->is('civilians/') || request()->is('civilians/*')" :href="route('civilians.index')">
+        <x-sidebar_link :active="request()->is('civilians/') || request()->is('civilians/*')"
+                        :href="route('civilians.index')">
             <x-slot:icon>
                 <svg class="h-6 w-6 flex-shrink-0" fill="none" stroke-width="1.5" stroke="currentColor"
-                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
-                        stroke-linecap="round" stroke-linejoin="round" />
+                        stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
 
             </x-slot:icon>
@@ -35,23 +36,23 @@
         <x-sidebar_link :active="request()->is('')" :href="route('portal.dashboard')">
             <x-slot:icon>
                 <svg class="h-6 w-6 flex-shrink-0" fill="none" stroke-width="1.5" stroke="currentColor"
-                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z"
-                        stroke-linecap="round" stroke-linejoin="round" />
+                        stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
 
             </x-slot:icon>
             Courthouse
         </x-sidebar_link>
 
-        <x-sidebar_link :active="request()->is('')" :href="route('portal.dashboard')">
+        <x-sidebar_link :active="request()->is('mdt') || request()->is('mdt/*')" :href="route('mdt.home')">
             <x-slot:icon>
                 <svg class="h-6 w-6 flex-shrink-0" fill="none" stroke-width="1.5" stroke="currentColor"
-                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25"
-                        stroke-linecap="round" stroke-linejoin="round" />
+                        stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
 
             </x-slot:icon>
@@ -61,8 +62,8 @@
         <x-sidebar_link :active="request()->is('')" :href="route('portal.dashboard')">
             <x-slot:icon>
                 <svg class="h-6 w-6 flex-shrink-0" fill="#ffffff" id="Layer_1" stroke="#ffffff" version="1.1"
-                    viewBox="0 0 508.053 508.053" width="200px" xml:space="preserve"
-                    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+                     viewBox="0 0 508.053 508.053" width="200px" xml:space="preserve"
+                     xmlns="http://www.w3.org/2000/svg">
                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                     <g id="SVGRepo_iconCarrier">
@@ -103,11 +104,12 @@
         <hr>
 
         @can('admin:access')
-            <x-sidebar_link :active="request()->is('admin/*') || request()->is('admin')" :href="route('admin.dashboard')">
+            <x-sidebar_link :active="request()->is('admin/*') || request()->is('admin')"
+                            :href="route('admin.dashboard')">
                 <x-slot:icon>
                     <svg class="h-6 w-6 flex-shrink-0" class="feather feather-shield" fill="none" stroke-linecap="round"
-                        stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
+                         stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"
+                         xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                     </svg>
                 </x-slot:icon>

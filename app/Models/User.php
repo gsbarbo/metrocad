@@ -57,7 +57,7 @@ class User extends Authenticatable
     {
         $time = DB::table('sessions')->where('user_id', $this->id)->latest('last_activity')->first();
 
-        if (!$time) {
+        if (! $time) {
             return 'No recent activity';
         }
 
@@ -78,6 +78,11 @@ class User extends Authenticatable
     public function userDepartments()
     {
         return $this->hasMany(UserDepartment::class)->with('department');
+    }
+
+    public function active_unit()
+    {
+        return $this->hasOne(ActiveUnit::class);
     }
 
     protected function casts(): array

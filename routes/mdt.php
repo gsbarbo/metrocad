@@ -1,1 +1,8 @@
 <?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', \App\Http\Controllers\Mdt\HomePageController::class)->name('home');
+Route::post('/on-duty', \App\Http\Controllers\Mdt\OnDutyController::class)->name('onDuty');
+Route::get('/dashboard', \App\Http\Controllers\Mdt\DashboardController::class)->name('dashboard');
+Route::get('/cad-screen', \App\Http\Controllers\Mdt\CadScreenController::class)->name('cadScreen');
