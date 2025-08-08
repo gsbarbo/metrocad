@@ -4,9 +4,8 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 if (! function_exists('get_setting')) {
-    function get_setting(string $setting_name, string|int $default = '')
+    function get_setting(string $setting_name, string|int $default = ''): string|int
     {
-        $settings = [];
         $settings = app('settings');
 
         foreach ($settings as $setting) {
@@ -30,9 +29,9 @@ if (! function_exists('get_setting')) {
 }
 
 if (! function_exists('markdown')) {
-    function markdown(string $markdown)
+    function markdown(string $markdown): string
     {
-        return str()->markdown($markdown, [
+        return str($markdown)->markdown([
             'html_input' => 'strip',
             'allow_unsafe_links' => false,
         ]);
@@ -40,20 +39,20 @@ if (! function_exists('markdown')) {
 }
 
 if (! function_exists('getTableCache')) {
-    function getTableCache(string $tableName)
+    function getTableCache(string $tableName): mixed
     {
         try {
             return Cache::rememberForever($tableName, function () use ($tableName) {
                 return DB::table($tableName)->where('deleted_at', null)->get();
             });
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             throw $th;
         }
     }
 }
 
 if (! function_exists('setTableCache')) {
-    function setTableCache(string $tableName)
+    function setTableCache(string $tableName): mixed
     {
         try {
             Cache::forget($tableName);
@@ -61,14 +60,14 @@ if (! function_exists('setTableCache')) {
             return Cache::rememberForever($tableName, function () use ($tableName) {
                 return DB::table($tableName)->where('deleted_at', null)->get();
             });
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             throw $th;
         }
     }
 }
 
 if (! function_exists('generateRandomString')) {
-    function generateRandomString(int $length = 10, bool $upperLetters = true, bool $lowerLetters = true, bool $numbers = true)
+    function generateRandomString(int $length = 10, bool $upperLetters = true, bool $lowerLetters = true, bool $numbers = true): string
     {
         $upperLetterPool = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $lowerLetterPool = 'abcdefghijklmnopqrstuvwxyz';
@@ -87,8 +86,6 @@ if (! function_exists('generateRandomString')) {
             $pool .= $numberPool;
         }
 
-        $key = substr(str_shuffle(str_repeat($pool, $length)), 0, $length);
-
-        return $key;
+        return substr(str_shuffle(str_repeat($pool, $length)), 0, $length);
     }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.mdt')
+@extends('layouts.mdtBasic')
 
 @section('content')
 
@@ -63,7 +63,7 @@
         @endif
 
         <div
-            class="flex items-center justify-center w-full h-full min-h-screen px-4 py-5 bg-black bg-opacity-90">
+            class="flex items-center justify-center w-full h-full min-h-screen px-4 py-5">
             <div class="w-full max-w-5xl rounded-[20px] bg-gray-400 py-10 px-6 md:py-[40px] md:px-[50px]">
                 <h3 class="pb-2 text-xl font-bold text-center sm:text-2xl">
                     Welcome Emergency Personnel

@@ -31,9 +31,7 @@ enum CivilianStatus: int implements StatusEnumInterface
     {
         return match ($this) {
             self::Alive => 'green',
-            self::Wanted => 'red',
-            self::Jailed => 'red',
-            self::Dead => 'red',
+            self::Wanted, self::Jailed, self::Dead => 'red',
             self::Hospitalized => 'yellow',
         };
     }
