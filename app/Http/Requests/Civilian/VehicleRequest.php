@@ -28,7 +28,7 @@ class VehicleRequest extends FormRequest
             'vehicle_type_id' => ['required', 'numeric'],
             'status' => ['required', 'numeric', Rule::enum(VehicleStatus::class)],
             'color' => ['required', 'string'],
-            'plate' => ['required', 'string', UniqueVehiclePlateRule::class],
+            'plate' => ['required', 'string', new UniqueVehiclePlateRule],
         ];
     }
 }

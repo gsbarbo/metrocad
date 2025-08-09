@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enum\LicenseStatus;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -18,6 +19,7 @@ class License extends Model implements Auditable
 
     protected $casts = [
         'expires_at' => 'date',
+        'status' => LicenseStatus::class,
     ];
 
     protected $with = ['license_type'];
@@ -30,5 +32,14 @@ class License extends Model implements Auditable
     public function license_type()
     {
         return $this->belongsTo(LicenseType::class);
+    }
+
+    public function getIsExpiredAttribute(): bool
+    {
+        if ($this->expires_at < date('Y-m-d')) {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -23,4 +23,10 @@ class VehicleType extends Model implements Auditable
     {
         return $this->hasMany(Vehicle::class);
     }
+
+    // get the vehicle type name
+    public function getNameAttribute(): string
+    {
+        return $this->make.' '.$this->model;
+    }
 }

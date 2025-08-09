@@ -35,9 +35,35 @@ class Civilian extends Model implements Auditable
         'status' => CivilianStatus::class,
     ];
 
+    protected static function booted(): void
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $number = rand(100000000, 999999999);
+            $model->id = $number;
+            $model->user_id = auth()->user()->id;
+        });
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function getSNNAttribute()
     {
         return implode('-', str_split($this->id, 3));
+    }
+
+    public function getDriversLicenseAttribute()
+    {
+        foreach ($this->licenses as $license) {
+            if ($license->license_type_id === 1) {
+                return $license;
+            }
+        }
+
+        return false;
     }
 
     public function getNameAttribute()
@@ -51,11 +77,6 @@ class Civilian extends Model implements Auditable
         $age = Carbon::parse($birthday)->age;
 
         return $age;
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
     }
 
     public function user_department()
@@ -98,16 +119,6 @@ class Civilian extends Model implements Auditable
     protected function ownedBy(Builder $query, int $user_id): void
     {
         $query->where('user_id', $user_id);
-    }
-
-    protected static function booted(): void
-    {
-        parent::boot();
-        static::creating(function ($model) {
-            $number = rand(100000000, 999999999);
-            $model->id = $number;
-            $model->user_id = auth()->user()->id;
-        });
     }
 
     protected function race(): Attribute

@@ -4,9 +4,10 @@ namespace App\Rules\Civilian;
 
 use App\Models\Vehicle;
 use Closure;
+use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class UniqueVehiclePlateRule implements ValidationRule
+class UniqueVehiclePlateRule implements DataAwareRule, ValidationRule
 {
     protected array $data = [];
 

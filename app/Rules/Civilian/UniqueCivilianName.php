@@ -9,7 +9,7 @@ use Illuminate\Contracts\Validation\ValidationRule;
 
 class UniqueCivilianName implements DataAwareRule, ValidationRule
 {
-    protected $data = [];
+    protected array $data = [];
 
     public function setData(array $data): static
     {

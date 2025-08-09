@@ -25,4 +25,13 @@ class Vehicle extends Model
     {
         return $this->belongsTo(VehicleType::class);
     }
+
+    public function getIsExpiredAttribute(): bool
+    {
+        if ($this->expires_at < date('Y-m-d')) {
+            return true;
+        }
+
+        return false;
+    }
 }
