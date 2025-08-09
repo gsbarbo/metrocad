@@ -22,11 +22,11 @@
 
 <body class="font-mono antialiased bg-[#060606] uppercase">
 
-<div :class="{ 'overflow-hidden': isSidebarExpanded }" class="flex h-screen">
+<div class="flex h-screen">
     @include('inc.mdt.sidebar')
     <div class="flex flex-col flex-1">
         @include('inc.mdt.mdt-nav')
-        <main class="pb-16 overflow-y-auto">
+        <main class="">
             <div class="container mx-auto px-6 py-3">
                 @yield('content')
             </div>

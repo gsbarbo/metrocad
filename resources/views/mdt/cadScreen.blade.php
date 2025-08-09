@@ -3,47 +3,14 @@
 @section('content')
     <div class="space-y-8">
         <div>
-            <h1 class="text-2xl font-bold text-white">Set Status</h1>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <a href="#">
-                    <button class="btn btn-blue btn-lg w-full btn-rounded border-white border-4">Busy</button>
-                </a>
-
-                <a href="#">
-                    <button class="btn btn-blue btn-lg w-full btn-rounded">Out of Service</button>
-                </a>
-
-                <a href="#">
-                    <button class="btn btn-blue btn-lg w-full btn-rounded">In Service</button>
-                </a>
-
-                <a href="#">
-                    <button class="btn btn-red btn-lg w-full btn-rounded">Panic</button>
-                </a>
-
-                <a href="#">
-                    <button class="btn btn-gray btn-lg w-full btn-rounded">Transporting</button>
-                </a>
-
-                <a href="#">
-                    <button class="btn btn-gray btn-lg w-full btn-rounded">Arrived</button>
-                </a>
-
-                <a href="#">
-                    <button class="btn btn-gray btn-lg w-full btn-rounded">EnRoute</button>
-                </a>
-
-                <a href="#">
-                    <button class="btn btn-gray btn-lg w-full btn-rounded">Something else</button>
-                </a>
-            </div>
+            @livewire('mdt.cadScreen.statusButtons')
         </div>
 
         <div class="">
             <h1 class="text-2xl font-bold text-white">Quick Calls</h1>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <a href="#">
-                    <button class="btn btn-gray btn-lg w-full btn-rounded border-white border-4">Traffic Stop</button>
+                    <button class="btn btn-gray btn-lg w-full btn-rounded">Traffic Stop</button>
                 </a>
 
                 <a href="#">
@@ -257,102 +224,8 @@
             </table>
         </div>
 
-        <div class="">
-            <h1 class="text-2xl font-bold text-white">Active Units</h1>
-            <table class="w-full border border-collapse table-auto border-slate-400">
-                <tr class="text-white">
-                    <th class="border border-slate-400">Agency</th>
-                    <th class="border border-slate-400">Unit #</th>
-                    <th class="border border-slate-400">Status</th>
-                    <th class="border border-slate-400">Time</th>
-                    <th class="border border-slate-400">Call #</th>
-                    <th class="border border-slate-400">Description</th>
-                </tr>
-                {{--            @foreach ($active_units as $active_unit)--}}
-                {{--                @if ($active_unit->department_type != 2)--}}
-                <tr class="text-red-500">
-                    <td class="p-1 border border-slate-400">
-                        LSPD
-                    </td>
-                    <td class="p-1 border border-slate-400">3C-31
-                        (Officer Name)
-                    </td>
-                    <td class="relative p-1 border border-slate-400" x-data="{ statusOpen: false }">
-                        <div class="flex justify-between">
-                            <span>AVIL</span>
-                            <a @click="statusOpen = !statusOpen" class="underline cursor-pointer">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke-width="1.5" stroke="currentColor"
-                                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
-                                        stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </a>
-                        </div>
-                        <div @click.outside="statusOpen = false"
-                             class="absolute right-0 w-32 z-50 p-3 space-y-3 text-white bg-gray-800 rounded"
-                             x-show="statusOpen">
-                            <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
-                               wire:click="set_status(0, 'AVL')">Available</a>
-                            <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
-                               wire:click="set_status(0, 'ENRUTE')">En-route</a>
-                            <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
-                               wire:click="set_status(0, 'ONSCN')">On-Scene</a>
-                            <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
-                               wire:click="set_status(0, 'BRK')">Break</a>
-                            <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
-                               wire:click="set_status(0, 'OFFDTY')">Soft Off Duty</a>
-                            <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
-                               wire:click="hard_offduty(0)">Hard Off Duty</a>
-                        </div>
-                    </td>
-                    <td class="p-1 border border-slate-400">05m</td>
-                    <td class="relative p-1 border border-slate-400" x-data="{ callsOpen: false }">
-                        <div class="flex justify-between">
-                            <div class="">
-                                250807-0005
-                                {{--                            @foreach ($active_unit->calls as $call)--}}
-                                {{--                                <a class="hover:underline" href="{{ route('cad.call.show', $call->id) }}">--}}
-                                {{--                                    {{ $call->id }}--}}
-                                {{--                                    @if (!$loop->last)--}}
-                                {{--                                        ,--}}
-                                {{--                                    @endif--}}
-                                {{--                                </a>--}}
-                                {{--                            @endforeach--}}
-                            </div>
-                            {{-- @if ($active_unit->user_department->department->type != 2) --}}
-                            <a @click="callsOpen = !callsOpen" class="underline cursor-pointer">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke-width="1.5" stroke="currentColor"
-                                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
-                                        stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </a>
-                            {{-- @endif --}}
-                        </div>
-                        <div @click.outside="callsOpen = false"
-                             class="absolute right-0 w-32 p-3 z-50 space-y-3 text-white bg-gray-800 rounded"
-                             x-show="callsOpen">
-                            {{--                        @foreach ($calls as $call)--}}
-                            {{--                            @if ($call->attached_units->contains('id', $active_unit->id))--}}
-                            {{--                                <a @click="callsOpen = false" class="block bg-gray-500" href="#"--}}
-                            {{--                                   wire:click="remove_unit_from_call({{ $active_unit->id }}, {{ $call->id }})">Remove--}}
-                            {{--                                    From Call {{ $call->id }}</a>--}}
-                            {{--                            @else--}}
-                            {{--                                <a @click="callsOpen = false" class="block hover:bg-gray-500" href="#"--}}
-                            {{--                                   wire:click="add_unit_to_call({{ $active_unit->id }}, {{ $call->id }})">Add--}}
-                            {{--                                    To Call {{ $call->id }}</a>--}}
-                            {{--                            @endif--}}
-                            {{--                        @endforeach--}}
-                        </div>
-
-                    </td>
-                    <td class="p-1 border border-slate-400">Logged into CAD</td>
-                </tr>
-                {{--                @endif--}}
-                {{--            @endforeach--}}
-            </table>
+        <div class="h-full">
+            @livewire('mdt.cadScreen.activeUnits')
         </div>
     </div>
 @endsection

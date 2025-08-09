@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -25,6 +26,14 @@ class ActiveUnit extends Model
     public function civilian(): BelongsTo
     {
         return $this->belongsTo(Civilian::class);
+    }
+
+    public function getTimeAttribute()
+    {
+        $lastUpdatedAt = Carbon::parse($this->updated_at);
+        $now = Carbon::now(config('app.timezone'));
+
+        return floor($lastUpdatedAt->diffInMinutes($now));
     }
 
     protected function casts(): array
