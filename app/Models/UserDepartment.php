@@ -11,7 +11,7 @@ class UserDepartment extends Model
 {
     // use SoftDeletes;
 
-    protected $with = ['department'];
+    protected $with = ['department', 'civilian'];
 
     public function department(): HasOne
     {
