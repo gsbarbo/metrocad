@@ -42,7 +42,7 @@ new class extends Component {
         </div>
         <div class="">
             <label class="label-dark">Social Security:</label>
-            <input class="form-select-input-dark" type="number" wire:model.debounce.800ms='ssnSearch'>
+            <input class="form-select-input-dark" type="number" wire:model.live.debounce.800ms='ssnSearch'>
         </div>
     </div>
 
