@@ -10,3 +10,4 @@ Route::get('/civilian-search/{civilian}', \App\Http\Controllers\Mdt\NameReturnCo
 Route::get('/civilian-search', \App\Http\Controllers\Mdt\NameSearchController::class)->name('civilianSearch');
 Route::get('/vehicle-search/{vehicle}', \App\Http\Controllers\Mdt\VehicleReturnController::class)->name('vehicleReturn');
 Route::get('/vehicle-search', \App\Http\Controllers\Mdt\VehicleSearchController::class)->name('vehicleSearch');
+Route::get('/firearm-search', \App\Http\Controllers\Mdt\FirearmSearchController::class)->name('firearmSearch');

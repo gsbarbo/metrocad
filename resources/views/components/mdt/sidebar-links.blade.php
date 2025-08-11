@@ -93,7 +93,8 @@
             Plate Search
         </x-mdt.sidebar-link>
 
-        <x-mdt.sidebar-link :active="request()->is('portal')" :href="route('portal.dashboard')">
+        <x-mdt.sidebar-link :active="request()->is('mdt/firearm-search') || request()->is('mdt/firearm-search/*')"
+                            :href="route('mdt.firearmSearch')">
             <x-slot:icon>
                 <svg fill="#ffffff" height="193px" width="193px" version="1.1" id="Capa_1" class="size-6"
                      xmlns="http://www.w3.org/2000/svg"
