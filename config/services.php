@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection HttpUrlsUsage */
+
 return [
 
     /*

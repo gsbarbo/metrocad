@@ -33,7 +33,6 @@ Route::name('settings.')->prefix('settings')->group(function () {
     Route::get('mdt', [SettingsController::class, 'cad'])->name('mdt')->middleware('can:admin:settings:general');
     Route::get('features', [SettingsController::class, 'features'])->name('features')->middleware('can:admin:settings:general');
 
-    Route::get('vehicletype/import', [VehicleTypeController::class, 'import_view'])->name('vehicletype.import_view');
     Route::post('vehicletype/import', [VehicleTypeController::class, 'import'])->name('vehicletype.import');
     Route::resource('vehicletype', VehicleTypeController::class);
 

@@ -3,14 +3,13 @@
 namespace App\Models;
 
 use App\Services\DiscordService;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use OwenIt\Auditing\Auditable as AuditingAuditable;
 use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\Permission\Models\Role as SpatieRole;
 
 class Role extends SpatieRole implements Auditable
 {
-    use AuditingAuditable, HasFactory;
+    use AuditingAuditable;
 
     public function getDiscordRoleNameAttribute()
     {

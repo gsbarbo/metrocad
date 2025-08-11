@@ -16,7 +16,11 @@ Route::get('login/discord', function () {
 Route::get('login/discord/handle', [AuthController::class, 'login'])->middleware('guest');
 Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
-Route::middleware(['auth', 'MemberCheck', 'SteamLinkCheck'])->name('portal.')->prefix('portal')->group(function () {
+Route::group([
+    'middleware' => ['auth', 'MemberCheck', 'SteamLinkCheck'],
+    'as' => 'portal.',
+    'prefix' => 'portal',
+], function () {
     Route::get('/', DashboardController::class)->name('dashboard');
 
     Route::get('/user/settings/edit', [SettingsController::class, 'edit'])->name('user.settings')->withoutMiddleware('SteamLinkCheck');
@@ -34,17 +38,23 @@ Route::middleware(['auth', 'MemberCheck', 'SteamLinkCheck'])->name('portal.')->p
 
 });
 
-Route::middleware(['auth', 'MemberCheck', 'can:admin:access', 'SteamLinkCheck'])->name('admin.')->prefix('admin')->group(function () {
-    require 'admin.php';
-});
+Route::group([
+    'middleware' => ['auth', 'MemberCheck', 'can:admin:access', 'SteamLinkCheck'],
+    'as' => 'admin.',
+    'prefix' => 'admin',
+], __DIR__.'/admin.php');
 
-Route::middleware(['auth', 'MemberCheck', 'SteamLinkCheck'])->name('civilians.')->prefix('civilians')->group(function () {
-    require 'civilian.php';
-});
+Route::group([
+    'middleware' => ['auth', 'MemberCheck', 'SteamLinkCheck'],
+    'as' => 'civilians.',
+    'prefix' => 'civilians',
+], __DIR__.'/civilian.php');
 
-Route::middleware(['auth', 'MemberCheck', 'SteamLinkCheck'])->name('mdt.')->prefix('mdt')->group(function () {
-    require 'mdt.php';
-});
+Route::group([
+    'middleware' => ['auth', 'MemberCheck', 'SteamLinkCheck'],
+    'as' => 'mdt.',
+    'prefix' => 'mdt',
+], __DIR__.'/mdt.php');
 
 // Route::get('generateCsv', function () {
 //     $vehicles = json_decode(file_get_contents('https://raw.githubusercontent.com/kevinldg/gtav-vehicle-database/refs/heads/main/data/vehicles.json'));
