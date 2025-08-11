@@ -11,16 +11,21 @@ class UserDepartment extends Model
 {
     // use SoftDeletes;
 
-    protected $with = ['department', 'civilian'];
+    protected $with = ['department'];
 
     public function department(): HasOne
     {
         return $this->hasOne(Department::class, 'id', 'department_id');
     }
 
-    public function user(): HasOne
+    public function user(): BelongsTo
     {
-        return $this->hasOne(User::class, 'id', 'user_id');
+        return $this->belongsTo(User::class);
+    }
+
+    public function activeUnit(): HasOne
+    {
+        return $this->hasOne(ActiveUnit::class);
     }
 
     public function civilian(): BelongsTo

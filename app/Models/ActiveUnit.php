@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ActiveUnit extends Model
@@ -25,7 +26,12 @@ class ActiveUnit extends Model
 
     public function civilian(): BelongsTo
     {
-        return $this->belongsTo(Civilian::class);
+        return $this->belongsTo(Civilian::class)->without(['licenses', 'vehicles', 'medical_records', 'firearms']);
+    }
+
+    public function activeUnit(): HasOne
+    {
+        return $this->hasOne(ActiveUnit::class);
     }
 
     public function getTimeAttribute()

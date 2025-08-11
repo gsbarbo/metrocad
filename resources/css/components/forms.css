@@ -42,4 +42,17 @@
     .form-error-text {
         @apply text-xs mb-3 mt-1 text-red-600;
     }
+
+    /* MDT Styles */
+    .mdt-text-input {
+        @apply border text-sm rounded-lg block w-full p-2.5 bg-[#0C1011] focus:bg-[#222423] border-gray-600 placeholder-gray-400 text-white uppercase;
+    }
+
+    .mdt-select-input {
+        @apply border text-sm rounded-lg block w-full p-2.5 bg-[#0C1011] focus:bg-[#222423] border-gray-600 placeholder-gray-400 text-white uppercase;
+    }
+
+    .mdt-textarea {
+        @apply block p-2.5 w-full text-sm rounded-lg border bg-[#0C1011] focus:bg-[#222423] border-gray-600 placeholder-gray-400 text-white uppercase;
+    }
 }

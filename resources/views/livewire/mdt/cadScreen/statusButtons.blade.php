@@ -5,7 +5,7 @@ use Livewire\Attributes\On;
 
 
 new class extends Component {
-    public $activeUnit;
+    public \App\Models\ActiveUnit $activeUnit;
 
     #[On('updated-page')]
     public function refreshComponentOnEvent(): void
@@ -13,13 +13,13 @@ new class extends Component {
         $this->js('$refresh');
     }
 
-    public function mount()
+    public function mount(): void
     {
         $this->activeUnit = auth()->user()->active_unit;
     }
 
 
-    public function setStatus(\App\Models\ActiveUnit $activeUnit, $status)
+    public function setStatus(\App\Models\ActiveUnit $activeUnit, $status): void
     {
         $activeUnit->update(['status' => $status, 'description' => 'Status Set To: '.$status]);
         $this->dispatch('updated-page');

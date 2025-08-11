@@ -1,11 +1,14 @@
 <?php
 
+use App\Enum\ActiveUnitStatus;
+use App\Models\ActiveUnit;
+use Illuminate\Support\Collection;
 use Livewire\Volt\Component;
 use Livewire\Attributes\On;
 
 
 new class extends Component {
-    public $activeUnits;
+    public Collection $activeUnits;
 
     #[On('updated-page')]
     public function refreshComponentOnEvent(): void
@@ -13,13 +16,13 @@ new class extends Component {
         $this->js('$refresh');
     }
 
-    public function mount()
+    public function mount(): void
     {
-        $this->activeUnits = \App\Models\ActiveUnit::query()->get();
+
     }
 
 
-    public function setStatus(\App\Models\ActiveUnit $activeUnit, $status)
+    public function setStatus(ActiveUnit $activeUnit, $status): void
     {
         $activeUnit->update(['status' => $status, 'description' => 'Status Set To: '.$status]);
         $this->dispatch('updated-page');
@@ -48,13 +51,13 @@ new class extends Component {
                     </td>
                     <td class="p-1 border border-slate-400">
                         {{$activeUnit->user_department->badge_number}}
-                        ({{$activeUnit->user_department->civilian->name}})
+                        ({{$activeUnit->civilian->name}})
                     </td>
                     <td class="relative p-1 border border-slate-400" x-data="{ statusOpen: false }">
                         <div class="flex justify-between">
                             <span>{{$activeUnit->status}}</span>
                             <a @click="statusOpen = !statusOpen" class="underline cursor-pointer">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke-width="1.5" stroke="currentColor"
+                                <svg class="w-6 h-6 text-white" stroke-width="1.5" stroke="currentColor"
                                      viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
@@ -65,7 +68,7 @@ new class extends Component {
                         <div @click.outside="statusOpen = false"
                              class="absolute right-0 w-32 z-50 p-3 space-y-3 text-white bg-gray-800 rounded block"
                              x-show="statusOpen">
-                            @foreach(\App\Enum\ActiveUnitStatus::options() as $id => $status)
+                            @foreach(ActiveUnitStatus::options() as $id => $status)
                                 <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
                                    wire:click="setStatus({{ $activeUnit }}, '{{ $status }}')">{{ $status }}</a>
                             @endforeach
@@ -90,7 +93,7 @@ new class extends Component {
                             </div>
                             {{-- @if ($active_unit->user_department->department->type != 2) --}}
                             <a @click="callsOpen = !callsOpen" class="underline cursor-pointer">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke-width="1.5" stroke="currentColor"
+                                <svg class="w-6 h-6 text-white" stroke-width="1.5" stroke="currentColor"
                                      viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"

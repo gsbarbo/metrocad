@@ -225,7 +225,7 @@
         </div>
 
         <div class="h-full">
-            @livewire('mdt.cadScreen.activeUnits')
+            @livewire('mdt.cadScreen.activeUnits', ['activeUnits' => $activeUnits])
         </div>
     </div>
 @endsection

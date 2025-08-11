@@ -20,7 +20,7 @@
 
 </head>
 
-<body class="font-mono antialiased bg-[#060606] uppercase">
+<body class="font-mono antialiased bg-[#060606] uppercase text-white">
 
 <div class="flex h-screen">
     @include('inc.mdt.sidebar')
