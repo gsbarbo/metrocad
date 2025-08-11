@@ -19,16 +19,16 @@ class VehicleTypeController extends Controller
         return view('admin.settings.vehicletype.index', compact('vehicle_types'));
     }
 
-    public function create()
-    {
-        return view('admin.settings.vehicletype.create');
-    }
-
     public function store(VehicleTypeRequest $request)
     {
         VehicleType::create($request->validated());
 
         return redirect()->route('admin.settings.vehicletype.index')->with('alerts', [['message' => 'Vehicle added.', 'level' => 'success']]);
+    }
+
+    public function create()
+    {
+        return view('admin.settings.vehicletype.create');
     }
 
     public function edit($vehicleType)
@@ -109,6 +109,8 @@ class VehicleTypeController extends Controller
         }
 
         VehicleType::insert($import);
+
+        setTableCache('vehicle_types');
 
         fclose($file);
 
