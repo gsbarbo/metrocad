@@ -70,7 +70,8 @@
             Name Search
         </x-mdt.sidebar-link>
 
-        <x-mdt.sidebar-link :active="request()->is('portal')" :href="route('portal.dashboard')">
+        <x-mdt.sidebar-link :active="request()->is('mdt/vehicle-search') || request()->is('mdt/vehicle-search/*')"
+                            :href="route('mdt.vehicleSearch')">
             <x-slot:icon>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="size-6">
                     <rect width="256" height="256" fill="none"/>

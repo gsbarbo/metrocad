@@ -11,6 +11,8 @@ class Vehicle extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $with = ['vehicle_type'];
+
     protected $casts = [
         'expires_at' => 'date',
         'status' => VehicleStatus::class,

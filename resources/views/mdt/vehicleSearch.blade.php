@@ -1,5 +1,5 @@
 @extends('layouts.mdt')
 
 @section('content')
-    @livewire('mdt.civilianSearch')
+    @livewire('mdt.vehicleSearch')
 @endsection
