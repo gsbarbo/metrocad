@@ -14,6 +14,8 @@ class ActiveUnit extends Model
 
     protected $with = ['civilian', 'user_department', 'user'];
 
+    protected $casts = ['status' => \App\Enum\ActiveUnitStatus::class];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

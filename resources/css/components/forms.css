@@ -53,6 +53,6 @@
     }
 
     .mdt-textarea {
-        @apply block p-2.5 w-full text-sm rounded-lg border bg-[#0C1011] focus:bg-[#222423] border-gray-600 placeholder-gray-400 text-white uppercase;
+        @apply block p-2.5 w-full h-24 text-sm rounded-lg border bg-[#0C1011] focus:bg-[#222423] border-gray-600 placeholder-gray-400 text-white uppercase;
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Enum\ActiveUnitStatus;
+use App\Http\Resources\Mdt\ActiveUnitResource;
 use App\Models\ActiveUnit;
 use Illuminate\Support\Collection;
 use Livewire\Volt\Component;
@@ -8,7 +9,7 @@ use Livewire\Attributes\On;
 
 
 new class extends Component {
-    public Collection $activeUnits;
+    public array $activeUnits;
 
     #[On('updated-page')]
     public function refreshComponentOnEvent(): void
@@ -16,19 +17,24 @@ new class extends Component {
         $this->js('$refresh');
     }
 
-    public function mount(): void
+    public function with(): array
     {
+        $activeUnits = ActiveUnit::query()->with(['civilian', 'user_department', 'user'])->get();
 
+        $this->activeUnits = ActiveUnitResource::collection($activeUnits)->toArray(request());
+
+        return [
+            'activeUnits' => $this->activeUnits,
+        ];
     }
 
-
-    public function setStatus(ActiveUnit $activeUnit, $status): void
+    public function setStatus($activeUnitId, $status): void
     {
+        $activeUnit = ActiveUnit::query()->findOrFail($activeUnitId);
         $activeUnit->update(['status' => $status, 'description' => 'Status Set To: '.$status]);
         $this->dispatch('updated-page');
     }
 }
-
 
 ?>
 
@@ -44,18 +50,18 @@ new class extends Component {
             <th class="border border-slate-400">Description</th>
         </tr>
         @foreach ($activeUnits as $activeUnit)
-            @if ($activeUnit->department_type_id != 2)
+            @if ($activeUnit['department_type_id'] != 2)
                 <tr class="text-red-500">
                     <td class="p-1 border border-slate-400">
-                        {{$activeUnit->user_department->department->initials}}
+                        {{$activeUnit['user_department']['department']['initials']}}
                     </td>
                     <td class="p-1 border border-slate-400">
-                        {{$activeUnit->user_department->badge_number}}
-                        ({{$activeUnit->civilian->name}})
+                        {{$activeUnit['user_department']['badge_number']}}
+                        ({{$activeUnit['civilian']['first_name']}} {{$activeUnit['civilian']['last_name']}})
                     </td>
                     <td class="relative p-1 border border-slate-400" x-data="{ statusOpen: false }">
                         <div class="flex justify-between">
-                            <span>{{$activeUnit->status}}</span>
+                            <span>{{$activeUnit['status']['code']}}</span>
                             <a @click="statusOpen = !statusOpen" class="underline cursor-pointer">
                                 <svg class="w-6 h-6 text-white" stroke-width="1.5" stroke="currentColor"
                                      viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -70,12 +76,12 @@ new class extends Component {
                              x-show="statusOpen">
                             @foreach(ActiveUnitStatus::options() as $id => $status)
                                 <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
-                                   wire:click="setStatus({{ $activeUnit }}, '{{ $status }}')">{{ $status }}</a>
+                                   wire:click="setStatus({{ $activeUnit['id'] }}, '{{ $status }}')">{{ $status }}</a>
                             @endforeach
                         </div>
                     </td>
                     <td class="p-1 border border-slate-400">
-                        {{ $activeUnit->time }}m
+                        {{ $activeUnit['time'] }}m
                     </td>
                     <td class="relative p-1 border border-slate-400" x-data="{ callsOpen: false }">
                         <div class="flex justify-between">
@@ -120,7 +126,7 @@ new class extends Component {
 
                     </td>
                     <td class="p-1 border border-slate-400">
-                        {{$activeUnit->description}}
+                        {{$activeUnit['description']}}
                     </td>
                 </tr>
             @endif
