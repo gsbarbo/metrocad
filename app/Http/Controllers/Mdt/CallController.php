@@ -21,6 +21,8 @@ class CallController extends Controller
 
             return redirect()->route('mdt.cadScreen');
         }
+
+        return redirect()->route('mdt.cadScreen');
     }
 
     public function create(): View

@@ -138,7 +138,6 @@ new class extends Component {
                 <td class="p-1 border border-slate-400">{{$call['resource']['label']}}</td>
                 <td class="p-1 border border-slate-400">{{$call['nature']['code'] }}
                     - {{$call['nature']['label']}}</td>
-                </td>
                 <td class="p-1 border border-slate-400">{{$call['address']['postal']}} {{$call['address']['street']}}
                     @if($call['address']['name'])
                         ({{$call['address']['name']}})
