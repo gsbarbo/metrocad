@@ -20,6 +20,10 @@ class CallStoreRequest extends FormRequest
             'priority' => ['required', 'integer'],
             'status' => ['required', Rule::enum(CallStatus::class)],
             'narrative' => ['required', 'max:2000'],
+            'linked_civilians' => 'nullable|array',
+            'linked_civilians_types' => 'nullable|array',
+            'linked_vehicles' => 'nullable|array',
+            'linked_vehicles_types' => 'nullable|array',
         ];
     }
 

@@ -10,9 +10,10 @@
             </svg>
             <span class="ml-3">New Call</span>
         </h2>
-        <div class="grid grid-cols-12 gap-4 mt-4">
-            <div class="p-2 col-span-10">
-                <form action="{{route('mdt.calls.store')}}" method="POST">
+        <form action="{{route('mdt.calls.store')}}" method="POST">
+            <div class="grid grid-cols-12 gap-4 mt-4">
+                <div class="p-2 col-span-9">
+
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -100,8 +101,19 @@
                         </div>
 
                     </div>
-                </form>
+
+                </div>
+                <div class="col-span-3">
+                    <h2 class="label-dark font-bold text-lg">Link Civilians To Call</h2>
+                    @livewire('mdt.components.civilians-to-call')
+
+
+                    <h2 class="label-dark font-bold text-lg">Link Vehicles To Call</h2>
+                    @livewire('mdt.components.vehicle-to-call')
+
+
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 @endsection
