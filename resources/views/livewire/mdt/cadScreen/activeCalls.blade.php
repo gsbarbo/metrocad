@@ -132,8 +132,8 @@ new class extends Component {
         </tr>
         @foreach ($activeCalls as $call)
             <tr class="text-green-600">
-                <td class="p-1 border border-slate-400"><a class="hover:underline"
-                                                           href="#">{{$call['id']}}</a>
+                <td class="p-1 border border-slate-400">
+                    <a class="hover:underline" href="{{route('mdt.calls.show', $call['id'])}}">{{$call['id']}}</a>
                 </td>
                 <td class="p-1 border border-slate-400">{{$call['resource']['label']}}</td>
                 <td class="p-1 border border-slate-400">{{$call['nature']['code'] }}

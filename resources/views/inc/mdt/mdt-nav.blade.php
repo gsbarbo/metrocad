@@ -4,8 +4,11 @@
             <img src="{{auth()->user()->active_unit->user_department->department->logo}}" class="size-10" alt="">
             <p class="font-bold text-center">
                 {{ auth()->user()->active_unit->user_department->department->name }} |
-                Mobile Data Terminal
+                Mobile Data Terminal |
             </p>
+
+            @livewire('mdt.components.dispatchStatus')
+
         </div>
         <a class="" href="{{ route('mdt.dashboard') }}">
             <button class="flex">

@@ -65,7 +65,10 @@ class CallController extends Controller
         return view('mdt.calls.create');
     }
 
-    public function show($id): View {}
+    public function show(Call $call): View
+    {
+        return view('mdt.calls.show', compact('call'));
+    }
 
     public function edit($id): View {}
 

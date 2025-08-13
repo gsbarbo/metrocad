@@ -38,6 +38,16 @@ class Call extends Model
         return $this->belongsTo(Address::class);
     }
 
+    public function call_civilians()
+    {
+        return $this->hasMany(CallCivilian::class);
+    }
+
+    public function call_vehicles()
+    {
+        return $this->hasMany(CallVehicle::class);
+    }
+
     public function getTimeAttribute(): int
     {
         $updated_at = Carbon::parse($this->updated_at);
