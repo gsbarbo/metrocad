@@ -16,3 +16,4 @@ Route::get('calls', [\App\Http\Controllers\Mdt\CallController::class, 'index'])-
 Route::get('calls/create', [\App\Http\Controllers\Mdt\CallController::class, 'create'])->name('calls.create');
 Route::post('calls', [\App\Http\Controllers\Mdt\CallController::class, 'store'])->name('calls.store');
 Route::get('calls/{call}', [\App\Http\Controllers\Mdt\CallController::class, 'show'])->name('calls.show');
+Route::put('calls/{call}', [\App\Http\Controllers\Mdt\CallController::class, 'update'])->name('calls.update');

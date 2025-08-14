@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Mdt;
 
+use App\Enum\CallCivilianTypes;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Mdt\CallStoreRequest;
+use App\Http\Requests\Mdt\CallUpdateRequest;
 use App\Models\Call;
 use App\Models\CallCivilian;
 use App\Models\CallVehicle;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class CallController extends Controller
@@ -67,10 +69,66 @@ class CallController extends Controller
 
     public function show(Call $call): View
     {
-        return view('mdt.calls.show', compact('call'));
+        $reportingParties = $call->call_civilians->where('type', CallCivilianTypes::REPORTER->value);
+
+        return view('mdt.calls.show', compact('call', 'reportingParties'));
     }
 
-    public function edit($id): View {}
+    public function update(CallUpdateRequest $request, Call $call): RedirectResponse
+    {
+        $name = '';
+        $data = $request->validated();
 
-    public function update(Request $request, $id) {}
+        //        if (auth()->user()->active_unit->user_department->department->type == 1) {
+        //            $name = 'Officer';
+        //        } elseif (auth()->user()->active_unit->user_department->department->type == 2) {
+        //            $name = 'Dispatcher';
+        //        } elseif (auth()->user()->active_unit->user_department->department->type == 4) {
+        //            $name = 'Fire/EMS';
+        //        }
+
+        //        if ($call->status != $request->status) {
+        //            //            CallLog::create([
+        //            //                'from' => $name.' '.auth()->user()->active_unit->user_department->badge_number,
+        //            //                'text' => 'Call Status Updated to: '.$validated['status'],
+        //            //                'call_id' => $call->id,
+        //            //            ]);
+        //
+        //            if ($validated['status'] == 'CLO' || explode('-', $validated['status'], 2)[0] == 'CLO') {
+        // //                foreach ($call->attached_units as $unit) {
+        // //                    $unit->update(['status' => 'AVL']);
+        // //                    $unit->touch();
+        // //                    $call->attached_units()->detach($unit->id);
+        // //                }
+        // //
+        // //                $call->attached_units()->detach();
+        // //
+        // //                CallLog::create([
+        // //                    'from' => auth()->user()->active_unit->officer->name.' ('.auth()->user()->active_unit->badge_number.')',
+        // //                    'text' => 'Call '.$call->id.' has been closed and all units removed from call.',
+        // //                    'call_id' => $call->id,
+        // //                ]);
+        //            }
+        //        }
+        //
+        //        if ($call->nature != $validated['nature']) {
+        // //            CallLog::create([
+        // //                'from' => $name.' '.auth()->user()->active_unit->user_department->badge_number,
+        // //                'text' => 'Call Nature Updated to: '.$validated['nature'],
+        // //                'call_id' => $call->id,
+        // //            ]);
+        //        }
+        //
+        //        if ($call->nature != $validated['priority']) {
+        // //            CallLog::create([
+        // //                'from' => $name.' '.auth()->user()->active_unit->user_department->badge_number,
+        // //                'text' => 'Call Priority Updated to: P'.$validated['priority'],
+        // //                'call_id' => $call->id,
+        // //            ]);
+        //        }
+
+        $call->update($data);
+
+        return redirect()->route('mdt.calls.show', $call->id);
+    }
 }

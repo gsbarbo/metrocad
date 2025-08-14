@@ -27,7 +27,7 @@
     <div class="flex flex-col flex-1">
         @include('inc.mdt.mdt-nav')
         <main class="">
-            <div class="container mx-auto px-6 py-3">
+            <div class="">
                 @yield('content')
             </div>
         </main>

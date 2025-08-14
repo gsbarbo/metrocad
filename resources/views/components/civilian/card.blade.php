@@ -1,4 +1,4 @@
-<div class="">
+<div class="max-w-xl">
     <div class="bg-gray-300 text-black rounded-lg text-sm border border-blue-600">
         <div class="rounded-t-lg px-1 flex justify-between items-center text-white bg-blue-600">
             <p class="text-lg font-bold">{{ strtoupper(get_setting('state')) }}</p>
@@ -22,7 +22,7 @@
             </div>
             <div class="p-2 uppercase">
                 <p class="text-base font-semibold"><span class="text-xs font-light">LIC. No.</span>
-                    {{ $license->number}}</p>
+                    {{ $civilian->drivers_license->number ?? ''}}</p>
 
                 <p class="text-base font-semibold"><span class="text-xs font-light">DOB</span>
                     {{ $civilian->date_of_birth->format(get_setting('date_format')) }}</p>
@@ -43,24 +43,24 @@
             </div>
             <div class="p-2 relative">
                 <p class="text-base font-semibold"><span class="text-xs font-light">ISS</span>
-                    {{ $license->created_at->format(get_setting('date_format'))}}</p>
+                    {{ $civilian->drivers_license->created_at->format(get_setting('date_format')) ?? ''}}</p>
                 <p class="text-base font-semibold"><span class="text-xs font-light">EXP</span>
-                    {{ $license->expires_at->format(get_setting('date_format'))}}</p>
+                    {{ $civilian->drivers_license->expires_at->format(get_setting('date_format')) ?? ''}}</p>
                 <div class="absolute bottom-0">
                     <p class="uppercase text-lg font-bold">
-                        @if ($license->status == 1)
-                            @if ($license->expires_at <= now())
+                        @if ($civilian->drivers_license->status == 1)
+                            @if ($civilian->drivers_license->expires_at <= now())
                                 <span class="text-red-500">EXPIRED</span>
                             @else
                                 <span class="text-green-500">VALID</span>
                             @endif
-                        @elseif($license->status == 2)
+                        @elseif($civilian->drivers_license->status == 2)
                             <span class="text-red-500">EXPIRED</span>
-                        @elseif($license->status == 3)
+                        @elseif($civilian->drivers_license->status == 3)
                             <span class="text-red-500">Suspended</span>
-                        @elseif($license->status == 4)
+                        @elseif($civilian->drivers_license->status == 4)
                             <span class="text-red-500">Revoked</span>
-                        @elseif($license->status == 5)
+                        @elseif($civilian->drivers_license->status == 5)
                             <span class="text-blue-500">Pending</span>
                         @endif
                     </p>
