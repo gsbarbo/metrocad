@@ -1,7 +1,7 @@
 @extends('layouts.mdt')
 
 @section('content')
-    <div class="space-y-8">
+    <div class="space-y-8 p-4">
         <div>
             @livewire('mdt.cadScreen.statusButtons')
         </div>

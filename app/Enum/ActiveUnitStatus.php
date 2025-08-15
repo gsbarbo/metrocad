@@ -37,4 +37,30 @@ enum ActiveUnitStatus: string
             self::OffDuty => 'Off Duty',
         };
     }
+
+    public function color(string $type): string
+    {
+        if ($type === 'text') {
+            return match ($this) {
+                self::Available, self::AtStation => 'text-green-600',
+                self::EnRoute, self::EnRouteToStation => 'text-yellow-600',
+                self::Transporting => 'text-purple-600',
+                self::OnScene => 'text-orange-600',
+                self::Busy, self::Break => 'text-gray-600',
+                self::OffDuty => 'text-red-600',
+            };
+        }
+
+        return match ($this) {
+            self::Available => 'bg-green-600',
+            self::AtStation => 'bg-blue-600',
+            self::EnRoute => 'bg-yellow-600',
+            self::Transporting => 'bg-purple-600',
+            self::OnScene => 'bg-red-600',
+            self::EnRouteToStation => 'bg-indigo-600',
+            self::Busy => 'bg-gray-600',
+            self::Break => 'bg-orange-600',
+            self::OffDuty => 'bg-red-600',
+        };
+    }
 }

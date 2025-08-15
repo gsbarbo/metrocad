@@ -31,16 +31,14 @@ new class extends Component {
 <div>
     <h1 class="text-2xl font-bold text-white">Set Status</h1>
     <div class="grid grid-cols-3 md:grid-cols-5 gap-4 items-center">
-
-        @foreach(\App\Enum\ActiveUnitStatus::options() as $status => $name)
-            <button wire:click="setStatus({{ $activeUnit }}, '{{ $name }}')"
+        @foreach(\App\Enum\ActiveUnitStatus::options() as $id => $name)
+            <button wire:click="setStatus({{ $activeUnit }}, '{{ $id }}')"
                     class="btn btn-lg btn-rounded
-                    @if($activeUnit->status == $name) border-white border-4 @endif
-                    @if($name == \App\Enum\ActiveUnitStatus::OffDuty->value) btn-red @else btn-blue @endif
+                    @if($activeUnit->status->value == $id) border-white border-4 @endif
+                    @if($id == \App\Enum\ActiveUnitStatus::OffDuty->value) btn-red @else btn-blue @endif
                     ">
                 {{ $name }}
             </button>
         @endforeach
-
     </div>
 </div>

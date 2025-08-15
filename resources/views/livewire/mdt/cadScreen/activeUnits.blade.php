@@ -51,7 +51,7 @@ new class extends Component {
         </tr>
         @foreach ($activeUnits as $activeUnit)
             @if ($activeUnit['department_type_id'] != 2)
-                <tr class="text-red-500">
+                <tr class="{{$activeUnit['status']['color-text']}}">
                     <td class="p-1 border border-slate-400">
                         {{$activeUnit['user_department']['department']['initials']}}
                     </td>
@@ -76,7 +76,7 @@ new class extends Component {
                              x-show="statusOpen">
                             @foreach(ActiveUnitStatus::options() as $id => $status)
                                 <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
-                                   wire:click="setStatus({{ $activeUnit['id'] }}, '{{ $status }}')">{{ $status }}</a>
+                                   wire:click="setStatus({{ $activeUnit['id'] }}, '{{ $id }}')">{{ $id }}</a>
                             @endforeach
                         </div>
                     </td>
