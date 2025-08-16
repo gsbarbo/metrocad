@@ -150,7 +150,7 @@ new class extends Component {
                 <div class="col-span-4">
                     <label class="label-dark font-bold text-lg">Requesting Unit:</label>
                     <input class="mdt-select-input" type="text"
-                           value="{{auth()->user()->active_unit->civilian->name}}"
+                           value="{{auth()->user()->active_unit->officer->name}}"
                            disabled>
                 </div>
                 <div class="col-span-2"></div>

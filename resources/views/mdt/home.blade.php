@@ -77,9 +77,9 @@
                             <select class="form-select-input-light" name="user_department_id">
                                 @foreach ($availableDepartments as $department)
                                     <option
-                                        value="{{ $department->id }}" @disabled(is_null($department->civilian))>{{ $department->department->name }}
+                                        value="{{ $department->id }}" @disabled(is_null($department->officer))>{{ $department->department->name }}
                                         ({{ $department->badge_number }})
-                                        - {{ $department->civilian->name ?? 'No civilian set to this department.' }}</option>
+                                        - {{ $department->officer->name ?? 'No officer set to this department.' }}</option>
                                 @endforeach
                             </select>
                         </div>

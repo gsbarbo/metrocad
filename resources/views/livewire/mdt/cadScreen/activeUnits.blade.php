@@ -19,7 +19,7 @@ new class extends Component {
 
     public function with(): array
     {
-        $activeUnits = ActiveUnit::query()->with(['civilian', 'user_department', 'user'])->get();
+        $activeUnits = ActiveUnit::query()->with(['officer', 'user_department', 'user'])->get();
 
         $this->activeUnits = ActiveUnitResource::collection($activeUnits)->toArray(request());
 
@@ -56,8 +56,8 @@ new class extends Component {
                         {{$activeUnit['user_department']['department']['initials']}}
                     </td>
                     <td class="p-1 border border-slate-400">
-                        {{$activeUnit['user_department']['badge_number']}}
-                        ({{$activeUnit['civilian']['first_name']}} {{$activeUnit['civilian']['last_name']}})
+                        {{$activeUnit['officer']['badge_number']}}
+                        ({{$activeUnit['officer']['name']}})
                     </td>
                     <td class="relative p-1 border border-slate-400" x-data="{ statusOpen: false }">
                         <div class="flex justify-between">

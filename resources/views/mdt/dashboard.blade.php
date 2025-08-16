@@ -23,7 +23,7 @@
                     <ul class="font-bold">
                         <li class="">Username:
                             <span class="text-sm !lowercase">
-                                {{ str_replace(' ', '_', strtolower(auth()->user()->active_unit->civilian->name)) }}
+                                {{ str_replace(' ', '_', strtolower(auth()->user()->active_unit->officer->name)) }}
                             </span>
                         </li>
                         <li>Server: <span class="text-sm">live_database_prod</span></li>
@@ -42,7 +42,7 @@
                                 active</a>
                         </li>
                         <li>Unit: <a class="text-sm underline"
-                                     href="#">{{ auth()->user()->active_unit->user_department->badge_number }} -
+                                     href="#">{{ auth()->user()->active_unit->officer->badge_number }} -
                                 {{ auth()->user()->active_unit->status }}</a></li>
                         <li>Zone: <a class="text-sm underline" href="#">Sandy Shores AOP</a></li>
                         <li>My Active Call:
@@ -65,7 +65,7 @@
                     <ul class="font-bold">
                         <li class="">Username:
                             <span class="text-sm !lowercase">
-                                {{ str_replace(' ', '_', strtolower(auth()->user()->active_unit->civilian->name)) }}
+                                {{ str_replace(' ', '_', strtolower(auth()->user()->active_unit->officer->name)) }}
                             </span>
                         </li>
                         <li>Server: <span class="text-sm">live_database_prod</span></li>

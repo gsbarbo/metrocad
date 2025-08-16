@@ -2,10 +2,10 @@
     <nav class="p-4 space-y-2">
         <x-mdt.sidebar-link :href="route('portal.dashboard')" :no-hover="true" class="bg-blue-600">
             <x-slot:icon>
-                <img src="{{auth()->user()->active_unit->civilian->picture}}" alt="" class="size-12 rounded-lg">
+                <img src="{{auth()->user()->active_unit->officer->picture ?? ''}}" alt="" class="size-12 rounded-lg">
             </x-slot:icon>
-            <p class="font-bold">{{auth()->user()->active_unit->user_department->badge_number}}</p>
-            <p class="text-xs">{{auth()->user()->active_unit->civilian->name}}</p>
+            <p class="font-bold">{{auth()->user()->active_unit->officer->badge_number}}</p>
+            <p class="text-xs">{{auth()->user()->active_unit->officer->name}}</p>
         </x-mdt.sidebar-link>
 
         <x-mdt.sidebar-link :active="request()->is('mdt/dashboard') || request()->is('mdt/dashboard/*')"

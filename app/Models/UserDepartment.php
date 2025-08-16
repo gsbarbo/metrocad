@@ -13,9 +13,9 @@ class UserDepartment extends Model
 
     protected $with = ['department'];
 
-    public function department(): HasOne
+    public function department(): BelongsTo
     {
-        return $this->hasOne(Department::class, 'id', 'department_id');
+        return $this->belongsTo(Department::class);
     }
 
     public function user(): BelongsTo
@@ -28,8 +28,8 @@ class UserDepartment extends Model
         return $this->hasOne(ActiveUnit::class);
     }
 
-    public function civilian(): BelongsTo
+    public function officer(): BelongsTo
     {
-        return $this->belongsTo(Civilian::class, 'id', 'user_department_id');
+        return $this->belongsTo(Officer::class);
     }
 }

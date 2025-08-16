@@ -42,19 +42,33 @@ Route::group([
     'middleware' => ['auth', 'MemberCheck', 'can:admin:access', 'SteamLinkCheck'],
     'as' => 'admin.',
     'prefix' => 'admin',
-], __DIR__.'/admin.php');
+], function () {
+    require __DIR__.'/admin.php';
+});
 
 Route::group([
     'middleware' => ['auth', 'MemberCheck', 'SteamLinkCheck'],
     'as' => 'civilians.',
     'prefix' => 'civilians',
-], __DIR__.'/civilian.php');
+], function () {
+    require __DIR__.'/civilian.php';
+});
 
 Route::group([
     'middleware' => ['auth', 'MemberCheck', 'SteamLinkCheck'],
     'as' => 'mdt.',
     'prefix' => 'mdt',
-], __DIR__.'/mdt.php');
+], function () {
+    require __DIR__.'/mdt.php';
+});
+
+Route::group([
+    'middleware' => ['auth', 'MemberCheck', 'SteamLinkCheck', 'NewOfficerCheck'],
+    'as' => 'workbench.',
+    'prefix' => 'workbench',
+], function () {
+    require __DIR__.'/workbench.php';
+});
 
 // Route::get('generateCsv', function () {
 //     $vehicles = json_decode(file_get_contents('https://raw.githubusercontent.com/kevinldg/gtav-vehicle-database/refs/heads/main/data/vehicles.json'));

@@ -12,7 +12,7 @@ class ActiveUnit extends Model
 {
     use SoftDeletes;
 
-    protected $with = ['civilian', 'user_department', 'user'];
+    protected $with = ['officer', 'user_department', 'user'];
 
     protected $casts = ['status' => \App\Enum\ActiveUnitStatus::class];
 
@@ -26,9 +26,9 @@ class ActiveUnit extends Model
         return $this->belongsTo(UserDepartment::class);
     }
 
-    public function civilian(): BelongsTo
+    public function officer(): BelongsTo
     {
-        return $this->belongsTo(Civilian::class)->without(['licenses', 'vehicles', 'medical_records', 'firearms']);
+        return $this->belongsTo(Officer::class);
     }
 
     public function activeUnit(): HasOne

@@ -19,33 +19,6 @@
             Portal
         </x-sidebar_link>
 
-        <x-sidebar_link :active="request()->is('civilians/') || request()->is('civilians/*')"
-                        :href="route('civilians.index')">
-            <x-slot:icon>
-                <svg class="h-6 w-6 flex-shrink-0" fill="none" stroke-width="1.5" stroke="currentColor"
-                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
-                        stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-
-            </x-slot:icon>
-            Civilian
-        </x-sidebar_link>
-
-        <x-sidebar_link :active="request()->is('')" :href="route('portal.dashboard')">
-            <x-slot:icon>
-                <svg class="h-6 w-6 flex-shrink-0" fill="none" stroke-width="1.5" stroke="currentColor"
-                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z"
-                        stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-
-            </x-slot:icon>
-            Courthouse
-        </x-sidebar_link>
-
         <x-sidebar_link :active="request()->is('mdt') || request()->is('mdt/*')" :href="route('mdt.home')">
             <x-slot:icon>
                 <svg class="h-6 w-6 flex-shrink-0" fill="none" stroke-width="1.5" stroke="currentColor"
@@ -91,6 +64,17 @@
 
         <hr>
 
+        <x-sidebar_link :active="request()->is('workbench/officer') || request()->is('workbench/officer/*')"
+                        :href="route('workbench.newOfficer.create')">
+            <x-slot:icon>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                     stroke="currentColor" class="size-6 flex-shrink-0">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z"/>
+                </svg>
+            </x-slot:icon>
+            New Officer
+        </x-sidebar_link>
         {{-- @foreach ($departments as $department)
             <x-sidebar_link :active="request()->is('portal/department/' . $department->slug) ||
                 request()->is('portal/department/' . $department->slug . '/*')" :href="route('portal.department.show', $department->slug)">
@@ -104,18 +88,5 @@
 
         <hr>
 
-        @can('admin:access')
-            <x-sidebar_link :active="request()->is('admin/*') || request()->is('admin')"
-                            :href="route('admin.dashboard')">
-                <x-slot:icon>
-                    <svg class="h-6 w-6 flex-shrink-0" class="feather feather-shield" fill="none" stroke-linecap="round"
-                         stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"
-                         xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                    </svg>
-                </x-slot:icon>
-                Admin
-            </x-sidebar_link>
-        @endcan
     </nav>
 </div>

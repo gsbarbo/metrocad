@@ -23,8 +23,8 @@ class UserDepartmentRequest extends FormRequest
     {
         return [
             'department_id' => ['required', 'numeric'],
-            'badge_number' => ['required', 'string'],
-            'rank' => ['required', 'string'],
+            'badge_number' => ['nullable', 'string'],
+            'rank' => ['nullable', 'string'],
         ];
     }
 }

@@ -14,7 +14,7 @@ class HomePageController extends Controller
             return redirect()->route('mdt.dashboard');
         }
 
-        $userDepartments = UserDepartment::query()->where('user_id', auth()->user()->id)->with('civilian')->get();
+        $userDepartments = UserDepartment::query()->where('user_id', auth()->user()->id)->with('officer')->get();
         $availableDepartments = [];
 
         foreach ($userDepartments as $userDepartment) {

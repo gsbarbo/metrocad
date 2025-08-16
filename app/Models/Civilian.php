@@ -81,11 +81,6 @@ class Civilian extends Model implements Auditable
         return $age;
     }
 
-    public function user_department()
-    {
-        return $this->belongsTo(UserDepartment::class);
-    }
-
     public function address()
     {
         return $this->belongsTo(Address::class);

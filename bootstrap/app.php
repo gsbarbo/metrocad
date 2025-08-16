@@ -29,6 +29,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'MemberCheck' => MemberCheckMiddleware::class,
             'SteamLinkCheck' => steamLinkCheckMiddleware::class,
             'DiscordDepartmentRoleSync' => \App\Http\Middleware\DiscordDepartmentRoleSyncMiddleware::class,
+            'NewOfficerCheck' => \App\Http\Middleware\Workbench\NewOfficerCheckMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
