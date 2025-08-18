@@ -20,7 +20,7 @@ class AuditedListener
      */
     public function handle(Audited $event): void
     {
-        if (! get_setting('feature_use_discord_audit_log', 0)) {
+        if (! get_setting('discord.useAuditLog', 0)) {
             return;
         }
         $old_values = $event->audit->old_values;

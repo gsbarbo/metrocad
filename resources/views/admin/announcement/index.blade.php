@@ -23,9 +23,9 @@
         @forelse ($announcements as $announcement)
             <div>
                 <a class="bg-navbar hover:opacity-85 p-2 rounded-lg flex"
-                    href="{{ route('admin.announcement.edit', $announcement->id) }}">
+                   href="{{ route('admin.announcement.edit', $announcement->id) }}">
                     <img alt="" class="w-16 h-16"
-                        src="{{ $announcement->department->logo ?? get_setting('community_logo') }}">
+                         src="{{ $announcement->department->logo ?? get_setting('community.logo') }}">
                     <div class="ml-4">
                         <h3 class="text-lg">{{ $announcement->title }}</h3>
                         <p>{{ str()->limit($announcement->text, 150, '... Read More') }}</p>

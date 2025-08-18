@@ -10,13 +10,13 @@ use Illuminate\Support\Facades\Http;
 
 class DiscordService
 {
-    public static function get_server_roles(): mixed
+    public static function getServerRoles(): mixed
     {
         return Cache::remember('discord_roles', 60, function () {
             $response =
                 Http::accept('application/json')
                     ->withHeaders(['Authorization' => config('metrocad.discord_bot_token')])
-                    ->get('https://discord.com/api/guilds/'.get_setting('discord_guild_id').'/roles');
+                    ->get('https://discord.com/api/guilds/'.get_setting('discord.guildId').'/roles');
 
             return json_decode($response->body());
         });
@@ -63,14 +63,27 @@ class DiscordService
         }
     }
 
-    public static function get_user_roles($user_id): mixed
+    public static function getUserRoles($user_id): mixed
     {
         return Cache::remember('user_discord_roles_'.$user_id, 30, function () use ($user_id) {
             $response = Http::accept('application/json')
                 ->withHeaders(['Authorization' => config('metrocad.discord_bot_token')])
-                ->get('https://discord.com/api/guilds/'.get_setting('discord_guild_id').'/members/'.$user_id);
+                ->get('https://discord.com/api/guilds/'.get_setting('discord.guildId').'/members/'.$user_id);
 
             return json_decode($response->body())->roles;
         });
+    }
+
+    public static function checkBotStatus($guildId): bool
+    {
+        $response = Http::accept('application/json')
+            ->withHeaders(['Authorization' => config('metrocad.discord_bot_token')])
+            ->get('https://discord.com/api/guilds/'.$guildId.'/roles');
+
+        if ($response->status() === 200) {
+            return true;
+        }
+
+        return false;
     }
 }

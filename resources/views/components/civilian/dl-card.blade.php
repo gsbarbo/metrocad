@@ -1,7 +1,7 @@
 <div class="">
     <div class="bg-gray-300 text-black rounded-lg text-sm border border-blue-600">
         <div class="rounded-t-lg px-1 flex justify-between items-center text-white bg-blue-600">
-            <p class="text-lg font-bold">{{ strtoupper(get_setting('state')) }}</p>
+            <p class="text-lg font-bold">{{ strtoupper(get_setting('names.state')) }}</p>
             <p class="text-sm">Driver's License</p>
         </div>
         <div class="flex justify-between mt-1">

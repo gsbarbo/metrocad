@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
-    <title>{{ get_setting('community_name') }}</title>
-    <link href="{{ get_setting('community_logo') }}" rel="icon" type="image/x-icon">
+    <title>{{ get_setting('community.name') }}</title>
+    <link href="{{ get_setting('community.logo') }}" rel="icon" type="image/x-icon">
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
     <link
@@ -18,21 +18,21 @@
 </head>
 
 <body class="bg-background antialiased text-white">
-    <div class="flex h-screen">
-        <main class="container m-auto px-6 py-3">
-            @yield('main')
-        </main>
-    </div>
+<div class="flex h-screen">
+    <main class="container m-auto px-6 py-3">
+        @yield('main')
+    </main>
+</div>
 
-    @if (session('alerts'))
-        <div class="">
-            <div class="absolute right-0 z-50 top-9">
-                <x-alert />
-            </div>
+@if (session('alerts'))
+    <div class="">
+        <div class="absolute right-0 z-50 top-9">
+            <x-alert/>
         </div>
-    @endif
+    </div>
+@endif
 
-    @include('inc.layouts.scripts')
+@include('inc.layouts.scripts')
 </body>
 
 </html>

@@ -16,7 +16,7 @@ class FirearmController extends Controller
         $data = $request->validated();
         $data['civilian_id'] = $civilian->id;
         if ($data['serial_number'] == '' || ! isset($data['serial_number'])) {
-            $data['serial_number'] = generateRandomString(length: 15, lowerLetters: false);
+            $data['serial_number'] = generate_random_string(length: 15, lowerLetters: false);
         }
 
         Firearm::create($data);

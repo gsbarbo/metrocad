@@ -20,7 +20,7 @@ class UniqueCivilianName implements DataAwareRule, ValidationRule
 
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if (! get_setting('allow_same_name_civilians', 0)) {
+        if (! get_setting('civilian.allowDuplicateCivilianNames', false)) {
             $result = Civilian::where('first_name', $this->data['first_name'])->where('last_name', $this->data['last_name'])->get();
 
             if ($result->count() != 0) {

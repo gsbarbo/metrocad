@@ -28,10 +28,11 @@ Route::name('user.userDepartments.')->prefix('user/{user}/user-departments')->mi
 Route::resource('user', UserController::class)->except(['create', 'store'])->middleware('can:admin:user:access');
 
 Route::name('settings.')->prefix('settings')->group(function () {
-    Route::get('general', [SettingsController::class, 'general'])->name('general')->middleware('can:admin:settings:general');
-    Route::get('civilian', [SettingsController::class, 'civilian'])->name('civilian')->middleware('can:admin:settings:general');
-    Route::get('mdt', [SettingsController::class, 'cad'])->name('mdt')->middleware('can:admin:settings:general');
-    Route::get('features', [SettingsController::class, 'features'])->name('features')->middleware('can:admin:settings:general');
+    Route::get('/', [SettingsController::class, 'index'])->name('index')->middleware('can:admin:settings:general');
+    Route::post('/', [SettingsController::class, 'update'])->name('update');
+
+    Route::get('api_key', [SettingsController::class, 'api_key'])->name('api_key')->middleware('can:admin:settings:api_key');
+    Route::get('generate_api_key', [SettingsController::class, 'generate_api_key'])->name('generate_api_key')->middleware('can:admin:settings:api_key');
 
     Route::post('vehicletype/import', [VehicleTypeController::class, 'import'])->name('vehicletype.import');
     Route::resource('vehicletype', VehicleTypeController::class);
@@ -55,17 +56,9 @@ Route::name('settings.')->prefix('settings')->group(function () {
         Route::post('import', [AddressController::class, 'import'])->name('import');
     });
 
-    Route::post('/', [SettingsController::class, 'update'])->name('update');
-
     Route::resource('role', RoleController::class)->middleware('can:admin:settings:management');
     Route::resource('departments', DepartmentController::class)->middleware('can:admin:settings:management');
 
     Route::get('discord', [DiscordController::class, 'index'])->name('discord.index')->middleware('can:admin:settings:discord');
     Route::post('discord', [DiscordController::class, 'update_guild_id'])->name('discord.update_guild_id')->middleware('can:admin:settings:discord');
-    Route::get('discord/audit_log', [DiscordController::class, 'audit_log'])->name('discord.audit_log')->middleware('can:admin:settings:discord');
-    Route::post('discord/audit_log', [DiscordController::class, 'update_channels'])->name('discord.update_channels')->middleware('can:admin:settings:discord');
-    Route::get('discord/roles', [DiscordController::class, 'roles'])->name('discord.roles')->middleware('can:admin:settings:discord');
-
-    Route::get('api_key', [SettingsController::class, 'api_key'])->name('api_key')->middleware('can:admin:settings:api_key');
-    Route::get('generate_api_key', [SettingsController::class, 'generate_api_key'])->name('generate_api_key')->middleware('can:admin:settings:api_key');
 });

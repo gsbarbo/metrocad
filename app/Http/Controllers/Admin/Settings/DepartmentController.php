@@ -12,9 +12,6 @@ use Illuminate\Support\Str;
 
 class DepartmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $departments = Department::all();
@@ -22,22 +19,6 @@ class DepartmentController extends Controller
         return view('admin.settings.department.index', compact('departments'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $discord_roles = [];
-        if (get_setting('feature_use_discord_department_roles') && get_setting('discord_guild_id')) {
-            $discord_roles = (new DiscordService)->get_server_roles();
-        }
-
-        return view('admin.settings.department.create', compact('discord_roles'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
 
@@ -58,7 +39,7 @@ class DepartmentController extends Controller
 
         $create['logo'] = $url;
 
-        if (get_setting('feature_use_discord_department_roles')) {
+        if (get_setting('discord.useRoles.useDepartmentRoles')) {
             $create['discord_role_id'] = $request->input('discord_role_id');
         }
 
@@ -67,13 +48,23 @@ class DepartmentController extends Controller
         return redirect()->route('admin.settings.departments.index')->with('alerts', [['message' => 'Department Created.', 'level' => 'success']]);
     }
 
+    public function create()
+    {
+        $discordRoles = [];
+        if (get_setting('discord.useRoles.useDepartmentRoles')) {
+            $discordRoles = DiscordService::getServerRoles();
+        }
+
+        return view('admin.settings.department.create', compact('discordRoles'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Department $department)
     {
         $discord_roles = [];
-        if (get_setting('feature_use_discord_department_roles') && get_setting('discord_guild_id')) {
+        if (get_setting('discord.useRoles.useDepartmentRoles')) {
             $discord_roles = (new DiscordService)->get_server_roles();
         }
 
@@ -104,7 +95,7 @@ class DepartmentController extends Controller
             $update['logo'] = $url;
         }
 
-        if (get_setting('feature_use_discord_department_roles')) {
+        if (get_setting('discord.useRoles.useDepartmentRoles')) {
             $department->update(['discord_role_id' => $request->input('discord_role_id')]);
             $update['discord_role_id'] = $request->input('discord_role_id');
         }

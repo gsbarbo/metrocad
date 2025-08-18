@@ -38,7 +38,7 @@
                     @endif
                 </h1>
 
-                @if (get_setting('force_steam_link') && !auth()->user()->steam_id)
+                @if (get_setting('features.forceSteamLink') && !auth()->user()->steam_id)
                     <div class="flex items-center p-4 mb-4 rounded-lg bg-gray-800 text-red-400" id="alert-2"
                          role="alert" x-data="{ show: true }" x-show="show">
                         <svg aria-hidden="true" class="flex-shrink-0 w-4 h-4" fill="currentColor" viewBox="0 0 20 20"

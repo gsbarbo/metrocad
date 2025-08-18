@@ -15,7 +15,7 @@
             <div class="px-4 sm:px-6 lg:px-8">
                 <div class="sm:flex sm:items-center">
 
-                    @if (get_setting('feature_use_discord_department_roles') && get_setting('feature_use_discord_roles'))
+                    @if (get_setting('discord.useRoles.useDepartmentRoles'))
                         <p class="text-red-600 text-lg"></p>
                         <div
                             class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 mx-auto dark:bg-gray-800 dark:text-blue-400"

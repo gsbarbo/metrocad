@@ -15,7 +15,7 @@ class steamLinkCheckMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (get_setting('force_steam_link', 0)) {
+        if (get_setting('features.forceSteamLink', false)) {
             if ($request->user()) {
                 if (! $request->user()->steam_hex) {
                     return redirect()->route('portal.user.settings')->with('alerts', [['message' => 'Your Steam account must be linked.', 'level' => 'warning']]);

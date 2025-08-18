@@ -1,9 +1,9 @@
 <div class="">
     <a class="h-16 flex items-center px-4 bg-navbar hover:text-gray-100 hover:bg-opacity-50 focus:outline-none focus:text-gray-100 focus:bg-opacity-50 overflow-hidden"
        href="#">
-        <img alt="Community Logo" class="h-12 w-12" src="{{ get_setting('community_logo') }}">
+        <img alt="Community Logo" class="h-12 w-12" src="{{ get_setting('community.logo') }}">
         <span :class="isSidebarExpanded ? 'opacity-100' : 'opacity-0'"
-              class="ml-2 text-xl font-medium duration-300 ease-in-out">{{ get_setting('community_name') }}</span>
+              class="ml-2 text-xl font-medium duration-300 ease-in-out">{{ get_setting('community.name') }}</span>
     </a>
     <nav class="p-4 space-y-2">
         <x-sidebar_link :active="request()->is('portal')" :href="route('portal.dashboard')">

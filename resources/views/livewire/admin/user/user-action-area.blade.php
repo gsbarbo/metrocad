@@ -4,7 +4,7 @@
     </div>
     <div class="px-4 py-5 sm:p-6 space-y-2 divide-y-2">
         @if ($user->status === \App\Enum\User\UserStatuses::PENDING)
-            @if (get_setting('discord_auto_role_id', 0) != 0 && get_setting('feature_use_discord_roles'))
+            @if (get_setting('discord.useRoles.memberRoleId', 0) != 0)
                 <p>User access is controlled by Discord Roles. You must assign them the correct role in the Discord
                     server.</p>
             @else

@@ -13,8 +13,7 @@ class Role extends SpatieRole implements Auditable
 
     public function getDiscordRoleNameAttribute()
     {
-        if (get_setting('feature_use_discord_roles')) {
-            $discord_roles = [];
+        if (get_setting('discord.useRoles')) {
             $discord_roles = (new DiscordService)->get_server_roles();
 
             foreach ($discord_roles as $role) {

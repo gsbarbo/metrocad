@@ -3,36 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Setting;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 
 class SettingsController extends Controller
 {
-    public function general()
+    public function index()
     {
-        return view('admin.settings.general');
-    }
+        //        dd(app('settings')->where('name', 'community.logo')->first()->value);
 
-    public function civilian()
-    {
-        return view('admin.settings.civilian');
-    }
-
-    public function cad()
-    {
-        return view('admin.settings.cad');
-    }
-
-    public function features()
-    {
-        return view('admin.settings.features');
+        return view('admin.settings.index');
     }
 
     public function api_key()
     {
         if (! auth()->user()->is_owner) {
-            return redirect()->route('admin.settings.general')->with('alerts', [['message' => 'API Key is only available to owners.', 'level' => 'error']]);
+            return redirect()->route('admin.settings.index')->with('alerts', [['message' => 'API Key is only available to owners.', 'level' => 'error']]);
         }
 
         return view('admin.settings.api_key');
@@ -41,15 +27,11 @@ class SettingsController extends Controller
     public function generate_api_key()
     {
         if (! auth()->user()->is_owner) {
-            return redirect()->route('admin.settings.general')->with('alerts', [['message' => 'API Key is only available to owners.', 'level' => 'error']]);
+            return redirect()->route('admin.settings.index')->with('alerts', [['message' => 'API Key is only available to owners.', 'level' => 'error']]);
         }
-        $key = generateRandomString(length: 64);
-        Setting::updateOrCreate(
-            ['name' => 'api_key'],
-            ['value' => $key]
-        );
 
-        Cache::forget('settings');
+        $key = generate_random_string(length: 64);
+        update_setting('developer.apiKey', $key);
 
         return redirect()->route('admin.settings.api_key')->with('alerts', [['message' => 'API Key Generated.', 'level' => 'success']]);
     }
@@ -58,15 +40,43 @@ class SettingsController extends Controller
     {
         $data = $request->except('_token');
 
-        foreach ($data as $key => $value) {
-            Setting::updateOrCreate(
-                ['name' => $key],
-                ['value' => $value]
+        if (isset($data['community_logo'])) {
+            $pictureUrl = ImageService::saveFromUrl(
+                url: $request->input('community_logo'),
+                prefix: 'community_logo'
             );
+
+            if ($pictureUrl) {
+                $data['community_logo'] = $pictureUrl;
+            } else {
+                return redirect()->back()->with('alerts', [
+                    ['message' => 'Settings were not saved.', 'level' => 'error'],
+                    ['message' => 'Issue with URL for picture.', 'level' => 'error'],
+                ]);
+            }
         }
 
-        Cache::forget('settings');
+        $data = $this->settingValidation($data);
+
+        update_setting($data);
 
         return redirect()->back()->with('alerts', [['message' => 'Settings Saved.', 'level' => 'success']]);
+    }
+
+    private function settingValidation(array $data): array
+    {
+        if (isset($data['discord_useRoles']) && $data['discord_useRoles'] == 'false') {
+            // TODO: Remove roles from CAD Roles
+            $data['discord_useRoles_memberRoleId'] = 0;
+            $data['discord_useRoles_suspendedRoleId'] = 0;
+        }
+
+        if (isset($data['discord_useRoles_useDepartmentRoles']) && $data['discord_useRoles_useDepartmentRoles'] == 'false') {
+            // TODO: Remove roles from Department Roles
+
+        }
+
+        return $data;
+
     }
 }

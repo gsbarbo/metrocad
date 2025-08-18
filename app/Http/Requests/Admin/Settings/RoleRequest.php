@@ -27,7 +27,7 @@ class RoleRequest extends FormRequest
             'permissions' => 'required|array',
         ];
 
-        if (get_setting('feature_use_discord_roles')) {
+        if (get_setting('discord.useRoles')) {
             $rules['discord_role_id'] = 'numeric|required';
         } else {
             $rules['discord_role_id'] = 'numeric|nullable';

@@ -4,73 +4,13 @@ namespace App\Support\Civilian;
 
 class WeightOptions
 {
-    public static function imperial(): array
+    public static function getWeight(int $weight): string
     {
-        return [
-            90 => '90 lb',
-            95 => '95 lb',
-            100 => '100 lb',
-            105 => '105 lb',
-            110 => '110 lb',
-            115 => '115 lb',
-            120 => '120 lb',
-            125 => '125 lb',
-            130 => '130 lb',
-            135 => '135 lb',
-            140 => '140 lb',
-            145 => '145 lb',
-            150 => '150 lb',
-            155 => '155 lb',
-            160 => '160 lb',
-            165 => '165 lb',
-            170 => '170 lb',
-            175 => '175 lb',
-            180 => '180 lb',
-            185 => '185 lb',
-            190 => '190 lb',
-            195 => '195 lb',
-            200 => '200 lb',
-            205 => '205 lb',
-            210 => '210 lb',
-            215 => '215 lb',
-            220 => '220 lb',
-            225 => '225 lb',
-            230 => '230 lb',
-            235 => '235 lb',
-            240 => '240 lb',
-            245 => '245 lb',
-            250 => '250 lb',
-            255 => '255 lb',
-            260 => '260 lb',
-            265 => '265 lb',
-            270 => '270 lb',
-            275 => '275 lb',
-            280 => '280 lb',
-            285 => '285 lb',
-            290 => '290 lb',
-            295 => '295 lb',
-            300 => '300 lb',
-            305 => '305 lb',
-            310 => '310 lb',
-            315 => '315 lb',
-            320 => '320 lb',
-            325 => '325 lb',
-            330 => '330 lb',
-            335 => '335 lb',
-            340 => '340 lb',
-            345 => '345 lb',
-            350 => '350 lb',
-            355 => '355 lb',
-            360 => '360 lb',
-            365 => '365 lb',
-            370 => '370 lb',
-            375 => '375 lb',
-            380 => '380 lb',
-            385 => '385 lb',
-            390 => '390 lb',
-            395 => '395 lb',
-            400 => '400 lb',
-        ];
+        if (get_setting('general.measurementFormat', 'imperial') == 'metric') {
+            return self::metric()[$weight];
+        } else {
+            return self::imperial()[$weight];
+        }
     }
 
     public static function metric(): array
@@ -142,18 +82,78 @@ class WeightOptions
         ];
     }
 
-    public static function getWeight(int $weight): string
+    public static function imperial(): array
     {
-        if (get_setting('use_metric_system', 0)) {
-            return self::metric()[$weight];
-        } else {
-            return self::imperial()[$weight];
-        }
+        return [
+            90 => '90 lb',
+            95 => '95 lb',
+            100 => '100 lb',
+            105 => '105 lb',
+            110 => '110 lb',
+            115 => '115 lb',
+            120 => '120 lb',
+            125 => '125 lb',
+            130 => '130 lb',
+            135 => '135 lb',
+            140 => '140 lb',
+            145 => '145 lb',
+            150 => '150 lb',
+            155 => '155 lb',
+            160 => '160 lb',
+            165 => '165 lb',
+            170 => '170 lb',
+            175 => '175 lb',
+            180 => '180 lb',
+            185 => '185 lb',
+            190 => '190 lb',
+            195 => '195 lb',
+            200 => '200 lb',
+            205 => '205 lb',
+            210 => '210 lb',
+            215 => '215 lb',
+            220 => '220 lb',
+            225 => '225 lb',
+            230 => '230 lb',
+            235 => '235 lb',
+            240 => '240 lb',
+            245 => '245 lb',
+            250 => '250 lb',
+            255 => '255 lb',
+            260 => '260 lb',
+            265 => '265 lb',
+            270 => '270 lb',
+            275 => '275 lb',
+            280 => '280 lb',
+            285 => '285 lb',
+            290 => '290 lb',
+            295 => '295 lb',
+            300 => '300 lb',
+            305 => '305 lb',
+            310 => '310 lb',
+            315 => '315 lb',
+            320 => '320 lb',
+            325 => '325 lb',
+            330 => '330 lb',
+            335 => '335 lb',
+            340 => '340 lb',
+            345 => '345 lb',
+            350 => '350 lb',
+            355 => '355 lb',
+            360 => '360 lb',
+            365 => '365 lb',
+            370 => '370 lb',
+            375 => '375 lb',
+            380 => '380 lb',
+            385 => '385 lb',
+            390 => '390 lb',
+            395 => '395 lb',
+            400 => '400 lb',
+        ];
     }
 
     public static function getList(): array
     {
-        if (get_setting('use_metric_system', 0)) {
+        if (get_setting('general.measurementFormat', 'imperial') == 'metric') {
             return self::metric();
         } else {
             return self::imperial();

@@ -17,19 +17,6 @@ class RoleController extends Controller
         return view('admin.settings.role.index', compact('roles'));
     }
 
-    public function create()
-    {
-        $permissions = Permission::all();
-
-        $discord_roles = [];
-
-        if (get_setting('feature_use_discord_roles') && get_setting('discord_guild_id')) {
-            $discord_roles = (new DiscordService)->get_server_roles();
-        }
-
-        return view('admin.settings.role.create', compact('permissions', 'discord_roles'));
-    }
-
     public function store(RoleRequest $request)
     {
         $role = Role::create([
@@ -47,12 +34,25 @@ class RoleController extends Controller
 
     }
 
+    public function create()
+    {
+        $permissions = Permission::all();
+
+        $discord_roles = [];
+
+        if (get_setting('discord.useRoles') && get_setting('discord.guildId')) {
+            $discord_roles = (new DiscordService)->get_server_roles();
+        }
+
+        return view('admin.settings.role.create', compact('permissions', 'discord_roles'));
+    }
+
     public function edit(Role $role)
     {
         $permissions = Permission::all();
         $discord_roles = [];
 
-        if (get_setting('feature_use_discord_roles') && get_setting('discord_guild_id')) {
+        if (get_setting('discord.useRoles') && get_setting('discord.guildId')) {
             $discord_roles = (new DiscordService)->get_server_roles();
         }
 

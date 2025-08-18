@@ -31,11 +31,11 @@ class Department extends Model implements Auditable
 
     public function getDiscordRoleNameAttribute()
     {
-        if (get_setting('feature_use_discord_roles')) {
-            $discord_roles = [];
-            $discord_roles = (new DiscordService)->get_server_roles();
+        if (get_setting('discord.useRoles')) {
+            $serverRoles = [];
+            $serverRoles = DiscordService::getServerRoles();
 
-            foreach ($discord_roles as $role) {
+            foreach ($serverRoles as $role) {
                 if ($role->id == $this->discord_role_id) {
                     return '@'.$role->name;
                 }

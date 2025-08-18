@@ -2,17 +2,17 @@
 
 @section('main')
     <x-breadcrumb pageTitle="API Settings" route="{{ route('admin.dashboard') }}">
-        <x-breadcrumb-link route="{{ route('admin.settings.general') }}">Settings</x-breadcrumb-link>
+        <x-breadcrumb-link route="{{ route('admin.settings.index') }}">Settings</x-breadcrumb-link>
         <x-breadcrumb-link route="{{ route('admin.settings.api_key') }}">API Settings</x-breadcrumb-link>
     </x-breadcrumb>
     <div>
         <a class="flex text-sm items-center text-blue-600 underline" href="#">Learn
             More
             <svg class="w-4 h-4 ml-2" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg">
+                 xmlns="http://www.w3.org/2000/svg">
                 <path
                     d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
-                    stroke-linecap="round" stroke-linejoin="round" />
+                    stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </a>
     </div>
@@ -21,15 +21,37 @@
             <p class="mb-3">If you do not have an API key below you must generate it. This needs to be kept private. You
                 can regenerate it any time by clicking on the button below. Only owners can view/reset the API Key.</p>
         </div>
-        <form action="{{ route('admin.settings.update') }}" id="mdeditor" method="POST">
+        <form action="{{ route('admin.settings.update') }}" method="POST">
             @csrf
-            <div class="py-3">
+            <div class="py-3"
+                 x-data="{ showPassword: false, inputValue: '{{get_setting('developer.apiKey')}}', copied: false }">
                 <p class="text-lg font-semibold">API Key</p>
-                <p></p>
-                <input class="form-text-input-dark bg-slate-500" name="api_key" readonly type="text"
-                    value="{{ old('api_key', get_setting('api_key')) }}">
+                <div class="flex justify-between items-center">
+                    <input class="form-text-input-dark bg-slate-600 mr-1" name="developer.apiKey" readonly
+                           :type="showPassword ? 'text' : 'password'"
+                           x-model="inputValue"
+                           value="{{ get_setting('developer.apiKey') }}">
+                    <button type="button" @click="
+            navigator.clipboard.writeText(inputValue)
+                .then(() => {
+                    copied = true;
+                    setTimeout(() => copied = false, 2000); // Reset 'copied' after 2 seconds
+                })
+                .catch(err => {
+                    console.error('Failed to copy text: ', err);
+                });
+        " class="btn btn-blue btn-md btn-rounded">
+                        <span x-show="!copied">Copy</span>
+                        <span x-show="copied">Copied!</span>
+                    </button>
+                    <button type="button" @click="showPassword = !showPassword"
+                            class="btn btn-gray btn-md btn-rounded"
+                            x-text="showPassword ? 'Hide' : 'Show'"></button>
+                </div>
             </div>
         </form>
-        <a class="primary-btn" href="{{ route('admin.settings.generate_api_key') }}">Generate/Regenerate API Key</a>
+
+        <a class="btn btn-red btn-md btn-rounded" href="{{ route('admin.settings.generate_api_key') }}">Generate/Regenerate
+            API Key</a>
     </div>
 @endsection

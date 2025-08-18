@@ -14,80 +14,114 @@ class SettingSeeder extends Seeder
     {
         DB::table('settings')->insert([
             [
-                'name' => 'community_name',
+                'name' => 'community.name',
                 'value' => 'MetroCAD',
+                'type' => 'string',
             ],
             [
-                'name' => 'community_logo',
-                'value' => 'https://metrocad.com/assets/images/metrocad-logo.png',
+                'name' => 'community.logo',
+                'value' => 'https://metrocad.app/images/community_logo.png',
+                'type' => 'string',
             ],
             [
-                'name' => 'community_intro',
+                'name' => 'community.aboutUs',
                 'value' => 'MetroCAD is a critical tool designed to streamline communication and coordination between dispatchers and officers in the field. It provides real-time tracking, efficient call management, and quick access to vital information, ensuring rapid response to emergencies. Equipped with features like integrated Computer-Aided Dispatch (CAD), mapping systems, and incident reporting, this software enhances situational awareness, improves resource allocation, and boosts overall operational efficiency for law enforcement agencies. By automating workflows and centralizing data, MetroCAD empowers teams to respond more effectively, keeping communities safer.',
+                'type' => 'text',
             ],
             [
-                'name' => 'state',
+                'name' => 'developer.apiKey',
+                'value' => '{last}, {first}',
+                'type' => 'string',
+            ],
+            [
+                'name' => 'names.state',
                 'value' => 'San Andreas',
+                'type' => 'string',
             ],
             [
-                'name' => 'county',
+                'name' => 'names.county',
                 'value' => 'Blaine County',
+                'type' => 'string',
             ],
             [
-                'name' => 'city',
+                'name' => 'names.city',
                 'value' => 'Los Santos',
+                'type' => 'string',
             ],
             [
-                'name' => 'date_format',
+                'name' => 'general.dateFormat',
                 'value' => 'm/d/Y',
+                'type' => 'string',
             ],
             [
-                'name' => 'force_steam_link',
-                'value' => '0',
+                'name' => 'general.measurementUnits',
+                'value' => 'imperial',
+                'type' => 'string',
             ],
             [
-                'name' => 'allow_same_name_civilians',
-                'value' => '0',
-            ],
-            [
-                'name' => 'allow_same_plate_vehicles',
-                'value' => '0',
-            ],
-            [
-                'name' => 'use_metric_system',
-                'value' => '0',
-            ],
-            [
-                'name' => 'use_ten_codes',
-                'value' => '0',
-            ],
-            [
-                'name' => 'officer_name_format',
-                'value' => 'F. Last',
-            ],
-            [
-                'name' => 'aop_location',
+                'name' => 'roleplay.areaOfPatrol',
                 'value' => '',
+                'type' => 'string',
             ],
             [
-                'name' => 'allow_members_to_update_badge_number',
-                'value' => '0',
+                'name' => 'roleplay.isSuspended',
+                'value' => 'false',
+                'type' => 'boolean',
             ],
             [
-                'name' => 'allow_members_to_update_rank',
-                'value' => '0',
+                'name' => 'features.forceSteamLink',
+                'value' => 'false',
+                'type' => 'boolean',
             ],
             [
-                'name' => 'suspend_roleplay',
-                'value' => '0',
-            ],
-            [
-                'name' => 'api_key',
+                'name' => 'discord.guildId',
                 'value' => '',
+                'type' => 'integer',
             ],
             [
-                'name' => 'feature_loa_requests',
+                'name' => 'discord.useRoles',
+                'value' => 'false',
+                'type' => 'boolean',
+            ],
+            [
+                'name' => 'discord.useRoles.memberRoleId',
                 'value' => '',
+                'type' => 'integer',
+            ],
+            [
+                'name' => 'discord.useRoles.suspendedRoleId',
+                'value' => '',
+                'type' => 'integer',
+            ],
+            [
+                'name' => 'discord.useRoles.useDepartmentRoles',
+                'value' => 'false',
+                'type' => 'boolean',
+            ],
+            [
+                'name' => 'discord.useAuditLog',
+                'value' => 'false',
+                'type' => 'boolean',
+            ],
+            [
+                'name' => 'civilian.allowDuplicateCivilianNames',
+                'value' => 'false',
+                'type' => 'boolean',
+            ],
+            [
+                'name' => 'civilian.allowDuplicateVehiclePlates',
+                'value' => 'false',
+                'type' => 'boolean',
+            ],
+            [
+                'name' => 'mdt.officerNameFormat',
+                'value' => '{last}, {first}',
+                'type' => 'string',
+            ],
+            [
+                'name' => 'mdt.activeUnitTimeout',
+                'value' => '{last}, {first}',
+                'type' => 'string',
             ],
         ]);
     }

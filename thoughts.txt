@@ -1,11 +1,34 @@
-Admin menu
-- Manage Users
-- CAD Settings
+Settings:
+- community.name = MetroCAD
+- community.logo = METROCAD LOGO
+- community.about_us = WELCOME MESSAGE
 
-Supervisor menu
-- DA
-- Manage User Departments
--
+- names.state = San Andreas
+- names.county = Blaine County
+- names.city = Los Santos
 
-Civilian
-- Civilian Levels
+- general.date_format = MM/DD/YYYY
+- general.measurement_format = imperial
+
+- roleplay.area_of_patrol = ''
+- roleplay.is_suspended = false
+
+- feature.force_steam_link = false
+
+- discord.guild_id = 0
+
+- discord.use_roles = false
+- discord.use_roles.member_role_id = 0
+- discord.use_roles.suspended_role_id = 0
+- discord.use_roles.use_department_roles = false
+
+- discord.use_audit_log = false
+
+- civilian.allow_duplicate_civilian_names = false
+- civilian.allow_duplicate_vehicle_plates = false
+
+- mdt.feature.ten_codes = false
+- mdt.officer_name_format = {last}, {first}
+
+Permissions:
+

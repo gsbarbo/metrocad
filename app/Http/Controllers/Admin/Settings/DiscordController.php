@@ -4,51 +4,50 @@ namespace App\Http\Controllers\Admin\Settings;
 
 use App\Http\Controllers\Controller;
 use App\Models\DiscordChannel;
-use App\Models\Setting;
+use App\Services\DiscordService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Validator;
 
 class DiscordController extends Controller
 {
     public function index()
     {
-        return view('admin.settings.discord.index');
+        $serverRoles = DiscordService::getServerRoles();
+
+        return view('admin.settings.discord.index', compact('serverRoles'));
     }
 
     public function update_guild_id(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'discord_guild_id' => 'required|numeric',
-        ]);
+        $guildId = $request->input('discord_guildId');
 
-        if ($validator->fails()) {
-            return redirect()->route('admin.settings.discord.index')->withErrors($validator)->withInput();
+        if (! $guildId) {
+            update_setting([
+                'discord.guildId' => 0,
+                'discord.useRoles' => false,
+                'discord.useRoles.memberRoleId' => 0,
+                'discord.useRoles.suspendedRoleId' => 0,
+                'discord.useRoles.useDepartmentRoles' => false,
+                'discord.useAuditLog' => false,
+            ]);
+
+            return redirect()->route('admin.settings.discord.index');
         }
 
-        $response = Http::accept('application/json')
-            ->withHeaders(['Authorization' => config('metrocad.discord_bot_token')])
-            ->get('https://discord.com/api/guilds/'.$request->input('discord_guild_id').'/roles');
+        if (! DiscordService::checkBotStatus($guildId)) {
+            update_setting([
+                'discord.guildId' => 0,
+                'discord.useRoles' => false,
+                'discord.useRoles.memberRoleId' => 0,
+                'discord.useRoles.suspendedRoleId' => 0,
+                'discord.useRoles.useDepartmentRoles' => false,
+                'discord.useAuditLog' => false,
+            ]);
 
-        if ($response->status() != 200) {
-            Setting::updateOrCreate(
-                ['name' => 'discord_guild_id'],
-                ['value' => 0]
-            );
-            Cache::forget('settings');
-
-            $validator->errors()->add('discord_guild_id', 'The Discord bot is not in this server.');
-
-            return redirect()->route('admin.settings.discord.index')->with('alerts', [['message' => 'The Discord bot is not in this server.', 'level' => 'error']])->withErrors($validator)->withInput($request->input());
+            return redirect()->route('admin.settings.discord.index')->with('alerts', [['message' => 'The Discord bot is not in this server.', 'level' => 'error']]);
         }
 
-        Setting::updateOrCreate(
-            ['name' => 'discord_guild_id'],
-            ['value' => $request->input('discord_guild_id')]
-        );
-
-        Cache::forget('settings');
+        update_setting('discord.guildId', $guildId);
 
         return redirect()->route('admin.settings.discord.index')->with('alerts', [['message' => 'Discord bot is set up and running.', 'level' => 'success']]);
     }
@@ -56,13 +55,13 @@ class DiscordController extends Controller
     public function audit_log()
     {
         $discord_channels = [];
-        if (get_setting('feature_use_discord_audit_log')) {
+        if (get_setting('discord.useAuditLog') && get_setting('discord.guildId')) {
             $discord_channels = DiscordChannel::all();
         }
 
         $discord_guild_channels = Http::accept('application/json')
             ->withHeaders(['Authorization' => config('metrocad.discord_bot_token')])
-            ->get('https://discord.com/api/guilds/'.get_setting('discord_guild_id').'/channels')->body();
+            ->get('https://discord.com/api/guilds/'.get_setting('discord.guildId').'/channels')->body();
 
         $channel_choices = [];
         foreach (json_decode($discord_guild_channels) as $channel) {
@@ -80,21 +79,5 @@ class DiscordController extends Controller
         }
 
         return redirect()->route('admin.settings.discord.audit_log')->with('alerts', [['message' => 'Discord Channels Updated.', 'level' => 'success']]);
-    }
-
-    public function roles()
-    {
-        $discord_roles = [];
-
-        if (get_setting('feature_use_discord_roles') && get_setting('discord_guild_id')) {
-            $response =
-                Http::accept('application/json')
-                    ->withHeaders(['Authorization' => config('metrocad.discord_bot_token')])
-                    ->get('https://discord.com/api/guilds/'.get_setting('discord_guild_id').'/roles');
-
-            $discord_roles = json_decode($response->body());
-        }
-
-        return view('admin.settings.discord.roles', compact('discord_roles'));
     }
 }

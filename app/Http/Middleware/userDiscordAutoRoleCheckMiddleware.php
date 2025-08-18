@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Enum\User\UserStatuses;
 use App\Services\DiscordService;
 use Closure;
 use Illuminate\Http\Request;
@@ -11,16 +12,16 @@ class userDiscordAutoRoleCheckMiddleware
     public function handle(Request $request, Closure $next)
     {
         if ($request->user()) {
-            if (get_setting('discord_auto_role_id', 0) != 0) {
-                $user_roles = (new DiscordService)->get_user_roles($request->user()->id);
+            if (get_setting('discord.useRoles.memberRoleId', 0) != 0) {
+                $userRoles = DiscordService::getUserRoles($request->user()->id);
 
-                if (in_array(get_setting('discord_auto_role_id'), array_values($user_roles))) {
-                    if ($request->user()->status == 1) {
-                        $request->user()->update(['status' => 2]);
+                if (in_array(get_setting('discord.useRoles.memberRoleId'), array_values($userRoles))) {
+                    if ($request->user()->status == UserStatuses::PENDING->value) {
+                        $request->user()->update(['status' => UserStatuses::MEMBER->value]);
                     }
                 } else {
-                    if ($request->user()->status == 1 || $request->user()->status == 2) {
-                        $request->user()->update(['status' => 1]);
+                    if ($request->user()->status == UserStatuses::PENDING->value || $request->user()->status == UserStatuses::MEMBER->value) {
+                        $request->user()->update(['status' => UserStatuses::PENDING->value]);
                     }
                 }
             }

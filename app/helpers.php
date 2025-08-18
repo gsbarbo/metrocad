@@ -1,30 +1,53 @@
 <?php
 
+use App\Models\Setting;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 if (! function_exists('get_setting')) {
-    function get_setting(string $setting_name, string|int $default = ''): string|int
+    function get_setting(string $name): mixed
     {
-        $settings = app('settings');
+        $settingsCollection = app('settings');
 
-        foreach ($settings as $setting) {
-            if ($setting->value == 'on' || $setting->value == 'yes' || $setting->value == 'off' || $setting->value == 'no' || $setting->value == '1' || $setting->value == '0') {
-                $settings[$setting->name] = filter_var($setting->value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
-            } else {
-                $settings[$setting->name] = $setting->value;
+        static $normalized = null;
+        if ($normalized === null) {
+            $normalized = [];
+
+            foreach ($settingsCollection as $setting) {
+                $value = match ($setting->type) {
+                    'boolean' => filter_var($setting->value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE),
+                    'integer' => (int) $setting->value,
+                    default => $setting->value,
+                };
+
+                $normalized[$setting->name] = $value;
             }
         }
 
-        if (! isset($settings[$setting_name])) {
-            return $default;
+        if (! Arr::has($normalized, $name)) {
+            throw new \InvalidArgumentException("Setting '{$name}' does not exist.");
         }
 
-        if (empty($settings[$setting_name])) {
-            return $default;
+        return Arr::get($normalized, $name);
+    }
+}
+
+if (! function_exists('update_setting')) {
+    function update_setting(string|array $keyOrArray, mixed $value = null): void
+    {
+        $updates = is_array($keyOrArray) ? $keyOrArray : [$keyOrArray => $value];
+
+        foreach ($updates as $key => $val) {
+            $key = str_replace('_', '.', $key);
+
+            if (app('settings')->where('name', $key)->first()->value != $val) {
+                $setting = Setting::where('name', $key)->first();
+                $setting->update(['value' => $val]);
+            }
         }
 
-        return $settings[$setting_name];
+        Cache::forget('settings');
     }
 }
 
@@ -66,8 +89,8 @@ if (! function_exists('setTableCache')) {
     }
 }
 
-if (! function_exists('generateRandomString')) {
-    function generateRandomString(int $length = 10, bool $upperLetters = true, bool $lowerLetters = true, bool $numbers = true): string
+if (! function_exists('generate_random_string')) {
+    function generate_random_string(int $length = 10, bool $upperLetters = true, bool $lowerLetters = true, bool $numbers = true): string
     {
         $upperLetterPool = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $lowerLetterPool = 'abcdefghijklmnopqrstuvwxyz';

@@ -4,13 +4,13 @@
     <div class="max-w-2xl mx-auto ">
         <div class="border-navbar border-2 rounded-lg p-4">
             <div>
-                <img alt="Community Logo" class="mx-auto w-1/2" src="{{ get_setting('community_logo') }}">
+                <img alt="Community Logo" class="mx-auto w-1/2" src="{{ get_setting('community.logo') }}">
             </div>
             @guest
                 <div class="space-y-3 text-center">
-                    <h2 class="text-2xl font-semibold">{{ __('Welcome to') }} {{ get_setting('community_name') }}!</h2>
+                    <h2 class="text-2xl font-semibold">{{ __('Welcome to') }} {{ get_setting('community.name') }}!</h2>
 
-                    <p class="text-sm">{{ get_setting('community_intro') }}</p>
+                    <p class="text-sm">{{ get_setting('community.aboutUs') }}</p>
 
                     <a class="inline-block" href="{{ route('auth.discord') }}">
                         <button
@@ -58,7 +58,7 @@
                             @break
 
                         @case(\App\Enum\User\UserStatuses::MEMBER)
-                            <p>{{ get_setting('community_intro') }}</p>
+                            <p>{{ get_setting('community.aboutUs') }}</p>
                             <a class="inline-block" href="{{ route('portal.dashboard') }}">
                                 <button
                                     class="mx-auto flex items-center bg-primary rounded-lg px-6 py-2 text-sm font-medium text-white hover:opacity-85">
@@ -97,7 +97,7 @@
                             </p>
                     @endswitch
 
-                    @if (get_setting('discord_auto_role_id', 0) != 0 && get_setting('feature_use_discord_roles'))
+                    @if (get_setting('discord.useRoles.memberRoleId', 0) != 0)
                         <p class="form-help-text-dark">Discord auto role is on.</p>
                     @endif
 

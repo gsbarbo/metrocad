@@ -28,12 +28,11 @@ class AppServiceProvider extends ServiceProvider
         Event::listen(function (\SocialiteProviders\Manager\SocialiteWasCalled $event) {
             $event->extendSocialite('discord', \SocialiteProviders\Discord\Provider::class);
             $event->extendSocialite('steam', \SocialiteProviders\Steam\Provider::class);
-
         });
 
         $this->app->bind('settings', function () {
             return Cache::rememberForever('settings', function () {
-                return DB::table('settings')->get(['name', 'value']);
+                return DB::table('settings')->get(['name', 'value', 'type']);
             });
         });
 
@@ -45,13 +44,13 @@ class AppServiceProvider extends ServiceProvider
         $this->configureUrl();
     }
 
-    private function configureModels()
+    private function configureModels(): void
     {
         Model::shouldBeStrict();
         Model::unguard();
     }
 
-    private function configureUrl()
+    private function configureUrl(): void
     {
         URL::forceScheme('https');
     }
