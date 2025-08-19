@@ -1,101 +1,58 @@
 @extends('layouts.admin_settings')
 
 @section('main')
-    <div class="flex justify-between items-baseline">
-        <h1 class="text-xl font-bold">Manage Departments > <span
-                class="font-thin text-lg">Edit {{ $department->name }}</span>
-        </h1>
-        <a class="text-red-600 hover:underline" href="{{ route('admin.settings.departments.index') }}">
-            Cancel
-        </a>
-    </div>
+    <x-breadcrumb pageTitle="Edit {{$department->name}}" route="{{ route('admin.dashboard') }}">
+        <x-breadcrumb-link route="{{ route('admin.settings.index') }}">Settings</x-breadcrumb-link>
+        <x-breadcrumb-link route="{{ route('admin.settings.departments.index') }}">Departments</x-breadcrumb-link>
+        <x-breadcrumb-link route="{{ route('admin.settings.departments.create') }}">Edit Department
+        </x-breadcrumb-link>
+    </x-breadcrumb>
 
-    <form action="{{ route('admin.settings.departments.update', $department->slug) }}" class="divide-y"
-          enctype="multipart/form-data" method="POST">
-        @csrf
-        @method('put')
-        <div class="p-3">
-            <label class="label-dark" for="name">
-                Name
-            </label>
-            <input autofocus class="form-text-input-dark @error('name') !border-red-600 !border @enderror" id="name"
-                   name="name" placeholder="" required type="text" value="{{ old('name', $department->name) }}"/>
+    <div class="max-w-3xl mx-auto space-y-4">
 
-            @error('name')
-            <p class="text-red-600">{{ $message }}</p>
-            @enderror
-        </div>
-
-        <div class="p-3">
-            <label class="label-dark" for="initials">
-                Initials
-            </label>
-            <input autofocus class="form-text-input-dark @error('initials') !border-red-600 !border @enderror"
-                   id="initials" name="initials" placeholder="" required type="text"
-                   value="{{ old('initials', $department->initials) }}"/>
-
-            @error('initials')
-            <p class="text-red-600">{{ $message }}</p>
-            @enderror
-        </div>
-
-        <div class="p-3">
-            <label class="label-dark" for="type">
-                Department Type
-            </label>
-
-            <select class="form-select-input-dark" id="type" name="type">
+        <form action="{{ route('admin.settings.departments.update', $department->slug) }}"
+              class="space-y-4"
+              method="POST">
+            @csrf
+            @method('PUT')
+            <x-forms.input name="name" label="Department Name">{{$department->name}}</x-forms.input>
+            <x-forms.input name="initials" label="Initials">{{$department->initials}}</x-forms.input>
+            <x-forms.select name="type" label="Department Type">
                 <option value="">Choose one</option>
-                <option @selected(old('type', $department->type) == 1) value="1">Law Enforcement</option>
-                <option @selected(old('type', $department->type) == 2) value="2">Dispatch</option>
-                <option @selected(old('type', $department->type) == 3) value="3">Civilian</option>
-                <option @selected(old('type', $department->type) == 4) value="4">Fire/EMS</option>
-                <option @selected(old('type', $department->type) == 5) value="5">Other In-game</option>
-                <option @selected(old('type', $department->type) == 6) value="6">Out of Game</option>
-            </select>
+                @foreach(\App\Enum\DepartmentType::options() as $value => $label)
+                    <option
+                        @selected(old('type', $department->type) == $value) value="{{ $value }}">{{ $label }}</option>
+                @endforeach
+            </x-forms.select>
 
-            @error('type')
-            <p class="text-red-600">{{ $message }}</p>
-            @enderror
-        </div>
+            <x-forms.input name="image_url" label="Logo URL" type="url">{{$department->logo}}</x-forms.input>
 
-        @livewire('admin.settings.upload-department-picture', [
-            'title' => 'Logo',
-            'default_image' => $department->logo,
-        ])
 
-        @if (get_setting('discord.useRoles.useDepartmentRoles'))
-            <div class="p-3">
-                <label class="label-dark" for="discord_role_id">
-                    Discord Role
-                </label>
-                <select class="form-text-input-dark @error('discord_role_id') !border-red-600 !border @enderror"
-                        id="discord_role_id" name="discord_role_id">
-                    <option value="">Choose Role</option>
-                    @foreach ($discord_roles as $id => $discord_role)
-                        @if ($id != 0 && $discord_role->managed != true)
+            @if (get_setting('discord.useRoles.useDepartmentRoles'))
+                <x-forms.select name="discord_role_id" label="Discord Role">
+                    <option value="">Choose one</option>
+                    @foreach ($discordRoles as $id => $discordRole)
+                        @if ($id != 0 && $discordRole->managed != true)
                             <option
-                                @selected(old('discord_role_id', $department->discord_role_id) == $discord_role->id) value="{{ $discord_role->id }}">
-                                {{ $discord_role->name }}</option>
+                                @selected(old('discord_role_id', $department->discord_role_id) == $discordRole->id) value="{{ $discordRole->id }}">
+                                {{ $discordRole->name }}</option>
                         @endif
                     @endforeach
-                </select>
-                @error('discord_role_id')
-                <p class="text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
-        @endif
+                </x-forms.select>
+            @endif
 
-        <input class="btn bg-navbar text-white hover:opacity-85" type="submit" value="Save">
+            <x-forms.buttons name="Save" cancel-route="admin.settings.departments.index"></x-forms.buttons>
+        </form>
 
-    </form>
+        <x-forms.danger-area
+            confirm="{{$department->name}}"
+            route="admin.settings.departments.destroy"
+            id="{{$department->slug}}"
+            cancel-route="admin.settings.departments.index">
+            <li>Officers assigned to this department</li>
+            <li>A lot of bad things. Do not delete unless you just made this department or on a new install.</li>
 
-    <form action="{{ route('admin.settings.departments.destroy', $department->slug) }}" class="text-right" method="POST"
-          onsubmit="return confirm('Are you sure you wish to delete this department? This can\'t be undone and will delete everything associated with this department!');">
-        @csrf
-        @method('DELETE')
-        <button class="text-red-600 hover:underline">
-            Delete
-        </button>
-    </form>
+        </x-forms.danger-area>
+    </div>
+
 @endsection

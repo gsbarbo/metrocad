@@ -6,8 +6,13 @@
         <x-breadcrumb-link route="{{ route('admin.settings.departments.index') }}">Departments</x-breadcrumb-link>
     </x-breadcrumb>
 
-    <x-admin.header buttonRoute="{{ route('admin.settings.departments.create') }}" buttonText="Add Department"
-                    learnRoute="#"/>
+    <x-admin.header learn-route="#">
+        <div class="">
+            <a href="{{ route('admin.settings.departments.create') }}">
+                <button class="btn btn-green btn-md btn-rounded" type="button">Add Department</button>
+            </a>
+        </div>
+    </x-admin.header>
 
     <div class="">
         <table class="min-w-full divide-y divide-gray-700">

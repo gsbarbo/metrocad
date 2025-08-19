@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('initials');
             $table->string('slug');
-            $table->text('logo');
+            $table->text('logo')->nullable();
             $table->integer('type');
             $table->bigInteger('discord_role_id')->nullable();
             $table->timestamps();

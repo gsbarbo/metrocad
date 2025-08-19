@@ -25,4 +25,9 @@ class ImageService
 
         return asset($path);
     }
+
+    public static function deleteFromUrl(string $url, string $path = '/'): void
+    {
+        Storage::disk('public')->delete(str_replace(asset($path), '', $url));
+    }
 }

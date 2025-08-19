@@ -93,103 +93,56 @@
         <div class="mt-2" x-show="activeTab === 1">
             <h1 class="text-lg">General Settings</h1>
             <hr class="my-2">
-            <form action="{{ route('admin.settings.update') }}" class="space-y-2" method="POST">
+            <form action="{{ route('admin.settings.update') }}" class="space-y-4" method="POST">
                 @csrf
 
-                <div class="bg-navbar p-3 rounded-lg md:flex md:justify-between">
-                    <div>
-                        <p class="label-dark">Community Name</p>
-                        <p class="form-help-text-dark">The name of your community.</p>
-                    </div>
-                    <input class="form-text-input-dark max-w-md" name="community.name" type="text"
-                           value="{{ old('community.name', get_setting('community.name')) }}">
-                </div>
+                <x-forms.input name="community.name" label="Community Name"
+                               help="The name of your community">{{get_setting('community.name')}}</x-forms.input>
 
-                <div class="bg-navbar p-3 rounded-lg md:flex md:justify-between">
-                    <div>
-                        <p class="label-dark">Community Logo</p>
-                        <p class="form-help-text-dark">URL of your community logo. Must be a Discord Link.</p>
-                    </div>
-                    <input class="form-text-input-dark max-w-xl" name="community.logo" type="text"
-                           value="{{ old('community.logo', get_setting('community.logo')) }}">
-                </div>
+                <x-forms.input name="community.logo" label="Community Logo"
+                               help="URL for Community Logo">{{get_setting('community.logo')}}</x-forms.input>
 
-                <div class="bg-navbar p-3 rounded-lg">
-                    <p class="label-dark">Community About Us</p>
-                    <p class="form-help-text-dark">Text shown on the home page of the CAD.</p>
-                    <textarea class="form-textarea-dark markdown" id="community.aboutUs" name="community.aboutUs">
-                                {{ old('community.aboutUs', get_setting('community.aboutUs')) }}
-                            </textarea>
-                    <p class="form-help-text-dark">This textbox supports markdown.
-                        <a class="hover:underline"
-                           href="https://metrocad.gitbook.io/docs/settings/basic-markdown-syntax-guide">Learn more.</a>
-                    </p>
-                </div>
+                <x-forms.textarea name="community.aboutUs" label="Community About Us" class="markdown"
+                                  help="Text shown on the home page of the CAD. This textbox supports markdown. <a class='hover:underline'
+                href='https://metrocad.gitbook.io/docs/settings/basic-markdown-syntax-guide'>Learn more.</a>">
+                    {{get_setting('community.aboutUs')}}
+                </x-forms.textarea>
 
-                <div class="bg-navbar p-3 rounded-lg md:flex md:justify-between">
-                    <div>
-                        <p class="label-dark">State</p>
-                        <p class="form-help-text-dark">This is the default values for your RP area. State refers to the
-                            whole map.</p>
-                    </div>
-                    <input class="form-text-input-dark max-w-md" name="names.state" type="text"
-                           value="{{ old('names.state', get_setting('names.state')) }}">
-                </div>
+                <x-forms.input name="names.state" label="State"
+                               help="This is the default values for your RP area. State refers to the
+                            whole map.">{{get_setting('names.state')}}</x-forms.input>
 
-                <div class="bg-navbar p-3 rounded-lg md:flex md:justify-between">
-                    <div>
-                        <p class="label-dark">County</p>
-                        <p class="form-help-text-dark">This is the default values for your RP area. County refers to
-                            Lore Blaine County.</p>
-                    </div>
-                    <input class="form-text-input-dark max-w-md" name="names.county" type="text"
-                           value="{{ old('names.county', get_setting('names.county')) }}">
-                </div>
+                <x-forms.input name="names.county" label="County"
+                               help="This is the default values for your RP area. County refers to
+                            Lore Blaine County.">{{get_setting('names.county')}}</x-forms.input>
 
-                <div class="bg-navbar p-3 rounded-lg md:flex md:justify-between">
-                    <div>
-                        <p class="label-dark">City</p>
-                        <p class="form-help-text-dark">This is the default values for your RP area. City refers to
-                            Lore Los Santos.</p>
-                    </div>
-                    <input class="form-text-input-dark max-w-md" name="names.city" type="text"
-                           value="{{ old('names.city', get_setting('names.city')) }}">
-                </div>
+                <x-forms.input name="names.city" label="City"
+                               help="This is the default values for your RP area. City refers to
+                            Lore Los Santos.">{{get_setting('names.city')}}</x-forms.input>
 
-                <div class="bg-navbar p-3 rounded-lg md:flex md:justify-between">
-                    <div>
-                        <p class="label-dark">Date Format</p>
-                        <p class="form-help-text-dark">Date format to be used in the CAD.</p>
-                    </div>
-                    <select class="form-select-input-dark max-w-sm" id="general.dateFormat" name="general.dateFormat">
-                        <option
-                            @selected(old('general.dateFormat', get_setting('general.dateFormat')) == 'm/d/Y') value="m/d/Y">
-                            mm/dd/YYYY
-                        </option>
-                        <option
-                            @selected(old('general.dateFormat', get_setting('general.dateFormat')) == 'd/m/Y') value="d/m/Y">
-                            dd/mm/YYYY
-                        </option>
-                    </select>
-                </div>
+                <x-forms.select name="general.dateFormat" label="Date Format"
+                                help="Date format to be used in the CAD.">
+                    <option
+                        @selected(old('general.dateFormat', get_setting('general.dateFormat')) == 'm/d/Y') value="m/d/Y">
+                        mm/dd/YYYY
+                    </option>
+                    <option
+                        @selected(old('general.dateFormat', get_setting('general.dateFormat')) == 'd/m/Y') value="d/m/Y">
+                        dd/mm/YYYY
+                    </option>
+                </x-forms.select>
 
-                <div class="bg-navbar p-3 rounded-lg md:flex md:justify-between">
-                    <div>
-                        <p class="label-dark">Measurement Units</p>
-                        <p class="form-help-text-dark">To use imperial or metric units.</p>
-                    </div>
-                    <select class="form-select-input-dark max-w-sm" id="general.measurementUnits"
-                            name="general.measurementUnits">
-                        <option
-                            @selected(old('general.measurementUnits', get_setting('general.measurementUnits')) == 'imperial') value="imperial">
-                            Imperial
-                        </option>
-                        <option
-                            @selected(old('general.measurementUnits', get_setting('general.measurementUnits')) == 'metric') value="metric">
-                            Metric
-                        </option>
-                    </select>
-                </div>
+                <x-forms.select name="general.measurementUnits" label="Measurement Units"
+                                help="Measurement units to be used in the CAD.">
+                    <option
+                        @selected(old('general.measurementUnits', get_setting('general.measurementUnits')) == 'imperial') value="imperial">
+                        Imperial
+                    </option>
+                    <option
+                        @selected(old('general.measurementUnits', get_setting('general.measurementUnits')) == 'metric') value="metric">
+                        Metric
+                    </option>
+                </x-forms.select>
 
                 <div class="flex justify-end">
                     <input class="btn btn-md btn-green btn-rounded" type="submit" value="Save">
@@ -200,45 +153,33 @@
         <div class="mt-2" x-show="activeTab === 2">
             <h1 class="text-lg">Civilian Settings</h1>
             <hr class="my-2">
-            <form action="{{ route('admin.settings.update') }}" class="space-y-2" method="POST">
+            <form action="{{ route('admin.settings.update') }}" class="space-y-4" method="POST">
                 @csrf
 
-                <div class="bg-navbar p-3 rounded-lg md:flex md:justify-between">
-                    <div>
-                        <p class="label-dark">Allow Duplicate Civilian Names</p>
-                        <p class="form-help-text-dark">Allows duplicate civilians with the same first and last name.</p>
-                    </div>
-                    <select class="form-select-input-dark max-w-sm" id="civilian.allowDuplicateCivilianNames"
-                            name="civilian.allowDuplicateCivilianNames">
-                        <option
-                            @selected(old('civilian.allowDuplicateCivilianNames', get_setting('civilian.allowDuplicateCivilianNames')) == 'false') value="false">
-                            False (No)
-                        </option>
-                        <option
-                            @selected(old('civilian.allowDuplicateCivilianNames', get_setting('civilian.allowDuplicateCivilianNames')) == 'true') value="true">
-                            True (Yes)
-                        </option>
-                    </select>
-                </div>
+                <x-forms.select name="civilian.allowDuplicateCivilianNames" label="Allow Duplicate Civilian Names"
+                                help="Allows duplicate civilians with the same first and last name.">
+                    <option
+                        @selected(old('civilian.allowDuplicateCivilianNames', get_setting('civilian.allowDuplicateCivilianNames')) == 'false') value="false">
+                        False (No)
+                    </option>
+                    <option
+                        @selected(old('civilian.allowDuplicateCivilianNames', get_setting('civilian.allowDuplicateCivilianNames')) == 'true') value="true">
+                        True (Yes)
+                    </option>
+                </x-forms.select>
 
-                <div class="bg-navbar p-3 rounded-lg md:flex md:justify-between">
-                    <div>
-                        <p class="label-dark">Allow Duplicate Vehicle Plates</p>
-                        <p class="form-help-text-dark">Allows vehicles to have the same plate number. Recommended to
-                            keep at false (No).</p>
-                    </div>
-                    <select class="form-select-input-dark max-w-sm" id="civilian.allowDuplicateVehiclePlates"
-                            name="civilian.allowDuplicateVehiclePlates">
-                        <option
-                            @selected(old('civilian.allowDuplicateVehiclePlates', get_setting('civilian.allowDuplicateVehiclePlates')) == 'false') value="false">
-                            False (No)
-                        </option>
-                        <option
-                            @selected(old('civilian.allowDuplicateVehiclePlates', get_setting('civilian.allowDuplicateVehiclePlates')) == 'true') value="true">
-                            True (Yes)
-                        </option>
-                    </select>
-                </div>
+                <x-forms.select name="civilian.allowDuplicateVehiclePlates" label="Allow Duplicate Vehicle Plates"
+                                help="Allows vehicles to have the same plate number. Recommended to
+                            keep at false (No).">
+                    <option
+                        @selected(old('civilian.allowDuplicateVehiclePlates', get_setting('civilian.allowDuplicateVehiclePlates')) == 'false') value="false">
+                        False (No)
+                    </option>
+                    <option
+                        @selected(old('civilian.allowDuplicateVehiclePlates', get_setting('civilian.allowDuplicateVehiclePlates')) == 'true') value="true">
+                        True (Yes)
+                    </option>
+                </x-forms.select>
 
                 <div class="flex justify-end">
                     <input class="btn btn-md btn-green btn-rounded" type="submit" value="Save">
@@ -249,44 +190,31 @@
         <div class="mt-2" x-show="activeTab === 3">
             <h1 class="text-lg">MDT/Workbench Settings</h1>
             <hr class="my-2">
-            <form action="{{ route('admin.settings.update') }}" class="space-y-2" method="POST">
+            <form action="{{ route('admin.settings.update') }}" class="space-y-4" method="POST">
                 @csrf
 
-                <div class="bg-navbar p-3 rounded-lg md:flex md:justify-between">
-                    <div>
-                        <p class="label-dark">Officer Name Format</p>
-                        <p class="form-help-text-dark">How officer names should be displayed.</p>
-                    </div>
-                    <select class="form-select-input-dark max-w-sm" id="mdt.officerNameFormat"
-                            name="mdt.officerNameFormat">
-                        <option
-                            @selected(old('officer_name_format', get_setting('mdt.officerNameFormat')) == '{f}. {last}') value="{f} {last}">
-                            F. Last
-                        </option>
-                        <option
-                            @selected(old('officer_name_format', get_setting('mdt.officerNameFormat')) == '{first} {last}') value="{first} {last}">
-                            First Last
-                        </option>
-                        <option
-                            @selected(old('officer_name_format', get_setting('mdt.officerNameFormat')) == '{first} {l}.') value="{first} {l}.">
-                            First L.
-                        </option>
-                        <option
-                            @selected(old('officer_name_format', get_setting('mdt.officerNameFormat')) == '{last}, {first}') value="{last}, {first}">
-                            Last, First
-                        </option>
-                    </select>
-                </div>
+                <x-forms.select name="mdt.officerNameFormat" label="Officer Name Format"
+                                help="How officer names should be displayed.">
+                    <option
+                        @selected(old('officer_name_format', get_setting('mdt.officerNameFormat')) == '{f}. {last}') value="{f} {last}">
+                        F. Last
+                    </option>
+                    <option
+                        @selected(old('officer_name_format', get_setting('mdt.officerNameFormat')) == '{first} {last}') value="{first} {last}">
+                        First Last
+                    </option>
+                    <option
+                        @selected(old('officer_name_format', get_setting('mdt.officerNameFormat')) == '{first} {l}.') value="{first} {l}.">
+                        First L.
+                    </option>
+                    <option
+                        @selected(old('officer_name_format', get_setting('mdt.officerNameFormat')) == '{last}, {first}') value="{last}, {first}">
+                        Last, First
+                    </option>
+                </x-forms.select>
 
-                <div class="bg-navbar p-3 rounded-lg md:flex md:justify-between">
-                    <div>
-                        <p class="label-dark">Active Unit Auto Off Duty</p>
-                        <p class="form-help-text-dark">How many minutes since the last update an active unit should stay
-                            on duty.</p>
-                    </div>
-                    <input class="form-text-input-dark max-w-xl" name="mdt.activeUnitTimeout" type="number"
-                           value="{{ old('mdt.activeUnitTimeout', get_setting('mdt.activeUnitTimeout')) }}">
-                </div>
+                <x-forms.input name="mdt.activeUnitTimeout" label="Active Unit Auto Off Duty" help="How many minutes since the last update an active unit should stay
+                            on duty." type="number">{{get_setting('mdt.activeUnitTimeout')}}</x-forms.input>
 
 
                 <div class="flex justify-end">
@@ -301,23 +229,17 @@
             <form action="{{ route('admin.settings.update') }}" class="space-y-2" method="POST">
                 @csrf
 
-                <div class="bg-navbar p-3 rounded-lg md:flex md:justify-between">
-                    <div>
-                        <p class="label-dark">Force Steam Link</p>
-                        <p class="form-help-text-dark">Forces members to link their Steam profiles to the CAD.</p>
-                    </div>
-                    <select class="form-select-input-dark max-w-sm" id="features.forceSteamLink"
-                            name="features.forceSteamLink">
-                        <option
-                            @selected(old('features.forceSteamLink', get_setting('features.forceSteamLink')) == 'false') value="false">
-                            False (No)
-                        </option>
-                        <option
-                            @selected(old('features.forceSteamLink', get_setting('features.forceSteamLink')) == 'true') value="true">
-                            True (Yes)
-                        </option>
-                    </select>
-                </div>
+                <x-forms.select name="features.forceSteamLink" label="Force Steam Link"
+                                help="Forces members to link their Steam profiles to the CAD.">
+                    <option
+                        @selected(old('features.forceSteamLink', get_setting('features.forceSteamLink')) == 'false') value="false">
+                        False (No)
+                    </option>
+                    <option
+                        @selected(old('features.forceSteamLink', get_setting('features.forceSteamLink')) == 'true') value="true">
+                        True (Yes)
+                    </option>
+                </x-forms.select>
 
                 <div class="flex justify-end">
                     <input class="btn btn-md btn-green btn-rounded" type="submit" value="Save">
@@ -328,36 +250,23 @@
         <div class="mt-2" x-show="activeTab === 5">
             <h1 class="text-lg">Misc Settings</h1>
             <hr class="my-2">
-            <form action="{{ route('admin.settings.update') }}" class="space-y-2" method="POST">
+            <form action="{{ route('admin.settings.update') }}" class="space-y-4" method="POST">
                 @csrf
 
-                <div class="bg-navbar p-3 rounded-lg md:flex md:justify-between">
-                    <div>
-                        <p class="label-dark">Area of Patrol</p>
-                        <p class="form-help-text-dark">Area of Patrol.</p>
-                    </div>
-                    <input class="form-text-input-dark max-w-md" name="roleplay.areaOfPatrol" type="text"
-                           value="{{ old('roleplay.areaOfPatrol', get_setting('roleplay.areaOfPatrol')) }}">
-                </div>
+                <x-forms.input name="roleplay.areaOfPatrol" label="Area of Patrol"
+                               help="Area of Patrol.">{{get_setting('roleplay.areaOfPatrol')}}</x-forms.input>
 
-                <div class="bg-navbar p-3 rounded-lg md:flex md:justify-between">
-                    <div>
-                        <p class="label-dark">Suspend Roleplay</p>
-                        <p class="form-help-text-dark">Shows banners on MDT and Civilian that roleplay is suspended.</p>
-                    </div>
-                    <select class="form-select-input-dark max-w-sm" id="roleplay.isSuspended"
-                            name="roleplay.isSuspended">
-                        <option
-                            @selected(old('roleplay.isSuspended', get_setting('roleplay.isSuspended')) == 'false') value="false">
-                            False (No)
-                        </option>
-                        <option
-                            @selected(old('roleplay.isSuspended', get_setting('roleplay.isSuspended')) == 'true') value="true">
-                            True (Yes)
-                        </option>
-                    </select>
-                </div>
-
+                <x-forms.select name="roleplay.isSuspended" label="Suspend Roleplay"
+                                help="Shows banners on MDT and Civilian that roleplay is suspended.">
+                    <option
+                        @selected(old('roleplay.isSuspended', get_setting('roleplay.isSuspended')) == 'false') value="false">
+                        False (No)
+                    </option>
+                    <option
+                        @selected(old('roleplay.isSuspended', get_setting('roleplay.isSuspended')) == 'true') value="true">
+                        True (Yes)
+                    </option>
+                </x-forms.select>
 
                 <div class="flex justify-end">
                     <input class="btn btn-md btn-green btn-rounded" type="submit" value="Save">

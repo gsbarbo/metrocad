@@ -21,17 +21,14 @@
             <p class="mb-3">If you do not have an API key below you must generate it. This needs to be kept private. You
                 can regenerate it any time by clicking on the button below. Only owners can view/reset the API Key.</p>
         </div>
-        <form action="{{ route('admin.settings.update') }}" method="POST">
+        <form action="{{ route('admin.settings.update') }}" method="POST" class="space-y-4"
+              x-data="{ 'showPassword': false, inputValue: '{{get_setting('developer.apiKey')}}', copied: false }">
             @csrf
-            <div class="py-3"
-                 x-data="{ showPassword: false, inputValue: '{{get_setting('developer.apiKey')}}', copied: false }">
-                <p class="text-lg font-semibold">API Key</p>
-                <div class="flex justify-between items-center">
-                    <input class="form-text-input-dark bg-slate-600 mr-1" name="developer.apiKey" readonly
-                           :type="showPassword ? 'text' : 'password'"
-                           x-model="inputValue"
-                           value="{{ get_setting('developer.apiKey') }}">
-                    <button type="button" @click="
+            <x-forms.input name="developer.apiKey" label="API Key" readonly
+                           ::type="showPassword ? 'text' : 'password'"
+                           x-model="inputValue">{{ get_setting('developer.apiKey') }}</x-forms.input>
+            <div class="">
+                <button type="button" @click="
             navigator.clipboard.writeText(inputValue)
                 .then(() => {
                     copied = true;
@@ -41,17 +38,19 @@
                     console.error('Failed to copy text: ', err);
                 });
         " class="btn btn-blue btn-md btn-rounded">
-                        <span x-show="!copied">Copy</span>
-                        <span x-show="copied">Copied!</span>
-                    </button>
-                    <button type="button" @click="showPassword = !showPassword"
-                            class="btn btn-gray btn-md btn-rounded"
-                            x-text="showPassword ? 'Hide' : 'Show'"></button>
-                </div>
+                    <span x-show="!copied">Copy</span>
+                    <span x-show="copied">Copied!</span>
+                </button>
+
+                <button type="button" @click="showPassword = !showPassword"
+                        class="btn btn-gray btn-md btn-rounded"
+                        x-text="showPassword ? 'Hide' : 'Show'"></button>
+
+                <a class="btn btn-red btn-md btn-rounded" href="{{ route('admin.settings.generate_api_key') }}">Generate/Regenerate
+                    API Key</a>
             </div>
         </form>
 
-        <a class="btn btn-red btn-md btn-rounded" href="{{ route('admin.settings.generate_api_key') }}">Generate/Regenerate
-            API Key</a>
+
     </div>
 @endsection

@@ -21,14 +21,6 @@ class LicensesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('admin.settings.licenseValues.create');
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(LicenseValueRequest $request)
@@ -41,11 +33,21 @@ class LicensesController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('admin.settings.licenseValues.create');
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(LicenseType $licenseValue)
     {
-        abort_if($licenseValue->id === 1 || $licenseValue->id === 2, 403);
+        if ($licenseValue->id === 1 || $licenseValue->id === 2) {
+            return redirect()->route('admin.settings.licenseValues.index')->with('alerts', [['message' => 'You can not update that licenses.', 'level' => 'error']]);
+        }
 
         return view('admin.settings.licenseValues.edit', compact('licenseValue'));
     }
@@ -55,7 +57,9 @@ class LicensesController extends Controller
      */
     public function update(LicenseValueRequest $request, LicenseType $licenseValue)
     {
-        abort_if($licenseValue->id === 1 || $licenseValue->id === 2, 403);
+        if ($licenseValue->id === 1 || $licenseValue->id === 2) {
+            return redirect()->route('admin.settings.licenseValues.index')->with('alerts', [['message' => 'You can not update that licenses.', 'level' => 'error']]);
+        }
 
         $data = $request->validated();
         $data['perm_name'] = Str::slug($data['name']);

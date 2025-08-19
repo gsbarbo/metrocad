@@ -21,6 +21,7 @@
     activeTabStyle: 'inline-flex items-center justify-center p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg group',
     inActiveTabStyle: 'inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-300 hover:border-gray-300 group'
     }">
+
         <div class="border-b border-gray-200 dark:border-gray-700">
             <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                 <li class="me-2">
@@ -71,20 +72,11 @@
             <form action="{{ route('admin.settings.discord.update_guild_id') }}" method="POST" class="space-y-2">
                 @csrf
 
-                <div class="bg-navbar p-3 rounded-lg md:flex md:justify-between">
-                    <div>
-                        <p class="label-dark">Server ID</p>
-                        <p class="form-help-text-dark">Discord Guild ID for the server used for Discord Integration.
-                            Only one
-                            server ID accepted. You can find this by right clicking on your server icon and select "Copy
-                            server
-                            ID".</p>
-                    </div>
-                    <input autofocus
-                           class="form-text-input-dark max-w-sm"
-                           id="discord.guildId" name="discord.guildId" placeholder="123456..." required type="number"
-                           value="{{ old('discord.guildId', get_setting('discord.guildId')) }}"/>
-                </div>
+                <x-forms.input name="discord.guildId" label="Server ID"
+                               help="Discord Guild ID for the server used for Discord Integration.
+                            Only one server ID accepted. You can find this by right clicking on your server icon and select Copy server ID.">
+                    {{get_setting('discord.guildId')}}
+                </x-forms.input>
 
                 <div class="flex justify-end">
                     <input class="btn btn-md btn-green btn-rounded" type="submit" value="Save">
@@ -99,98 +91,69 @@
             <form action="{{ route('admin.settings.update') }}" class="space-y-2" method="POST">
                 @csrf
 
-                <div class="bg-navbar p-3 rounded-lg md:flex md:justify-between">
-                    <div>
-                        <p class="label-dark">Use Discord Roles For CAD Roles</p>
-                        <p class="form-help-text-dark">Manage CAD Roles with Discord Roles. It is best not to switch
+                <x-forms.select name="discord.useRoles" label="Use Discord Roles For CAD Roles"
+                                help="Manage CAD Roles with Discord Roles. It is best not to switch
                             this a lot. Pick one and stick with it. Bugs may appear if you switch between using Discord
-                            roles and back to CAD roles.</p>
-                    </div>
-                    <select class="form-select-input-dark max-w-sm" id="discord.useRoles"
-                            name="discord.useRoles">
-                        <option
-                            @selected(old('discord.useRoles', get_setting('discord.useRoles')) == 'false') value="false">
-                            False (No)
-                        </option>
-                        <option
-                            @selected(old('discord.useRoles', get_setting('discord.useRoles')) == 'true') value="true">
-                            True (Yes)
-                        </option>
-                    </select>
-                </div>
+                            roles and back to CAD roles.">
+                    <option
+                        @selected(old('discord.useRoles', get_setting('discord.useRoles')) == 'false') value="false">
+                        False (No)
+                    </option>
+                    <option
+                        @selected(old('discord.useRoles', get_setting('discord.useRoles')) == 'true') value="true">
+                        True (Yes)
+                    </option>
+                </x-forms.select>
+
 
                 @if(get_setting('discord.useRoles'))
-                    <div class="bg-navbar p-3 rounded-lg md:flex md:justify-between">
-                        <div>
-                            <p class="label-dark">Auto Member Role</p>
-                            <p class="form-help-text-dark">This will allow members immediate access to the CAD if they
+                    <x-forms.select name="discord.useRoles.memberRoleId" label="Auto Member Role"
+                                    help="This will allow members immediate access to the CAD if they
                                 have this role in your Discord Server. If you do not want to use this feature leave the
                                 role as 'None'. If this is 'None' you will have to approve members through the 'Admin >
-                                Users' page.</p>
-                        </div>
-                        <select class="form-select-input-dark max-w-sm" id="discord.useRoles.memberRoleId"
-                                name="discord.useRoles.memberRoleId">
+                                Users' page.">
+                        <option
+                            @selected(old('discord.useRoles.memberRoleId', get_setting('discord.useRoles.memberRoleId')) == '0') value="0">
+                            None
+                        </option>
+                        @foreach($serverRoles as $role)
                             <option
-                                @selected(old('discord.useRoles.memberRoleId', get_setting('discord.useRoles.memberRoleId')) == '0') value="0">
-                                None
+                                @selected(old('discord.useRoles.memberRoleId', get_setting('discord.useRoles.memberRoleId')) == $role->id) value="{{ $role->id }}">
+                                {{ $role->name }}
                             </option>
-                            @foreach($serverRoles as $role)
-                                <option
-                                    @selected(old('discord.useRoles.memberRoleId', get_setting('discord.useRoles.memberRoleId')) == $role->id) value="{{ $role->id }}">
-                                    {{ $role->name }}
-                                </option>
-                            @endforeach
+                        @endforeach
+                    </x-forms.select>
 
-                        </select>
-                    </div>
-
-                    <div class="bg-navbar p-3 rounded-lg md:flex md:justify-between">
-                        <div>
-                            <p class="label-dark">Suspend Member Role</p>
-                            <p class="form-help-text-dark">This will suspend members from the CAD if they have this role
-                                in your Discord server. If you do not want to use this setting lave as 'None'.</p>
-                        </div>
-                        <select class="form-select-input-dark max-w-sm" id="discord.useRoles.suspendedRoleId"
-                                name="discord.useRoles.suspendedRoleId">
+                    <x-forms.select name="discord.useRoles.suspendedRoleId" label="Suspend Member Role"
+                                    help="This will suspend members from the CAD if they have this role
+                                in your Discord server. If you do not want to use this setting lave as 'None'.">
+                        <option
+                            @selected(old('discord.useRoles.suspendedRoleId', get_setting('discord.useRoles.suspendedRoleId')) == '0') value="0">
+                            None
+                        </option>
+                        @foreach($serverRoles as $role)
                             <option
-                                @selected(old('discord.useRoles.suspendedRoleId', get_setting('discord.useRoles.suspendedRoleId')) == '0') value="0">
-                                None
+                                @selected(old('discord.useRoles.suspendedRoleId', get_setting('discord.useRoles.suspendedRoleId')) == $role->id) value="{{ $role->id }}">
+                                {{ $role->name }}
                             </option>
-                            @foreach($serverRoles as $role)
-                                <option
-                                    @selected(old('discord.useRoles.suspendedRoleId', get_setting('discord.useRoles.suspendedRoleId')) == $role->id) value="{{ $role->id }}">
-                                    {{ $role->name }}
-                                </option>
-                            @endforeach
-
-                        </select>
-                    </div>
+                        @endforeach
+                    </x-forms.select>
                 @endif
 
                 <hr class="my-2">
 
-                <div class="bg-navbar p-3 rounded-lg md:flex md:justify-between">
-                    <div>
-                        <p class="label-dark">Use Discord Roles For Department Access</p>
-                        <p class="form-help-text-dark">Allows members to set up their own Officer based on the roles in
-                            Discord. They will be able to go straight to creating an officer. Members will be able to
-                            control their own Rank and Badge Number regardless of the setting on "General" page. Roles
-                            can be synced by clicking "Sync Roles" or will auto update when a member goes into the CAD
-                            System.</p>
-                    </div>
-                    <select class="form-select-input-dark max-w-sm" id="discord.useRoles.useDepartmentRoles"
-                            name="discord.useRoles.useDepartmentRoles">
-                        <option
-                            @selected(old('discord.useRoles.useDepartmentRoles', get_setting('discord.useRoles.useDepartmentRoles')) == 'false') value="false">
-                            False (No)
-                        </option>
-                        <option
-                            @selected(old('discord.useRoles.useDepartmentRoles', get_setting('discord.useRoles.useDepartmentRoles')) == 'true') value="true">
-                            True (Yes)
-                        </option>
-                    </select>
-                </div>
-
+                <x-forms.select name="discord.useRoles.useDepartmentRoles"
+                                label="Use Discord Roles For Department Access"
+                                help="Allows members to be added to departments via Discord Roles instead of manually through the Admin pages.">
+                    <option
+                        @selected(old('discord.useRoles.useDepartmentRoles', get_setting('discord.useRoles.useDepartmentRoles')) == 'false') value="false">
+                        False (No)
+                    </option>
+                    <option
+                        @selected(old('discord.useRoles.useDepartmentRoles', get_setting('discord.useRoles.useDepartmentRoles')) == 'true') value="true">
+                        True (Yes)
+                    </option>
+                </x-forms.select>
 
                 <div class="flex justify-end">
                     <input class="btn btn-md btn-green btn-rounded" type="submit" value="Save">
@@ -201,7 +164,7 @@
         <div class="mt-2" x-show="activeTab === 3">
             <h1 class="text-lg">Audit Log</h1>
             <hr class="my-2">
-            
+
         </div>
 
     </div>
