@@ -2,9 +2,9 @@
 
 @section('main')
     <x-breadcrumb pageTitle="Create Role" route="{{ route('admin.dashboard') }}">
-        <x-breadcrumb-link route="{{ route('admin.settings.general') }}">Settings</x-breadcrumb-link>
+        <x-breadcrumb-link route="{{ route('admin.settings.index') }}">Settings</x-breadcrumb-link>
         <x-breadcrumb-link route="{{ route('admin.settings.role.index') }}">Roles</x-breadcrumb-link>
-        <x-breadcrumb-link route="{{ route('admin.settings.role.index') }}">Create Role</x-breadcrumb-link>
+        <x-breadcrumb-link route="{{ route('admin.settings.role.create') }}">Create Role</x-breadcrumb-link>
     </x-breadcrumb>
     <div>
         <a class="flex text-sm items-center text-blue-600 underline" href="#">Learn
@@ -18,40 +18,24 @@
         </a>
     </div>
 
-    <form action="{{ route('admin.settings.role.store') }}" class="" method="POST">
+    <form action="{{ route('admin.settings.role.store') }}" class="space-y-4 max-w-3xl mx-auto" method="POST">
         @csrf
-        <div class="mb-3">
-            <label class="label-dark" for="name">
-                Role Name
-            </label>
-            <input autofocus class="form-text-input-dark @error('name') !border-red-600 !border @enderror" id="name"
-                   name="name" placeholder="Admin" required type="text" value="{{ old('name') }}"/>
 
-            @error('name')
-            <p class="form-error-text">{{ $message }}</p>
-            @enderror
-        </div>
+        <x-forms.input name="name" label="Name" required></x-forms.input>
 
         @if (get_setting('discord.useRoles'))
-            <div class="mb-3">
-                <label class="label-dark" for="discord_role_id">
-                    Discord Role ID
-                </label>
-                <select class="form-select-input-dark @error('discord_role_id') !border-red-600 !border @enderror"
-                        id="discord_role_id" name="discord_role_id">
-                    <option value="">Choose Role</option>
-                    @foreach ($discord_roles as $id => $discord_role)
-                        @if ($id != 0 && $discord_role->managed != true)
-                            <option
-                                @selected(old('discord_role_id') == $discord_role->id) value="{{ $discord_role->id }}">
-                                {{ $discord_role->name }}</option>
-                        @endif
-                    @endforeach
-                </select>
-                @error('discord_role_id')
-                <p class="form-error-text">{{ $message }}</p>
-                @enderror
-            </div>
+            <x-forms.select name="discord_role_id" label="Discord Role" required>
+                <option
+                    @selected(old('discord_role_id') == '0') value="0">
+                    None
+                </option>
+                @foreach($serverRoles as $role)
+                    <option
+                        @selected(old('discord_role_id') == $role->id) value="{{ $role->id }}">
+                        {{ $role->name }}
+                    </option>
+                @endforeach
+            </x-forms.select>
         @endif
         <div class="mb-3">
             <label class="label-dark" for="text">Permissions</label>
@@ -74,10 +58,7 @@
             </div>
         </div>
 
-        <div class="flex justify-between items-center">
-            <input class="btn bg-navbar text-white hover:opacity-85" type="submit" value="Save">
-            <a class="text-red-600 hover:underline" href="{{ route('admin.settings.role.index') }}">Cancel</a>
-        </div>
+        <x-forms.buttons name="Save" cancel-route="admin.settings.role.index"></x-forms.buttons>
 
     </form>
 @endsection

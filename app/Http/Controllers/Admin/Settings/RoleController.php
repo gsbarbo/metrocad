@@ -12,9 +12,7 @@ class RoleController extends Controller
 {
     public function index()
     {
-        $roles = Role::with('permissions')->get();
-
-        return view('admin.settings.role.index', compact('roles'));
+        return view('admin.settings.role.index');
     }
 
     public function store(RoleRequest $request)
@@ -38,25 +36,26 @@ class RoleController extends Controller
     {
         $permissions = Permission::all();
 
-        $discord_roles = [];
-
-        if (get_setting('discord.useRoles') && get_setting('discord.guildId')) {
-            $discord_roles = (new DiscordService)->get_server_roles();
+        $serverRoles = [];
+        if (get_setting('discord.useRoles')) {
+            $serverRoles = DiscordService::getServerRoles();
         }
 
-        return view('admin.settings.role.create', compact('permissions', 'discord_roles'));
+        return view('admin.settings.role.create', compact('permissions', 'serverRoles'));
     }
 
     public function edit(Role $role)
     {
         $permissions = Permission::all();
-        $discord_roles = [];
 
-        if (get_setting('discord.useRoles') && get_setting('discord.guildId')) {
-            $discord_roles = (new DiscordService)->get_server_roles();
+        //        dd($role->permissions->pluck('id')->toArray());
+
+        $serverRoles = [];
+        if (get_setting('discord.useRoles')) {
+            $serverRoles = DiscordService::getServerRoles();
         }
 
-        return view('admin.settings.role.edit', compact('role', 'permissions', 'discord_roles'));
+        return view('admin.settings.role.edit', compact('role', 'permissions', 'serverRoles'));
     }
 
     public function update(RoleRequest $request, Role $role)

@@ -14,9 +14,7 @@ class DepartmentController extends Controller
 {
     public function index()
     {
-        $departments = Department::all();
-
-        return view('admin.settings.department.index', compact('departments'));
+        return view('admin.settings.department.index');
     }
 
     public function store(DepartmentRequest $request)
