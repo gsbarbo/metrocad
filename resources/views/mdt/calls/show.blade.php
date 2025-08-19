@@ -1,7 +1,7 @@
 @extends('layouts.mdt')
 
 @section('content')
-    <div>
+    <div class="">
         <div class="bg-[#0C1011] text-white p-1">
             <div class="flex text-sm justify-between items-center max-w-7xl mx-auto">
                 <p>ID: {{$call->id}}</p>
@@ -62,7 +62,7 @@
                         Evidence
                     </a>
                 </div>
-                <div class="col-span-9 px-3">
+                <div class="col-span-8 px-3">
                     <div class="" x-show="openTab === 1">
                         @include('components.mdt.calls.call-info-tab', ['call' => $call])
                     </div>
@@ -70,9 +70,8 @@
                     <div class="" x-show="openTab === 3">3</div>
                     <div class="" x-show="openTab === 4">4</div>
                 </div>
-                <div class="col-span-2 flex flex-col space-y-2">
-                    <input type="text" class="mdt-text-input">
-                    <button class="btn btn-gray btn-md btn-rounded">Send</button>
+                <div class="col-span-3 flex flex-col space-y-2">
+                    @livewire('mdt.components.callLog', ['callId' => $call->id])
                 </div>
             </div>
         </div>

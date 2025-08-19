@@ -76,7 +76,7 @@
                                 @endif
                             </button>
                         </a>
-                        @if (!get_setting('force_steam_link') && auth()->user()->steam_id)
+                        @if (!get_setting('features.forceSteamLink') && auth()->user()->steam_id)
                             <a class="inline-block" href="{{ route('portal.link.steam.unlink') }}">
                                 <button class="btn-red flex items-center">
                                     <svg class="size-6 mr-2" viewBox="0 0 50 50" x="0px"

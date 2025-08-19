@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>{{ get_setting('community_name') }} | Workbench</title>
+    <title>{{ get_setting('community.name') }} | Workbench</title>
     @include('inc.layouts.header')
     <link href="https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@100..400&display=swap" rel="stylesheet">
 

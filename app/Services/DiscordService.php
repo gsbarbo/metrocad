@@ -25,7 +25,7 @@ class DiscordService
     // TODO: I think this is broken, needs to be tested
     public static function discordRoleSync($user_id): void
     {
-        $userRoles = DiscordService::get_user_roles($user_id);
+        $userRoles = DiscordService::getUserRoles($user_id);
 
         $departments = Department::query()->get(['id', 'discord_role_id'])->pluck('discord_role_id',
             'id')->toArray();
