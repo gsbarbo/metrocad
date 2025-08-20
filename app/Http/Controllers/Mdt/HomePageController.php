@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Mdt;
 use App\Enum\DepartmentType;
 use App\Http\Controllers\Controller;
 use App\Models\UserDepartment;
+use App\Services\DiscordService;
 
 class HomePageController extends Controller
 {
     public function __invoke()
     {
+        DiscordService::discordRoleSync(auth()->user()->id);
+
         if (isset(auth()->user()->active_unit)) {
             return redirect()->route('mdt.dashboard');
         }

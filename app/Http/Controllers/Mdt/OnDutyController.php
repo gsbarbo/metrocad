@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Mdt;
 use App\Http\Controllers\Controller;
 use App\Models\ActiveUnit;
 use App\Models\UserDepartment;
+use App\Services\DiscordService;
 use Illuminate\Http\Request;
 
 class OnDutyController extends Controller
 {
     public function __invoke(Request $request)
     {
+        DiscordService::discordRoleSync(auth()->user()->id);
+
         if (isset(auth()->user()->active_unit)) {
             return redirect()->route('mdt.dashboard');
         }
