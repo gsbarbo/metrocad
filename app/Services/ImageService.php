@@ -13,14 +13,8 @@ class ImageService
         $response = Http::get($url);
         $contentType = $response->header('Content-Type');
 
-        \Log::info('contentType ImageService-SaveFromUrl', [
-            'value' => $contentType,
-        ]);
-
         if (! str_starts_with($contentType, 'image/')) {
-            \Log::error('contentType error ImageService-SaveFromUrl', [
-                'value' => $contentType,
-            ]);
+            \Log::error('Invalid content type', ['value' => $contentType]);
 
             return null;
         }
@@ -31,15 +25,13 @@ class ImageService
 
         $result = Storage::disk('public')->put($path, $response->body());
 
-        \Log::info('contentType ImageService-SaveFromUrl', [
-            'extension' => $extension,
-            'filename' => $filename,
+        \Log::info('Image saved', [
             'path' => $path,
             'result' => $result,
-            'url' => asset($path),
+            'url' => Storage::url($path),
         ]);
 
-        return asset($path);
+        return Storage::url($path);
     }
 
     public static function deleteFromUrl(string $url, string $path = '/'): void
