@@ -56,7 +56,7 @@
 
                 <div class="md:col-span-4">
                     <x-forms.input name="image_url" label="Picture" help="Must be a Discord Link."
-                                   type="url">{{$civilian->picture}}</x-forms.input>
+                    >{{$civilian->picture}}</x-forms.input>
                 </div>
             </div>
 

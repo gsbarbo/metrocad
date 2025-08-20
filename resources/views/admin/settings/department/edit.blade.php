@@ -25,7 +25,7 @@
                 @endforeach
             </x-forms.select>
 
-            <x-forms.input name="image_url" label="Logo URL" type="url">{{$department->logo}}</x-forms.input>
+            <x-forms.input name="image_url" label="Logo URL">{{$department->logo}}</x-forms.input>
 
 
             @if (get_setting('discord.useRoles.useDepartmentRoles'))

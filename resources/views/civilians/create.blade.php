@@ -78,7 +78,7 @@
 
                 <div class="md:col-span-4">
                     <x-forms.input name="image_url" label="Picture" help="Must be a Discord Link."
-                                   type="url"></x-forms.input>
+                    ></x-forms.input>
                 </div>
             </div>
 
