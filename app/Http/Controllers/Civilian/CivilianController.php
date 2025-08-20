@@ -30,7 +30,7 @@ class CivilianController extends Controller
 
             $data['picture'] = ImageService::saveFromUrl(
                 url: $request->input('image_url'),
-                folder: 'images/civilians/',
+                folder: 'images/civilians',
                 prefix: $filename);
 
             $civilian->update(['picture' => $data['picture']]);
@@ -53,7 +53,7 @@ class CivilianController extends Controller
 
             $data['picture'] = ImageService::saveFromUrl(
                 url: $request->input('image_url'),
-                folder: 'images/civilians/',
+                folder: 'images/civilians',
                 prefix: $filename);
         }
 

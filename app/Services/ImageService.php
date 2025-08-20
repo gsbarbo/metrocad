@@ -13,13 +13,27 @@ class ImageService
         $response = Http::get($url);
         $contentType = $response->header('Content-Type');
 
+        \Log::info('contentType ImageService-SaveFromUrl', [
+            'value' => $contentType,
+        ]);
+
         if (! str_starts_with($contentType, 'image/')) {
+            \Log::error('contentType error ImageService-SaveFromUrl', [
+                'value' => $contentType,
+            ]);
+
             return null;
         }
 
         $extension = explode('/', $contentType)[1]; // e.g., jpeg
         $filename = ($prefix ?? Str::random(8)).($override ? '' : '_'.time()).'.'.$extension;
         $path = rtrim($folder, '/').'/'.$filename;
+
+        \Log::info('contentType ImageService-SaveFromUrl', [
+            'extension' => $extension,
+            'filename' => $filename,
+            'path' => $path,
+        ]);
 
         Storage::disk('public')->put($path, $response->body());
 

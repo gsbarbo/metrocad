@@ -25,7 +25,7 @@ class DepartmentController extends Controller
 
         $data['logo'] = ImageService::saveFromUrl(
             url: $data['image_url'],
-            folder: 'images/departments/',
+            folder: 'images/departments',
             prefix: $data['slug']
         );
 
@@ -78,7 +78,7 @@ class DepartmentController extends Controller
 
         $data['logo'] = ImageService::saveFromUrl(
             url: $data['image_url'],
-            folder: 'images/departments/',
+            folder: 'images/departments',
             prefix: $data['slug']
         );
 

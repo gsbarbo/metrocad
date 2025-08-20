@@ -49,7 +49,7 @@ class OfficerController extends Controller
 
             $data['picture'] = ImageService::saveFromUrl(
                 url: $request->input('image_url'),
-                folder: 'images/officers/',
+                folder: 'images/officers',
                 prefix: $filename);
 
             $officer->update(['picture' => $data['picture']]);
@@ -90,7 +90,7 @@ class OfficerController extends Controller
 
             $data['picture'] = ImageService::saveFromUrl(
                 url: $request->input('image_url'),
-                folder: 'images/officers/',
+                folder: 'images/officers',
                 prefix: $filename);
         }
 
