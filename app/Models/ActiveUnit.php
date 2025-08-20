@@ -16,8 +16,10 @@ class ActiveUnit extends Model
 
     protected $casts = [
         'status' => \App\Enum\ActiveUnitStatus::class,
+        'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'create_at' => 'datetime',
+        'first_on_duty_at' => 'datetime',
+        'off_duty_at' => 'datetime',
     ];
 
     public function user(): BelongsTo

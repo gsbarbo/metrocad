@@ -14,7 +14,9 @@ class ActiveUnitAutoOffDutyMiddleware
         $active_units = ActiveUnit::without(['officer', 'user_department', 'calls', 'user'])->get(['id', 'updated_at']);
 
         foreach ($active_units as $active_unit) {
-            if ($active_unit->updated_at < Carbon::now()->subMinutes(get_setting('mdt.activeUnitTimeout'))) {
+            if (Carbon::parse($active_unit->updated_at)->lt(
+                Carbon::now()->subMinutes(get_setting('mdt.activeUnitTimeout'))
+            )) {
                 $active_unit->update(['off_duty_type_id' => 3]);
                 $active_unit->delete();
             }
