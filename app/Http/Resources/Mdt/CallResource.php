@@ -17,10 +17,9 @@ class CallResource extends JsonResource
 
             // Include related address data
             'address' => [
-                'postal' => $this->address->postal ?? null,
-                'street' => $this->address->street ?? null,
-                'name' => $this->address->name ?? null,
-                'city' => $this->address->city ?? null,
+                'postal' => $this->postal ?? null,
+                'street' => $this->street ?? null,
+                'city' => $this->city ?? null,
             ],
 
             'status' => [

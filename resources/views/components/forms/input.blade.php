@@ -4,6 +4,8 @@
     'type' => 'text',
     'help' => null,
     'required' => null,
+    'mdt' => null,
+
 ])
 
 <div class="space-y-1">
@@ -24,9 +26,15 @@
         name="{{ $name }}"
         type="{{ $type }}"
         value="{{ old($name, $slot->isEmpty() ? '' : $slot) }}"
-        {{ $attributes->merge(['class' =>
+        @if($mdt)
+            {{ $attributes->merge(['class' =>
+                'mdt-text-input'
+            ]) }}
+        @else
+            {{ $attributes->merge(['class' =>
             'form-text-input'
         ]) }}
+        @endif
         @if($required) required @endif
     >
 

@@ -4,6 +4,7 @@
     'rows' => 4,
     'help' => null,
     'required' => null,
+    'mdt' => null,
 ])
 
 <div class="space-y-1">
@@ -24,10 +25,15 @@
         id="{{ $name }}"
         name="{{ $name }}"
         rows="{{ $rows }}"
-        {{ $attributes->merge([
-            'class' =>
-                'form-textarea'
+        @if($mdt)
+            {{ $attributes->merge(['class' =>
+                'mdt-text-input'
+            ]) }}
+        @else
+            {{ $attributes->merge(['class' =>
+            'form-text-input'
         ]) }}
+        @endif
         @if($required) required @endif
     >{{ old($name, $slot->isEmpty() ? '' : $slot) }}</textarea>
 

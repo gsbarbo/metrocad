@@ -17,7 +17,7 @@ class NewOfficerCheckMiddleware
 
         foreach ($userDepartments as $userDepartment) {
             if ($userDepartment->officer_id == null) {
-                redirect()->route('workbench.newOfficer.create')
+                redirect()->route('workbench.officer.create')
                     ->with('alerts', [['message' => 'You must create an officer continuing.', 'level' => 'error']])
                     ->send();
 

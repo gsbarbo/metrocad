@@ -13,7 +13,9 @@ class CallStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'address_id' => ['required', 'integer'],
+            'postal' => ['required', 'numeric'],
+            'street' => ['required'],
+            'city' => ['required'],
             'resource' => ['required', Rule::enum(CallResource::class)],
             'nature' => ['required', Rule::enum(CallNatures::class)],
             'source' => ['required', 'string'],

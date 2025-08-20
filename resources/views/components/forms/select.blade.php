@@ -3,6 +3,7 @@
     'label' => null,
     'help' => null,
     'required' => null,
+    'mdt' => null,
 ])
 
 <div class="space-y-1">
@@ -22,10 +23,15 @@
     <select
         id="{{ $name }}"
         name="{{ $name }}"
-        {{ $attributes->merge([
-            'class' =>
-                'form-select-input'
+        @if($mdt)
+            {{ $attributes->merge(['class' =>
+                'mdt-text-input'
+            ]) }}
+        @else
+            {{ $attributes->merge(['class' =>
+            'form-text-input'
         ]) }}
+        @endif
         @if($required) required @endif
     >
         {{ $slot }}

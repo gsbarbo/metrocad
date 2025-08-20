@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', \App\Http\Controllers\Mdt\HomePageController::class)->name('home')->withoutMiddleware('ActiveUnitCheck');
 Route::post('/on-duty', \App\Http\Controllers\Mdt\OnDutyController::class)->name('onDuty')->withoutMiddleware('ActiveUnitCheck');
+Route::post('/off-duty', \App\Http\Controllers\Mdt\OffDutyController::class)->name('offDuty');
+
 Route::get('/dashboard', \App\Http\Controllers\Mdt\DashboardController::class)->name('dashboard');
 Route::get('/cad-screen', \App\Http\Controllers\Mdt\CadScreenController::class)->name('cadScreen');
 Route::get('/civilian-search/{civilian}', \App\Http\Controllers\Mdt\NameReturnController::class)->name('civilianReturn');

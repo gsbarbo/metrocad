@@ -14,8 +14,7 @@ new class extends Component {
     public function with(): array
     {
         $calls = Call::query()
-            ->where('status', 'not like', 'CLO-%')
-            ->with('address')
+            ->where('status', 'not like', 'CLO_%')
             ->get();
 
         $this->activeCalls = CallResource::collection($calls)->toArray(request());
@@ -139,9 +138,6 @@ new class extends Component {
                 <td class="p-1 border border-slate-400">{{$call['nature']['code'] }}
                     - {{$call['nature']['label']}}</td>
                 <td class="p-1 border border-slate-400">{{$call['address']['postal']}} {{$call['address']['street']}}
-                    @if($call['address']['name'])
-                        ({{$call['address']['name']}})
-                    @endif
                 </td>
                 <td class="p-1 border border-slate-400">{{$call['address']['city']}}</td>
                 <td class="relative p-1 border border-slate-400" x-data="{ statusOpen: false }">

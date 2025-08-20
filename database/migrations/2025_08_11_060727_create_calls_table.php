@@ -15,7 +15,9 @@ return new class extends Migration
             $table->integer('priority');
             $table->string('resource');
             $table->string('status');
-            $table->foreignIdFor(\App\Models\Address::class)->constrained();
+            $table->integer('postal')->nullable();
+            $table->string('street')->nullable();
+            $table->string('city')->nullable();
 
             $table->string('source');
             $table->timestamps();

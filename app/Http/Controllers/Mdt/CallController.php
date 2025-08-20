@@ -81,8 +81,9 @@ class CallController extends Controller
     public function show(Call $call): View
     {
         $reportingParties = $call->call_civilians->where('type', CallCivilianTypes::REPORTER->value);
+        $callsAtPostal = Call::query()->where('postal', $call->postal)->where('id', '!=', $call->id)->get();
 
-        return view('mdt.calls.show', compact('call', 'reportingParties'));
+        return view('mdt.calls.show', compact('call', 'reportingParties', 'callsAtPostal'));
     }
 
     public function update(CallUpdateRequest $request, Call $call): RedirectResponse

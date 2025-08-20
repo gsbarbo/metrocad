@@ -7,9 +7,8 @@ use App\Http\Requests\Civilian\CivilianUpdateRequest;
 use App\Http\Requests\Civilian\StoreCivilianRequest;
 use App\Models\Civilian;
 use App\Services\CivilianService;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Storage;
 
 class CivilianController extends Controller
 {
@@ -27,23 +26,13 @@ class CivilianController extends Controller
         $civilian = Civilian::create($data);
 
         if ($request->input('image_url')) {
-            $response = Http::get($request->input('image_url'));
-            $contentType = $response->header('Content-Type');
-            if (! str_starts_with($contentType, 'image/')) {
-                return redirect()->route('civilians.index')->with('alerts', [
-                    ['message' => 'Civilian created.', 'level' => 'success'],
-                    ['message' => 'Image was not saved.', 'level' => 'error'],
-                ]);
+            $filename = 'civilian_'.$civilian->id;
 
-            }
+            $data['picture'] = ImageService::saveFromUrl(
+                url: $request->input('image_url'),
+                folder: 'images/civilians/',
+                prefix: $filename);
 
-            $extension = explode('/', $contentType)[1]; // e.g., 'jpeg'
-            $filename = 'civilian_'.$civilian->id.'.'.$extension;
-            $path = 'images/civilians/'.$filename;
-
-            Storage::disk('public')->put($path, $response->body());
-
-            $data['picture'] = asset($path);
             $civilian->update(['picture' => $data['picture']]);
         }
 
@@ -60,20 +49,12 @@ class CivilianController extends Controller
         $data = $request->validated();
 
         if ($data['image_url'] && $data['image_url'] != $civilian->picture) {
+            $filename = 'civilian_'.$civilian->id;
 
-            $response = Http::get($request->input('image_url'));
-            $contentType = $response->header('Content-Type');
-            if (! str_starts_with($contentType, 'image/')) {
-                return back()->withErrors(['image_url' => 'The URL does not point to a valid image.']);
-            }
-
-            $extension = explode('/', $contentType)[1]; // e.g., 'jpeg'
-            $filename = 'civilian_'.$civilian->id.'.'.$extension;
-            $path = 'images/civilians/'.$filename;
-
-            Storage::disk('public')->put($path, $response->body());
-
-            $data['picture'] = asset($path);
+            $data['picture'] = ImageService::saveFromUrl(
+                url: $request->input('image_url'),
+                folder: 'images/civilians/',
+                prefix: $filename);
         }
 
         unset($data['image_url']);

@@ -1,7 +1,7 @@
 @extends('layouts.mdt')
 
 @section('content')
-    <div>
+    <div class="p-3">
         <h2 class="text-2xl flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                  stroke="currentColor" class="size-10">
@@ -25,75 +25,76 @@
                     @endif
                     @csrf
                     <div class="grid grid-cols-6 gap-4 border-2 p-2">
-                        <div class="col-span-4">
-                            @livewire('mdt.components.address-selection')
+                        <div class="col-span-6 grid grid-cols-6 gap-4">
+                            <div class="space-y-2">
+                                <x-forms.input name="postal" label="Postal" required type="number" mdt></x-forms.input>
+                            </div>
+
+                            <div class="md:col-span-3">
+                                <x-forms.input name="street" label="Street" required mdt></x-forms.input>
+                            </div>
+
+                            <div class="md:col-span-2">
+                                <x-forms.input name="city" label="City" required mdt></x-forms.input>
+                            </div>
                         </div>
                         <div class="col-span-2">
-                            <div class="col-span-1">
-                                <label class="label-dark font-bold text-lg">Resource:</label>
-                                <select name="resource" id="" class="mdt-select-input">
-                                    <option value=""></option>
-                                    @foreach(\App\Enum\CallResource::options() as $id => $name)
-                                        <option value="{{ $id }}" @selected(old('resource') == $id)>
-                                            {{ $name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            <x-forms.select name="resource" label="Resource" mdt required>
+                                <option value=""></option>
+                                @foreach(\App\Enum\CallResource::options() as $id => $name)
+                                    <option value="{{ $id }}" @selected(old('resource') == $id)>
+                                        {{ $name }}
+                                    </option>
+                                @endforeach
+                            </x-forms.select>
                         </div>
 
                         <div class="col-span-4">
-                            <label class="label-dark font-bold text-lg">Nature:</label>
-                            <select name="nature" id="" class="mdt-select-input">
+                            <x-forms.select name="nature" label="Nature" mdt required>
                                 <option value=""></option>
                                 @foreach(\App\Enum\CallNatures::options() as $id => $name)
                                     <option value="{{ $id }}" @selected(old('nature') == $id)>
                                         {{$id}} - {{ $name }}
                                     </option>
                                 @endforeach
-                            </select>
-                        </div>
-                        <div class="col-span-2">
-                            <div class="col-span-1">
-                                <label class="label-dark font-bold text-lg">Received Via:</label>
-                                <select name="source" id="" class="mdt-select-input">
-                                    <option value=""></option>
-                                    @foreach(\App\Enum\CallSource::options() as $id => $name)
-                                        <option value="{{ $id }}" @selected(old('source') == $id)>
-                                            {{ $name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-span-2">
-                            <div class="col-span-1">
-                                <label class="label-dark font-bold text-lg">Priority:</label>
-                                <select name="priority" id="" class="mdt-select-input">
-                                    <option value="1" @selected(old('priority') == 1)>1</option>
-                                    <option value="2" @selected(old('priority') == 2)>2</option>
-                                    <option value="3" @selected(old('priority') == 3)>3</option>
-                                    <option value="4" @selected(old('priority') == 4)>4</option>
-                                    <option value="5" @selected(old('priority') == 5)>5</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-span-4">
-                            <div class="col-span-1">
-                                <label class="label-dark font-bold text-lg">Status:</label>
-                                <select name="status" id="" class="mdt-select-input">
-                                    @foreach(\App\Enum\CallStatus::options() as $id => $name)
-                                        <option value="{{ $id }}" @selected(old('status') == $id)>
-                                            {{$id}} - {{ $name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            </x-forms.select>
                         </div>
 
+                        <div class="col-span-2">
+                            <x-forms.select name="source" label="Source" mdt required>
+                                <option value=""></option>
+                                @foreach(\App\Enum\CallSource::options() as $id => $name)
+                                    <option value="{{ $id }}" @selected(old('source') == $id)>
+                                        {{ $name }}
+                                    </option>
+                                @endforeach
+                            </x-forms.select>
+                        </div>
+
+                        <div class="col-span-2">
+                            <x-forms.select name="priority" label="Priority" mdt required>
+                                <option value=""></option>
+                                <option value="1" @selected(old('priority') == 1)>1</option>
+                                <option value="2" @selected(old('priority') == 2)>2</option>
+                                <option value="3" @selected(old('priority') == 3)>3</option>
+                                <option value="4" @selected(old('priority') == 4)>4</option>
+                                <option value="5" @selected(old('priority') == 5)>5</option>
+                            </x-forms.select>
+                        </div>
+
+                        <div class="col-span-2">
+                            <x-forms.select name="status" label="Status" mdt required>
+                                @foreach(\App\Enum\CallStatus::options() as $id => $name)
+                                    <option value="{{ $id }}" @selected(old('status') == $id)>
+                                        {{$id}} - {{ $name }}
+                                    </option>
+                                @endforeach
+                            </x-forms.select>
+                        </div>
+
+
                         <div class="col-span-6">
-                            <label class="label-dark font-bold text-lg">Narrative:</label>
-                            <textarea name="narrative" class="mdt-textarea">{{old('narrative')}}</textarea>
+                            <x-forms.textarea name="narrative" label="narrative" mdt required></x-forms.textarea>
                         </div>
 
                         <div class="col-span-6">
@@ -106,12 +107,8 @@
                 <div class="col-span-3">
                     <h2 class="label-dark font-bold text-lg">Link Civilians To Call</h2>
                     @livewire('mdt.components.civilians-to-call')
-
-
                     <h2 class="label-dark font-bold text-lg">Link Vehicles To Call</h2>
                     @livewire('mdt.components.vehicle-to-call')
-
-
                 </div>
             </div>
         </form>

@@ -89,9 +89,6 @@
                     <td class="p-1 border border-slate-400">{{$call['nature']['code'] }}
                         - {{$call['nature']['label']}}</td>
                     <td class="p-1 border border-slate-400">{{$call['address']['postal']}} {{$call['address']['street']}}
-                        @if($call['address']['name'])
-                            ({{$call['address']['name']}})
-                        @endif
                     </td>
                     <td class="p-1 border border-slate-400">{{$call['address']['city']}}</td>
                     <td class="relative p-1 border border-slate-400" x-data="{ statusOpen: false }">

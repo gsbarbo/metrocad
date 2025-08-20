@@ -10,6 +10,7 @@ return new class extends Migration
     {
         Schema::table('officers', function (Blueprint $table) {
             $table->string('picture')->nullable();
+            $table->foreignIdFor(\App\Models\User::class)->constrained();
         });
     }
 

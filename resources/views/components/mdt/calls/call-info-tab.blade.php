@@ -17,11 +17,11 @@
             <div class="flex items-center">
                 <div class="w-3/5">
                     <p class="block mr-2">Incident Address:</p>
-                    <p class="mdt-text-input">{{ $call->address->full_address }}</p>
+                    <p class="mdt-text-input">{{ $call->postal }} {{$call->street}}</p>
                 </div>
                 <div class="w-2/5 ml-3">
                     <p class="block mr-2">City:</p>
-                    <p class="mdt-text-input">{{ $call->address->city }}</p>
+                    <p class="mdt-text-input">{{ $call->city }}</p>
                 </div>
             </div>
             <hr>

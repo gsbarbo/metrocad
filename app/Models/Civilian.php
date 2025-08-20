@@ -81,9 +81,9 @@ class Civilian extends Model implements Auditable
         return $age;
     }
 
-    public function address()
+    public function getFullAddressAttribute()
     {
-        return $this->belongsTo(Address::class);
+        return $this->postal.' '.$this->street.', '.$this->city;
     }
 
     public function licenses()

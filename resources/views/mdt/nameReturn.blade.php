@@ -30,7 +30,7 @@
             <div class="col-span-2 border-r-2 p-2">
                 <div class="">
                     <p class="font-bold">Address:
-                        <span class="font-normal text-sm block ml-2">{{ $civilian->address->full_address }}</span>
+                        <span class="font-normal text-sm block ml-2">{{ $civilian->full_address }}</span>
                     </p>
                     <p class="font-bold">Driver License:
                         <span

@@ -7,15 +7,12 @@ use App\Enum\CallResource;
 use App\Enum\CallStatus;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Call extends Model
 {
     use SoftDeletes;
-
-    protected $with = ['address'];
 
     protected $casts = [
         'status' => CallStatus::class,
@@ -34,9 +31,9 @@ class Call extends Model
         );
     }
 
-    public function address(): BelongsTo
+    public function getFullAddressAttribute()
     {
-        return $this->belongsTo(Address::class);
+        return $this->postal.' '.$this->street.', '.$this->city;
     }
 
     public function call_civilians()

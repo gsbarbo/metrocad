@@ -150,7 +150,7 @@
                                             <p class="font-bold">Occupation:</p>
                                         </div>
                                         <div class="ml-3">
-                                            <p>{{ $vehicle->civilian->address->full_address }} </p>
+                                            <p>{{ $vehicle->civilian->full_address }} </p>
                                             <p>{{$vehicle->civilian->drivers_license->number ?? 'No drivers license'}}</p>
                                             <p>{{ $vehicle->civilian->s_n_n }}</p>
                                             <p>{{$vehicle->civilian->phone_number}}</p>

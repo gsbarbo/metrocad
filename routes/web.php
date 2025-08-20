@@ -63,7 +63,7 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => ['auth', 'MemberCheck', 'SteamLinkCheck', 'NewOfficerCheck'],
+    'middleware' => ['auth', 'MemberCheck', 'SteamLinkCheck'],
     'as' => 'workbench.',
     'prefix' => 'workbench',
 ], function () {

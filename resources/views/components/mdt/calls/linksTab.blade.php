@@ -22,5 +22,20 @@
             <p class="text-gray-300 ml-4">No vehicles have been linked to this call.</p>
         @endforelse
     </div>
-    <h2 class="text-lg"></h2>
+    <hr class="my-3">
+    <h2 class="text-2xl">Linked Calls</h2>
+    <div class="divide-y-2">
+        @forelse($callsAtPostal as $callAtPostal)
+            <div class="">
+                <a class="text-lg hover:underline" href="{{route('mdt.calls.show', $call->id)}}">
+                    {{$callAtPostal->id}} |
+                    {{$callAtPostal->nature->code()}} ({{$callAtPostal->nature->label()}}) |
+                    {{$callAtPostal->status->code()}} ({{$callAtPostal->status->label()}}) |
+                    {{$callAtPostal->updated_at->format(get_setting('general.dateFormat'))}}
+                </a>
+            </div>
+        @empty
+            <p class="text-gray-300 ml-4">No other calls have been created at this postal.</p>
+        @endforelse
+    </div>
 </div>

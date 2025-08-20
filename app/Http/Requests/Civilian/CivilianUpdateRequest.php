@@ -31,7 +31,9 @@ class CivilianUpdateRequest extends FormRequest
             'occupation' => ['string', 'nullable'],
             // 'gender' => ['required'],
             // 'race' => ['required'],
-            'address_id' => ['required', 'numeric'],
+            'postal' => ['required', 'numeric'],
+            'street' => ['required'],
+            'city' => ['required'],
             'phone_number' => ['string', 'nullable'],
             'image_url' => ['url', 'nullable'],
         ];

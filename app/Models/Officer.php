@@ -14,6 +14,11 @@ class Officer extends Model
         return $this->first_name.' '.$this->last_name;
     }
 
+    public function user_department()
+    {
+        return $this->hasOne(\App\Models\UserDepartment::class);
+    }
+
     public function getFormattedNameAttribute()
     {
         switch (get_setting('mdt.officerNameFormat')) {

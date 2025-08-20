@@ -40,10 +40,9 @@
                 <p class="">Age: {{ $civilian->age }}</p>
                 <p class="">Height: {{ $civilian->height }}</p>
                 <p class="">Weight: {{ $civilian->weight }}</p>
-                <p class="">Home Address: {{ $civilian->address->full_address }}</p>
+                <p class="">Home Address: {{ $civilian->full_address }}</p>
                 <p class="">Occupation: {{ $civilian->occupation }}</p>
-
-
+                
                 <p class="pt-2 flex justify-between">
                     <a class="" href="{{ route('civilians.edit', $civilian->id) }}">
                         <button class="btn btn-md btn-with-icon btn-blue btn-rounded">

@@ -74,11 +74,11 @@
 
                         <div class="w-full">
                             <label class="block mr-2 text-lg">Which department are you going active with?</label>
-                            <select class="form-select-input-light" name="user_department_id">
+                            <select class="form-select-input" name="user_department_id">
                                 @foreach ($availableDepartments as $department)
                                     <option
                                         value="{{ $department->id }}" @disabled(is_null($department->officer))>{{ $department->department->name }}
-                                        ({{ $department->badge_number }})
+                                        ({{ $department->officer?->badge_number }})
                                         - {{ $department->officer->name ?? 'No officer set to this department.' }}</option>
                                 @endforeach
                             </select>
