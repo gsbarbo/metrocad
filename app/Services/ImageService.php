@@ -29,13 +29,15 @@ class ImageService
         $filename = ($prefix ?? Str::random(8)).($override ? '' : '_'.time()).'.'.$extension;
         $path = rtrim($folder, '/').'/'.$filename;
 
+        $result = Storage::disk('public')->put($path, $response->body());
+
         \Log::info('contentType ImageService-SaveFromUrl', [
             'extension' => $extension,
             'filename' => $filename,
             'path' => $path,
+            'result' => $result,
+            'url' => asset($path),
         ]);
-
-        Storage::disk('public')->put($path, $response->body());
 
         return asset($path);
     }
