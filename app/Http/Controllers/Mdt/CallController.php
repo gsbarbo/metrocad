@@ -19,7 +19,6 @@ class CallController extends Controller
     {
         $calls = Call::query()
             ->orderBy('id', 'desc')
-            ->with('address')
             ->get();
 
         $calls = CallResource::collection($calls)->toArray(request());

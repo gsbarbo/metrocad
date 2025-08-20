@@ -30,7 +30,7 @@ class SettingSeeder extends Seeder
             ],
             [
                 'name' => 'developer.apiKey',
-                'value' => '{last}, {first}',
+                'value' => '',
                 'type' => 'string',
             ],
             [
