@@ -1,7 +1,7 @@
 @extends('layouts.mdt')
 
 @section('content')
-    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 text-white">
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 text-white p-3">
         <div class="">
             <h1 class="text-center text-2xl font-bold">Message Center</h1>
             <div class="bg-[#0C1011] p-3 rounded-lg mt-2">
@@ -38,13 +38,14 @@
             <div class="bg-[#0C1011] p-3 rounded-lg mt-2">
                 <div class="bg-[#171B1C] rounded-md p-2">
                     <ul class="font-bold">
-                        <li>Calls: <a class="text-sm underline" href="#">0
+                        <li>Calls: <a class="text-sm underline" href="{{route('mdt.cadScreen')}}">{{$callCount}}
                                 active</a>
                         </li>
                         <li>Unit: <a class="text-sm underline"
                                      href="#">{{ auth()->user()->active_unit->officer->badge_number }} -
                                 {{ auth()->user()->active_unit->status }}</a></li>
-                        <li>Zone: <a class="text-sm underline" href="#">Sandy Shores AOP</a></li>
+                        <li>Zone: <a class="text-sm underline"
+                                     href="#">{{ get_setting('roleplay.areaOfPatrol') }}</a></li>
                         <li>My Active Call:
                             {{--                            @forelse (auth()->user()->active_unit->nice_calls as $call)--}}
                             {{--                                <a class="text-sm underline"--}}
@@ -58,22 +59,5 @@
                 </div>
             </div>
         </div>
-        <div class="">
-            <h1 class="text-center text-2xl font-bold">Statistics</h1>
-            <div class="bg-[#0C1011] p-3 rounded-lg mt-2">
-                <div class="bg-[#171B1C] rounded-md p-2">
-                    <ul class="font-bold">
-                        <li class="">Username:
-                            <span class="text-sm !lowercase">
-                                {{ str_replace(' ', '_', strtolower(auth()->user()->active_unit->officer->name)) }}
-                            </span>
-                        </li>
-                        <li>Server: <span class="text-sm">live_database_prod</span></li>
-                        <li>Version: <span class="text-sm">2023.3.29.1856</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
     </div>
 @endsection

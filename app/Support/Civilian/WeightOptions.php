@@ -6,7 +6,7 @@ class WeightOptions
 {
     public static function getWeight(int $weight): string
     {
-        if (get_setting('general.measurementFormat', 'imperial') == 'metric') {
+        if (get_setting('general.measurementUnits') == 'metric') {
             return self::metric()[$weight];
         } else {
             return self::imperial()[$weight];
@@ -153,7 +153,7 @@ class WeightOptions
 
     public static function getList(): array
     {
-        if (get_setting('general.measurementFormat', 'imperial') == 'metric') {
+        if (get_setting('general.measurementUnits') == 'metric') {
             return self::metric();
         } else {
             return self::imperial();

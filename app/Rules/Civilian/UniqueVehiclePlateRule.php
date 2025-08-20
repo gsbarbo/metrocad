@@ -20,7 +20,7 @@ class UniqueVehiclePlateRule implements DataAwareRule, ValidationRule
 
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if (! get_setting('allow_same_plate_vehicles', 0)) {
+        if (! get_setting('civilian.allowDuplicateVehiclePlates')) {
             $result = Vehicle::where('plate', $this->data['plate'])->get();
 
             if ($result->count() != 0) {

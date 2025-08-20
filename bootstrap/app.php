@@ -30,6 +30,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'SteamLinkCheck' => steamLinkCheckMiddleware::class,
             'DiscordDepartmentRoleSync' => \App\Http\Middleware\DiscordDepartmentRoleSyncMiddleware::class,
             'NewOfficerCheck' => \App\Http\Middleware\Workbench\NewOfficerCheckMiddleware::class,
+            'ActiveUnitAutoOffDuty' => \App\Http\Middleware\Mdt\ActiveUnitAutoOffDutyMiddleware::class,
+            'ActiveUnitCheck' => \App\Http\Middleware\Mdt\ActiveUnitCheckMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

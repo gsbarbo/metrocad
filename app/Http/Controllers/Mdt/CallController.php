@@ -6,6 +6,7 @@ use App\Enum\CallCivilianTypes;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Mdt\CallStoreRequest;
 use App\Http\Requests\Mdt\CallUpdateRequest;
+use App\Http\Resources\Mdt\CallResource;
 use App\Models\Call;
 use App\Models\CallCivilian;
 use App\Models\CallVehicle;
@@ -14,7 +15,17 @@ use Illuminate\View\View;
 
 class CallController extends Controller
 {
-    public function index(): View {}
+    public function index(): View
+    {
+        $calls = Call::query()
+            ->orderBy('id', 'desc')
+            ->with('address')
+            ->get();
+
+        $calls = CallResource::collection($calls)->toArray(request());
+
+        return view('mdt.calls.index', compact('calls'));
+    }
 
     public function store(CallStoreRequest $request)
     {

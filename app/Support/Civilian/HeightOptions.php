@@ -6,7 +6,7 @@ class HeightOptions
 {
     public static function getHeight(int $height): string
     {
-        if (get_setting('general.measurementFormat', 'imperial') == 'metric') {
+        if (get_setting('general.measurementUnits') == 'metric') {
             return self::metric()[$height];
         } else {
             return self::imperial()[$height];
@@ -99,7 +99,7 @@ class HeightOptions
 
     public static function getList(): array
     {
-        if (get_setting('general.measurementFormat', 'imperial') == 'metric') {
+        if (get_setting('general.measurementUnits') == 'metric') {
             return self::metric();
         } else {
             return self::imperial();

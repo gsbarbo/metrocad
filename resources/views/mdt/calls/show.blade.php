@@ -7,7 +7,7 @@
                 <p>ID: {{$call->id}}</p>
                 <p>Nature: {{$call->nature->code()}} - {{$call->nature->label()}}</p>
                 <p>Started: {{$call->created_at->format('h:m:i m/d/Y')}}</p>
-                <p>LastUpdate: {{$call->updated_at->format('h:m:i m/d/Y')}}</p>
+                <p>Last Update: {{$call->updated_at->format('h:m:i m/d/Y')}}</p>
             </div>
         </div>
         <div class="bg-[#0C1011] text-white p-1">
@@ -24,6 +24,7 @@
             activeClasses: 'bg-[#222423] text-white z-20',
             inactiveClasses: 'bg-[#0C1011] hover:bg-[#222423] hover:text-white',
             }">
+
                 <div class="col-span-1 bg-[#0C1011] divide-y-2">
                     <a href="#" class="block text-center py-3"
                        :class="openTab === 1 ? activeClasses : inactiveClasses" @click="openTab = 1">
@@ -62,17 +63,21 @@
                         Evidence
                     </a>
                 </div>
+
                 <div class="col-span-8 px-3">
                     <div class="" x-show="openTab === 1">
                         @include('components.mdt.calls.call-info-tab', ['call' => $call])
                     </div>
-                    <div class="" x-show="openTab === 2">2</div>
+                    <div class="" x-show="openTab === 2">
+                        @include('components.mdt.calls.linksTab', ['call' => $call])
+                    </div>
                     <div class="" x-show="openTab === 3">3</div>
                     <div class="" x-show="openTab === 4">4</div>
                 </div>
                 <div class="col-span-3 flex flex-col space-y-2">
                     @livewire('mdt.components.callLog', ['callId' => $call->id])
                 </div>
+
             </div>
         </div>
     </div>

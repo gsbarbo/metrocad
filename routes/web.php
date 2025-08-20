@@ -55,7 +55,7 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => ['auth', 'MemberCheck', 'SteamLinkCheck'],
+    'middleware' => ['auth', 'MemberCheck', 'SteamLinkCheck', 'ActiveUnitAutoOffDuty', 'ActiveUnitCheck'],
     'as' => 'mdt.',
     'prefix' => 'mdt',
 ], function () {

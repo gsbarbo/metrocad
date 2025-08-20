@@ -5,7 +5,7 @@
                 <img src="{{auth()->user()->active_unit->officer->picture ?? ''}}" alt="" class="size-12 rounded-lg">
             </x-slot:icon>
             <p class="font-bold">{{auth()->user()->active_unit->officer->badge_number}}</p>
-            <p class="text-xs">{{auth()->user()->active_unit->officer->name}}</p>
+            <p class="text-xs">{{auth()->user()->active_unit->officer->formatted_name}}</p>
         </x-mdt.sidebar-link>
 
         <x-mdt.sidebar-link :active="request()->is('mdt/dashboard') || request()->is('mdt/dashboard/*')"
@@ -46,7 +46,7 @@
         </x-mdt.sidebar-link>
 
         <x-mdt.sidebar-link :active="request()->is('mdt/calls') || request()->is('mdt/calls/*')"
-                            :href="route('mdt.cadScreen')">
+                            :href="route('mdt.calls.index')">
             <x-slot:icon>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                      stroke="currentColor" class="size-6">

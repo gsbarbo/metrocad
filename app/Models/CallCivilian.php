@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enum\CallCivilianTypes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -10,6 +11,10 @@ class CallCivilian extends Model
     use SoftDeletes;
 
     protected $with = ['civilian'];
+
+    protected $casts = [
+        'type' => CallCivilianTypes::class,
+    ];
 
     public function civilian()
     {

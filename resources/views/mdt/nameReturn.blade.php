@@ -397,6 +397,46 @@
             </div>
         </div>
 
+        <div class="border-b-2 border-x-2 w-full p-2 select-none" x-data="{ isOpen: false }">
+            <h3 @click="isOpen = !isOpen" class="text-lg flex justify-between items-center cursor-pointer">
+                <span>Link to Call</span>
+                <svg class="w-6 h-6" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                     x-show="isOpen == false" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19.5 8.25l-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <svg class="w-6 h-6" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                     x-show="isOpen == true" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.5 15.75l7.5-7.5 7.5 7.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </h3>
+            <div class="mt-3" x-show="isOpen">
+                <div class="ml-3">
+                    <form action="{{route('mdt.civilianReturn.linkCivilianToCall', $civilian->id)}}" method="POST"
+                          class="grid grid-cols-6 gap-2">
+                        @csrf
+
+                        <select name="call_id" id="call_id" class="mdt-select-input col-span-3">
+                            <option value="0">Call ID</option>
+                            @foreach($recentCalls as $call)
+                                <option value="{{$call->id}}">{{$call->id}} - {{$call->nature->code()}}
+                                    - {{$call->nature->label()}}</option>
+                            @endforeach
+                        </select>
+
+                        <select name="type" id="type" class="mdt-select-input col-span-2">
+                            <option value="0">Type</option>
+                            @foreach(\App\Enum\CallCivilianTypes::options() as $id => $name)
+                                <option value="{{$id}}">{{$name}}</option>
+                            @endforeach
+                        </select>
+
+                        <input type="submit" value="LINK TO CALL" class="btn btn-green btm-sm btn-rounded">
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
         {{--            <div class="border-b-2 border-x-2 w-full p-2 select-none" x-data="{ isOpen: false }">--}}
         {{--                <h3 @click="isOpen = !isOpen" class="text-lg flex justify-between items-center cursor-pointer">--}}
         {{--                    <span>Involvements--}}
@@ -489,7 +529,6 @@
                     <a class="btn btn-md btn-green btn-rounded" href="{{ route('mdt.civilianSearch') }}">Search More</a>
                     <a class="btn btn-md btn-blue btn-rounded" href="{{ route('mdt.civilianReturn', $civilian->id) }}">Refresh
                         Data</a>
-
                 </div>
             </div>
         </div>

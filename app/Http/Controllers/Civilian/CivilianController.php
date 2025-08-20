@@ -15,14 +15,9 @@ class CivilianController extends Controller
 {
     public function index()
     {
-        $civilians = Civilian::ownedByCurrentUser()->with('user_department')->orderBy('user_department_id', 'desc')->orderBy('is_active', 'desc')->get();
+        $civilians = Civilian::ownedByCurrentUser()->orderBy('is_active', 'desc')->get();
 
         return view('civilians.index', compact('civilians'));
-    }
-
-    public function create()
-    {
-        return view('civilians.create');
     }
 
     public function store(StoreCivilianRequest $request)
@@ -55,18 +50,9 @@ class CivilianController extends Controller
         return redirect()->route('civilians.index')->with('alerts', [['message' => 'Civilian Created', 'level' => 'success']]);
     }
 
-    public function show(Civilian $civilian)
+    public function create()
     {
-        $available_licenses = CivilianService::getAvailableLicenses($civilian, auth()->user());
-        $vehicleOptions = getTableCache('vehicle_types')->where('is_emergency_vehicle', 0)->sortBy([['make', 'asc'], ['model', 'asc']]);
-
-        return view('civilians.show', compact('civilian', 'available_licenses', 'vehicleOptions'));
-    }
-
-    public function edit(Civilian $civilian)
-    {
-        return view('civilians.edit', compact('civilian'));
-
+        return view('civilians.create');
     }
 
     public function update(CivilianUpdateRequest $request, Civilian $civilian)
@@ -94,6 +80,20 @@ class CivilianController extends Controller
         $civilian->update($data);
 
         return redirect()->route('civilians.show', $civilian->id)->with('alerts', [['message' => 'Civilian updated.', 'level' => 'success']]);
+    }
+
+    public function show(Civilian $civilian)
+    {
+        $available_licenses = CivilianService::getAvailableLicenses($civilian, auth()->user());
+        $vehicleOptions = getTableCache('vehicle_types')->where('is_emergency_vehicle', 0)->sortBy([['make', 'asc'], ['model', 'asc']]);
+
+        return view('civilians.show', compact('civilian', 'available_licenses', 'vehicleOptions'));
+    }
+
+    public function edit(Civilian $civilian)
+    {
+        return view('civilians.edit', compact('civilian'));
+
     }
 
     public function destroy(Request $request, Civilian $civilian)

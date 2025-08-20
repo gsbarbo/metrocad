@@ -1,7 +1,7 @@
 <div class="max-w-xl">
     <div class="bg-gray-300 text-black rounded-lg text-sm border border-blue-600">
         <div class="rounded-t-lg px-1 flex justify-between items-center text-white bg-blue-600">
-            <p class="text-lg font-bold">{{ strtoupper(get_setting('state')) }}</p>
+            <p class="text-lg font-bold">{{ strtoupper(get_setting('names.state')) }}</p>
             <p class="text-sm">
                 @if($civilian->drivers_license)
                     Drivers License
@@ -24,19 +24,19 @@
                         <img alt="" class="" src="{{ $civilian->picture }}">
                     @endif
                 </div>
-                <p class="font-handwriting">{{ $civilian->name }}</p>
+                <p class="font-handwriting text-sm">{{ $civilian->name }}</p>
             </div>
             <div class="p-2 uppercase">
                 <p class="text-base font-semibold"><span class="text-xs font-light">LIC. No.</span>
                     {{ $civilian->drivers_license->number ?? 'ID ONLY'}}</p>
 
                 <p class="text-base font-semibold"><span class="text-xs font-light">DOB</span>
-                    {{ $civilian->date_of_birth->format(get_setting('date_format')) }}</p>
+                    {{ $civilian->date_of_birth->format(get_setting('general.dateFormat')) }}</p>
 
                 <p class="text-base font-semibold">{{ $civilian->last_name }}</p>
                 <p class="text-base font-semibold">{{ $civilian->first_name }}</p>
                 <p class="text-sm font-semibold">{{ $civilian->address->postal }} {{ $civilian->address->street }}</p>
-                <p class="text-sm font-semibold">{{ $civilian->address->city }}, {{ get_setting('state') }}</p>
+                <p class="text-sm font-semibold">{{ $civilian->address->city }}, {{ get_setting('names.state') }}</p>
 
                 <p class="text-base font-semibold"><span class="text-xs font-light">SEX</span>
                     {{ $civilian->gender }}</p>
@@ -50,9 +50,9 @@
             <div class="p-2 relative">
                 @if($civilian->drivers_license)
                     <p class="text-base font-semibold"><span class="text-xs font-light">ISS</span>
-                        {{ $civilian->drivers_license->created_at->format(get_setting('date_format')) ?? ''}}</p>
+                        {{ $civilian->drivers_license->created_at->format(get_setting('general.dateFormat')) ?? ''}}</p>
                     <p class="text-base font-semibold"><span class="text-xs font-light">EXP</span>
-                        {{ $civilian->drivers_license->expires_at->format(get_setting('date_format')) ?? ''}}</p>
+                        {{ $civilian->drivers_license->expires_at->format(get_setting('general.dateFormat')) ?? ''}}</p>
                     <div class="absolute bottom-0">
                         <p class="uppercase text-lg font-bold">
                             @if ($civilian->drivers_license->status == 1)
@@ -71,8 +71,8 @@
                                 <span class="text-blue-500">Pending</span>
                             @endif
                         </p>
-                        @endif
                     </div>
+                @endif
             </div>
         </div>
     </div>

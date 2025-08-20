@@ -57,7 +57,7 @@ new class extends Component {
                     </td>
                     <td class="p-1 border border-slate-400">
                         {{$activeUnit['officer']['badge_number']}}
-                        ({{$activeUnit['officer']['name']}})
+                        ({{$activeUnit['officer']['formatted_name']}})
                     </td>
                     <td class="relative p-1 border border-slate-400" x-data="{ statusOpen: false }">
                         <div class="flex justify-between">

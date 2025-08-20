@@ -43,6 +43,7 @@ class ActiveUnitResource extends JsonResource
                 'badge_number' => $this->officer->badge_number,
                 'rank' => $this->officer->rank,
                 'name' => $this->officer->name,
+                'formatted_name' => $this->officer->formatted_name,
                 'picture' => $this->officer->picture ?? '',
                 'created_at' => $this->officer->created_at,
                 'updated_at' => $this->officer->updated_at,
