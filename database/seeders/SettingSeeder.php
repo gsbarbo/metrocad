@@ -120,8 +120,8 @@ class SettingSeeder extends Seeder
             ],
             [
                 'name' => 'mdt.activeUnitTimeout',
-                'value' => '{last}, {first}',
-                'type' => 'string',
+                'value' => '120',
+                'type' => 'integer',
             ],
         ]);
     }
