@@ -7,12 +7,15 @@ use App\Http\Requests\Workbench\OfficerStoreRequest;
 use App\Http\Requests\Workbench\OfficerUpdateRequest;
 use App\Models\Officer;
 use App\Models\UserDepartment;
+use App\Services\DiscordService;
 use App\Services\ImageService;
 
 class OfficerController extends Controller
 {
     public function index()
     {
+        DiscordService::discordRoleSync(auth()->user()->id);
+
         $officers = Officer::where('user_id', auth()->user()->id)->with('user_department')->get();
 
         return view('workbench.officer.index', compact('officers'));
@@ -61,6 +64,8 @@ class OfficerController extends Controller
 
     public function create()
     {
+        DiscordService::discordRoleSync(auth()->user()->id);
+
         $userDepartments = UserDepartment::where('user_id', auth()->user()->id)
             ->where('officer_id', null)
             ->get();
@@ -103,6 +108,8 @@ class OfficerController extends Controller
 
     public function edit(Officer $officer)
     {
+        DiscordService::discordRoleSync(auth()->user()->id);
+
         $userDepartments = UserDepartment::where('user_id', auth()->user()->id)
             ->where('officer_id', null)
             ->get();
