@@ -9,5 +9,15 @@
 
         @livewire('admin.member-search')
 
+        {{--        <livewire:data-table--}}
+        {{--            :model="\App\Models\User::class"--}}
+        {{--            editRoute="admin.settings.licenseValues.edit"--}}
+        {{--            :columns="[--}}
+        {{--            'discord_name' => 'Name',--}}
+        {{--            'id' => 'Discord ID',--}}
+        {{--            'status' => 'Status',--}}
+        {{--            ]"--}}
+        {{--        />--}}
+
     </div>
 @endsection

@@ -10,6 +10,15 @@ export default {
         "./resources/**/*.js",
         "./resources/**/*.vue",
     ],
+    safelist: [
+        'bg-purple-600',
+        'bg-indigo-600',
+        'bg-orange-600',
+        'text-purple-600',
+        'text-indigo-600',
+        'text-orange-600',
+        'text-yellow-600',
+    ],
     theme: {
         extend: {
             fontFamily: {

@@ -42,7 +42,7 @@
                 <p class="">Weight: {{ $civilian->weight }}</p>
                 <p class="">Home Address: {{ $civilian->full_address }}</p>
                 <p class="">Occupation: {{ $civilian->occupation }}</p>
-                
+
                 <p class="pt-2 flex justify-between">
                     <a class="" href="{{ route('civilians.edit', $civilian->id) }}">
                         <button class="btn btn-md btn-with-icon btn-blue btn-rounded">
@@ -75,7 +75,7 @@
                     <div>
                         <label class="label-dark" for="confirm">Please type the full name
                             ({{ $civilian->name }}) to confirm</label>
-                        <input class="form-text-input-dark" name="confirm" type="text" value="">
+                        <input class="form-text-input" name="confirm" type="text" value="">
                         @error('confirm')
                         <p class="text-red-600">{{ $message }}</p>
                         @enderror

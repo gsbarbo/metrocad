@@ -2,8 +2,13 @@
 
 namespace App\Enum;
 
-enum ActiveUnitStatus: string
+use App\Interface\BaseEnumInterface;
+use App\Traits\BaseEnumTrait;
+
+enum ActiveUnitStatus: string implements BaseEnumInterface
 {
+    use BaseEnumTrait;
+
     case Available = 'AVL';
     case AtStation = 'AVL - AT STN';
     case EnRoute = 'ENRUTE';
@@ -15,18 +20,10 @@ enum ActiveUnitStatus: string
     case Break = 'BRK';
     case OffDuty = 'OFFDTY';
 
-    public static function options(): array
-    {
-        return array_combine(
-            array_column(self::cases(), 'value'),
-            array_map(fn (self $case) => $case->label(), self::cases())
-        );
-    }
-
     public function label(): string
     {
         return match ($this) {
-            self::Available => 'Available',
+            self::Available => '10-08 Available',
             self::AtStation => 'At Station',
             self::EnRoute => 'En Route',
             self::Transporting => 'Transporting',
@@ -36,6 +33,11 @@ enum ActiveUnitStatus: string
             self::Break => 'Break',
             self::OffDuty => 'Off Duty',
         };
+    }
+
+    public function bgColor(): string
+    {
+        return self::color('background');
     }
 
     public function color(string $type): string
@@ -52,15 +54,17 @@ enum ActiveUnitStatus: string
         }
 
         return match ($this) {
-            self::Available => 'bg-green-600',
-            self::AtStation => 'bg-blue-600',
-            self::EnRoute => 'bg-yellow-600',
+            self::Available, self::AtStation => 'bg-green-600',
+            self::EnRoute, self::EnRouteToStation => 'bg-yellow-600',
             self::Transporting => 'bg-purple-600',
-            self::OnScene => 'bg-red-600',
-            self::EnRouteToStation => 'bg-indigo-600',
-            self::Busy => 'bg-gray-600',
-            self::Break => 'bg-orange-600',
+            self::OnScene => 'bg-orange-600',
+            self::Busy, self::Break => 'bg-gray-600',
             self::OffDuty => 'bg-red-600',
         };
+    }
+
+    public function textColor(): string
+    {
+        return self::color('text');
     }
 }

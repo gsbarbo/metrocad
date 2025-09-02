@@ -38,96 +38,70 @@ new class extends Component {
 
 ?>
 
+
 <div wire:poll.5s>
     <h1 class="text-2xl font-bold text-white">Active Units</h1>
     <table class="w-full border border-collapse table-auto border-slate-400">
         <tr class="text-white">
-            <th class="border border-slate-400">Agency</th>
-            <th class="border border-slate-400">Unit #</th>
+            <th class="border border-slate-400 w-32">Unit Number</th>
+            <th class="border border-slate-400">Name</th>
+            <th class="border border-slate-400">Location</th>
+            <th class="border border-slate-400 w-32">Department</th>
+            <th class="border border-slate-400 w-12">Time</th>
             <th class="border border-slate-400">Status</th>
-            <th class="border border-slate-400">Time</th>
-            <th class="border border-slate-400">Call #</th>
+            <th class="border border-slate-400">Call</th>
             <th class="border border-slate-400">Description</th>
         </tr>
         @foreach ($activeUnits as $activeUnit)
             @if ($activeUnit['department_type_id'] != 2)
-                <tr class="{{$activeUnit['status']['color-text']}}">
-                    <td class="p-1 border border-slate-400">
-                        {{$activeUnit['user_department']['department']['initials']}}
-                    </td>
-                    <td class="p-1 border border-slate-400">
-                        {{$activeUnit['officer']['badge_number']}}
-                        ({{$activeUnit['officer']['formatted_name']}})
-                    </td>
-                    <td class="relative p-1 border border-slate-400" x-data="{ statusOpen: false }">
-                        <div class="flex justify-between">
-                            <span>{{$activeUnit['status']['code']}}</span>
-                            <a @click="statusOpen = !statusOpen" class="underline cursor-pointer">
-                                <svg class="w-6 h-6 text-white" stroke-width="1.5" stroke="currentColor"
-                                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
-                                        stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </a>
-                        </div>
-                        <div @click.outside="statusOpen = false"
-                             class="absolute right-0 w-32 z-50 p-3 space-y-3 text-white bg-gray-800 rounded block"
-                             x-show="statusOpen">
-                            @foreach(ActiveUnitStatus::options() as $id => $status)
-                                <a @click="statusOpen = false" class="block hover:bg-gray-500" href="#"
-                                   wire:click="setStatus({{ $activeUnit['id'] }}, '{{ $id }}')">{{ $id }}</a>
+                <tr class="">
+                    <td class="p-1 border border-slate-400"
+                        x-data="{
+                            statusOpen: false,
+                            menuX: 0,
+                            menuY: 0,
+                            openMenu(event) {
+                                const menuWidth = 300; // approximate width of menu
+                                const menuHeight = {{ count(ActiveUnitStatus::toArray()) * 34 }}; // height per item * number of items
+                                const viewportWidth = window.innerWidth;
+                                const viewportHeight = window.innerHeight;
+
+                                // Clamp X/Y so menu stays inside viewport
+                                this.menuX = Math.min(event.pageX, viewportWidth - menuWidth - 10);
+                                this.menuY = Math.min(event.pageY, viewportHeight - menuHeight - 10);
+                                this.statusOpen = true;
+                            },
+                            closeMenu() {
+                                this.statusOpen = false;
+                            }
+                        }"
+                        @contextmenu.prevent="openMenu($event)">
+                        <p class="btn btn-rounded btn-sm block text-center {{$activeUnit['status']['bg-color']}} cursor-alias">
+                            {{$activeUnit['officer']['badge_number']}}
+                        </p>
+                        <div x-show="statusOpen"
+                             @click.outside="closeMenu()"
+                             style="display: none;"
+                             class="z-50 p-2 bg-black text-white rounded shadow-lg w-80"
+                             :style="`position: fixed; top: ${menuY}px; left: ${menuX}px; min-width: 150px;`">
+
+                            @foreach(ActiveUnitStatus::toArray() as $id => $name)
+                                <a href="#"
+                                   class="block px-3 py-1 hover:bg-slate-900 rounded"
+                                   @click="closeMenu()"
+                                   wire:click="setStatus({{ $activeUnit['id'] }}, '{{ $id }}')">
+                                    {{ $name }}
+                                </a>
                             @endforeach
                         </div>
                     </td>
-                    <td class="p-1 border border-slate-400">
-                        {{ $activeUnit['time'] }}m
-                    </td>
-                    <td class="relative p-1 border border-slate-400" x-data="{ callsOpen: false }">
-                        <div class="flex justify-between">
-                            <div class="">
-                                {{--                            @if ($active_unit->calls->count() > 0)--}}
-                                {{--                                <span class="text-white
-                                {{--                            @foreach ($active_unit->calls as $call)--}}
-                                {{--                                <a class="hover:underline" href="{{ route('cad.call.show', $call->id) }}">--}}
-                                {{--                                    {{ $call->id }}--}}
-                                {{--                                    @if (!$loop->last)--}}
-                                {{--                                        ,--}}
-                                {{--                                    @endif--}}
-                                {{--                                </a>--}}
-                                {{--                            @endforeach--}}
-                            </div>
-                            {{-- @if ($active_unit->user_department->department->type != 2) --}}
-                            <a @click="callsOpen = !callsOpen" class="underline cursor-pointer">
-                                <svg class="w-6 h-6 text-white" stroke-width="1.5" stroke="currentColor"
-                                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
-                                        stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </a>
-                            {{-- @endif --}}
-                        </div>
-                        <div @click.outside="callsOpen = false"
-                             class="absolute right-0 w-32 p-3 z-50 space-y-3 text-white bg-gray-800 rounded"
-                             x-show="callsOpen">
-                            {{--                        @foreach ($calls as $call)--}}
-                            {{--                            @if ($call->attached_units->contains('id', $active_unit->id))--}}
-                            {{--                                <a @click="callsOpen = false" class="block bg-gray-500" href="#"--}}
-                            {{--                                   wire:click="remove_unit_from_call({{ $active_unit->id }}, {{ $call->id }})">Remove--}}
-                            {{--                                    From Call {{ $call->id }}</a>--}}
-                            {{--                            @else--}}
-                            {{--                                <a @click="callsOpen = false" class="block hover:bg-gray-500" href="#"--}}
-                            {{--                                   wire:click="add_unit_to_call({{ $active_unit->id }}, {{ $call->id }})">Add--}}
-                            {{--                                    To Call {{ $call->id }}</a>--}}
-                            {{--                            @endif--}}
-                            {{--                        @endforeach--}}
-                        </div>
-
-                    </td>
-                    <td class="p-1 border border-slate-400">
-                        {{$activeUnit['description']}}
-                    </td>
+                    <td class="p-1 border border-slate-400">{{$activeUnit['officer']['formatted_name']}}</td>
+                    <td class="p-1 border border-slate-400">{{$activeUnit['location']}}</td>
+                    <td class="p-1 border border-slate-400">{{$activeUnit['user_department']['department']['initials']}}</td>
+                    <td class="p-1 border border-slate-400">{{$activeUnit['time']}}m</td>
+                    <td class="p-1 border border-slate-400 {{$activeUnit['status']['text-color']}}">{{$activeUnit['status']['label']}}</td>
+                    <td class="p-1 border border-slate-400">Attached Call Numbers</td>
+                    <td class="p-1 border border-slate-400">{{$activeUnit['description']}}</td>
                 </tr>
             @endif
         @endforeach

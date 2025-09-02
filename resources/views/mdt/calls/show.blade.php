@@ -96,6 +96,7 @@
                     </div>
                     <div class="" x-show="openTab === 3">3</div>
                     <div class="" x-show="openTab === 4">4</div>
+                    <div class="" x-show="openTab === 5">5</div>
                 </div>
                 <div class="col-span-3 flex flex-col space-y-2">
                     @livewire('mdt.components.callLog', ['callId' => $call->id])

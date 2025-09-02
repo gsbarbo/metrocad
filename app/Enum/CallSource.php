@@ -2,22 +2,32 @@
 
 namespace App\Enum;
 
-enum CallSource: string
+use App\Interface\BaseEnumInterface;
+use App\Traits\BaseEnumTrait;
+
+enum CallSource: string implements BaseEnumInterface
 {
-    case DISPATCH = 'DISPATCH';
-    case CIVILIAN = 'CIVILIAN';
-    case OFFICER = 'OFFICER';
-    case CALL = '911 Call';
+    use BaseEnumTrait;
 
-    case OTHER = 'OTHER';
+    case Dispatch = 'Dispatch';
+    case Civilian = 'Civilian';
+    case Officer = 'Officer';
+    case Call = 'Call';
+    case Other = 'Other';
 
-    public static function options(): array
+    public function color(string $type): ?string
     {
-        return array_column(self::cases(), 'value', 'name');
+        return null;
     }
 
-    public function code(): string
+    public function label(): string
     {
-        return $this->name;
+        return match ($this) {
+            self::Dispatch => 'Dispatch',
+            self::Civilian => 'Civilian',
+            self::Officer => 'Officer',
+            self::Call => '911 Call',
+            self::Other => 'Other',
+        };
     }
 }

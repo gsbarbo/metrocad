@@ -88,3 +88,9 @@ Route::group([
 //     dd($format);
 
 // });
+
+Route::get('test', function () {
+    dd(\App\Enum\CallSource::toArray(),
+        \App\Enum\CallSource::fromValue('Call'),
+    );
+});

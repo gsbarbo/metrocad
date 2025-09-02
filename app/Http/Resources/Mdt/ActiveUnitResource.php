@@ -23,7 +23,9 @@ class ActiveUnitResource extends JsonResource
                 'value' => $this->status,
                 'code' => $this->status,
                 'label' => ActiveUnitStatus::from($this->status->value)->label(),
-                'color-text' => ActiveUnitStatus::from($this->status->value)->color('text'),
+                'text-color' => ActiveUnitStatus::from($this->status->value)->textColor(),
+                'bg-color' => ActiveUnitStatus::from($this->status->value)->bgColor(),
+
             ],
             'alpr' => $this->alpr,
             'time' => $this->time,
