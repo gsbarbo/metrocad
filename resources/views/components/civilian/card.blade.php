@@ -35,8 +35,8 @@
 
                 <p class="text-base font-semibold">{{ $civilian->last_name }}</p>
                 <p class="text-base font-semibold">{{ $civilian->first_name }}</p>
-                <p class="text-sm font-semibold">{{ $civilian->address->postal }} {{ $civilian->address->street }}</p>
-                <p class="text-sm font-semibold">{{ $civilian->address->city }}, {{ get_setting('names.state') }}</p>
+                <p class="text-sm font-semibold">{{ $civilian->postal }} {{ $civilian->street }}</p>
+                <p class="text-sm font-semibold">{{ $civilian->city }}, {{ get_setting('names.state') }}</p>
 
                 <p class="text-base font-semibold"><span class="text-xs font-light">SEX</span>
                     {{ $civilian->gender }}</p>
@@ -55,19 +55,19 @@
                         {{ $civilian->drivers_license->expires_at->format(get_setting('general.dateFormat')) ?? ''}}</p>
                     <div class="absolute bottom-0">
                         <p class="uppercase text-lg font-bold">
-                            @if ($civilian->drivers_license->status == 1)
+                            @if ($civilian->drivers_license->status == \App\Enum\LicenseStatus::Valid)
                                 @if ($civilian->drivers_license->expires_at <= now())
                                     <span class="text-red-500">EXPIRED</span>
                                 @else
                                     <span class="text-green-500">VALID</span>
                                 @endif
-                            @elseif($civilian->drivers_license->status == 2)
+                            @elseif($civilian->drivers_license->status == \App\Enum\LicenseStatus::Expired)
                                 <span class="text-red-500">EXPIRED</span>
-                            @elseif($civilian->drivers_license->status == 3)
+                            @elseif($civilian->drivers_license->status == \App\Enum\LicenseStatus::Suspended)
                                 <span class="text-red-500">Suspended</span>
-                            @elseif($civilian->drivers_license->status == 4)
+                            @elseif($civilian->drivers_license->status == \App\Enum\LicenseStatus::Revoked)
                                 <span class="text-red-500">Revoked</span>
-                            @elseif($civilian->drivers_license->status == 5)
+                            @elseif($civilian->drivers_license->status == \App\Enum\LicenseStatus::Pending)
                                 <span class="text-blue-500">Pending</span>
                             @endif
                         </p>

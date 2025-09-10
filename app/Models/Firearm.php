@@ -12,7 +12,6 @@ class Firearm extends Model
 
     protected $casts = [
         'status' => FirearmStatus::class,
-
     ];
 
     public function civilian()

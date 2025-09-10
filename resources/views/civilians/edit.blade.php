@@ -9,8 +9,9 @@
     </x-breadcrumb>
 
     <div class="mt-4">
-        <form action="{{ route('civilians.store') }}" method="POST">
+        <form action="{{ route('civilians.update', $civilian->id) }}" method="POST">
             @csrf
+            @method('PUT')
             <div class="grid md:grid-cols-6 md:gap-5 gap-3">
 
                 <div class="md:col-span-2">
