@@ -94,7 +94,12 @@
                     <div class="" x-show="openTab === 2">
                         @include('components.mdt.calls.linksTab', ['call' => $call])
                     </div>
-                    <div class="" x-show="openTab === 3">3</div>
+                    <div class="" x-show="openTab === 3">
+                        <a href="#"
+                           onclick="openExternalWindow('{{ route('mdt.reports.create', ['call_id' => $call->id]) }}', 800, 1200)">
+                            <button class="btn-green btn-md btn btn-rounded">New Report</button>
+                        </a>
+                    </div>
                     <div class="" x-show="openTab === 4">4</div>
                     <div class="" x-show="openTab === 5">5</div>
                 </div>

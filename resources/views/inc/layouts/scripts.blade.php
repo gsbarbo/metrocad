@@ -23,4 +23,13 @@
                 break;
         }
     }
+
+    function openExternalWindow(url, height = 800, width = 900) {
+        return window.open(
+            url,
+            "_blank",
+            "height=" + height + ",width=" + width + ",scrollbars=no,status=yes",
+            true
+        );
+    }
 </script>

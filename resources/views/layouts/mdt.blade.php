@@ -42,7 +42,9 @@
     </div>
 @endif
 
+@include('inc.layouts.scripts')
 @livewireScripts
+
 </body>
 
 </html>
