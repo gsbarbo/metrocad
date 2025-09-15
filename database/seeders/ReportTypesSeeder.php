@@ -11,28 +11,28 @@ class ReportTypesSeeder extends Seeder
     {
         DB::table('report_types')->insert([
             [
-                'name' => 'Additional Report',
+                'title' => 'Additional Report',
             ],
             [
-                'name' => 'Crime/Incident Report',
+                'title' => 'Crime/Incident Report',
             ],
             [
-                'name' => 'Missing Person Report',
+                'title' => 'Missing Person Report',
             ],
             [
-                'name' => 'Field Interview',
+                'title' => 'Field Interview',
             ],
             [
-                'name' => 'Traffic Collision Report',
+                'title' => 'Traffic Collision Report',
             ],
             [
-                'name' => 'Supplemental Report',
+                'title' => 'Supplemental Report',
             ],
             [
-                'name' => 'Use of Force Report',
+                'title' => 'Use of Force Report',
             ],
             [
-                'name' => 'Other Report',
+                'title' => 'Other Report',
             ],
         ]);
     }
