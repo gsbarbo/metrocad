@@ -99,6 +99,20 @@
                            onclick="openExternalWindow('{{ route('mdt.reports.create', ['call_id' => $call->id]) }}', 800, 1200)">
                             <button class="btn-green btn-md btn btn-rounded">New Report</button>
                         </a>
+
+                        @forelse($call->reports as $report)
+                            <div class="">
+                                <a class="text-lg hover:underline" href="{{route('mdt.reports.show', $report->id)}}">
+                                    {{$report->id}} |
+                                    {{$report->reportType->title}} |
+                                    {{$report->status}}
+                                </a>
+                            </div>
+                        @empty
+                            <p class="text-gray-300 ml-4">No reports have been created.</p>
+                        @endforelse
+
+
                     </div>
                     <div class="" x-show="openTab === 4">4</div>
                     <div class="" x-show="openTab === 5">5</div>

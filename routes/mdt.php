@@ -24,3 +24,6 @@ Route::put('calls/{call}', [\App\Http\Controllers\Mdt\CallController::class, 'up
 
 Route::get('reports/create', [\App\Http\Controllers\Mdt\ReportController::class, 'create'])->name('reports.create');
 Route::post('reports', [\App\Http\Controllers\Mdt\ReportController::class, 'store'])->name('reports.store');
+Route::get('reports/{report}/edit', [\App\Http\Controllers\Mdt\ReportController::class, 'edit'])->name('reports.edit');
+Route::post('reports/{report}', [\App\Http\Controllers\Mdt\ReportController::class, 'update'])->name('reports.update');
+Route::post('reports/{report}', [\App\Http\Controllers\Mdt\ReportController::class, 'show'])->name('reports.show');

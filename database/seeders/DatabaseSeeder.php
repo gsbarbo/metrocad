@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
                 LicenseTypeSeeder::class,
                 PermissionSeeder::class,
                 SettingSeeder::class,
+                ReportTypesSeeder::class,
             ]
         );
     }

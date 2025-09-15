@@ -46,6 +46,11 @@ class Call extends Model
         return $this->hasMany(CallVehicle::class);
     }
 
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
+    }
+
     public function messages(): HasMany
     {
         return $this->hasMany(CallMessage::class);

@@ -8,8 +8,6 @@ interface BaseEnumInterface
 
     public static function fromValue(string|int $value): ?self;
 
-    public function color(string $type): ?string;
-
     public function label(): string;
 
     public function caseName(): string;

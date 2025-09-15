@@ -81,6 +81,7 @@ class CallController extends Controller
     {
         $reportingParties = $call->call_civilians->where('type', CallCivilianTypes::REPORTER->value);
         $callsAtPostal = Call::query()->where('postal', $call->postal)->where('id', '!=', $call->id)->get();
+        $call->load(['reports']);
 
         return view('mdt.calls.show', compact('call', 'reportingParties', 'callsAtPostal'));
     }
