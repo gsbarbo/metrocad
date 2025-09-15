@@ -80,7 +80,7 @@ new class extends Component {
 };
 ?>
 
-<div x-data="{ showModal: false }" x-on:close-modal.window="showModal = false">
+<div x-data="{ showModal: true }" x-on:close-modal.window="showModal = false">
 
     <!-- Persons Block -->
     <div class="bg-slate-700 rounded-lg text-white">
@@ -115,7 +115,7 @@ new class extends Component {
                         </td>
                         <td>
                             <button wire:click="removePivotCivilian({{ $civilian->id }})"
-                                    class="btn btn-red btn-xs">
+                                    class="btn btn-red btn-sm btn-rounded">
                                 Remove
                             </button>
                         </td>
@@ -128,21 +128,19 @@ new class extends Component {
     <!-- Modal -->
     <div class="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
          x-show="showModal" x-transition>
-        <div class="bg-white rounded-lg shadow-xl w-full max-w-3xl p-6">
+        <div class="bg-gray-700 rounded-lg shadow-xl w-full max-w-3xl p-6 text-white">
             <h2 class="text-lg font-bold mb-4">Add Civilians</h2>
 
             <form wire:submit.prevent="save" class="space-y-4">
 
                 <!-- Search -->
                 <div>
-                    <input type="text"
-                           wire:model.live.debounce.300ms="search"
-                           placeholder="Search for a civilian..."
-                           class="input input-bordered w-full">
+                    <x-forms.input name="" label="Search" mdt
+                                   wire:model.live.debounce.300ms="search"/>
                     @if(!empty($searchResults))
-                        <div class="border rounded mt-2 bg-white shadow">
+                        <div class="border rounded mt-2 bg-gray-500 shadow">
                             @foreach($searchResults as $result)
-                                <div class="px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                                <div class="px-3 py-2 hover:bg-gray-400 cursor-pointer"
                                      wire:click="selectCivilian({{ $result['id'] }})">
                                     {{ $result['first_name'] }} {{ $result['last_name'] }}
                                 </div>
@@ -157,19 +155,19 @@ new class extends Component {
                         <div class="flex justify-between items-center">
                             <span class="font-semibold">{{ $civilian['name'] }}</span>
                             <button type="button"
-                                    class="btn btn-red btn-xs"
+                                    class="btn btn-red btn-sm btn-rounded"
                                     wire:click="removeSelected({{ $index }})">
                                 Remove
                             </button>
                         </div>
 
-                        <select wire:model="selectedCivilians.{{ $index }}.type"
-                                class="select select-bordered w-full">
+                        <x-forms.select label="Civilian Type" mdt required name=""
+                                        wire:model="selectedCivilians.{{ $index }}.type">
                             <option value="">Select Type</option>
                             <option value="Witness">Witness</option>
                             <option value="Victim">Victim</option>
                             <option value="Suspect">Suspect</option>
-                        </select>
+                        </x-forms.select>
 
                         <div class="flex items-center space-x-4">
                             <label class="flex items-center space-x-2">
@@ -185,8 +183,9 @@ new class extends Component {
                 @endforeach
 
                 <div class="flex justify-end mt-4 space-x-2">
-                    <button type="button" class="btn btn-gray btn-sm" @click="showModal = false">Cancel</button>
-                    <button type="submit" class="btn btn-green btn-sm">Save Civilians</button>
+                    <button type="button" class="btn btn-gray btn-sm btn-rounded" @click="showModal = false">Cancel
+                    </button>
+                    <button type="submit" class="btn btn-green btn-sm btn-rounded">Save Civilians</button>
                 </div>
             </form>
         </div>
