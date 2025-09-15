@@ -80,7 +80,7 @@ new class extends Component {
 };
 ?>
 
-<div x-data="{ showModal: true }" x-on:close-modal.window="showModal = false">
+<div x-data="{ showModal: false }" x-on:close-modal.window="showModal = false">
 
     <!-- Persons Block -->
     <div class="bg-slate-700 rounded-lg text-white">
@@ -88,8 +88,9 @@ new class extends Component {
             <h1 class="px-5">Persons</h1>
         </div>
         <div class="px-5 py-2 space-y-2">
-            <button class="btn btn-green btn-sm btn-rounded" @click="showModal = true">Add Person</button>
-
+            @if (!in_array($report->status, [\App\Enum\ReportStatus::PENDING, \App\Enum\ReportStatus::COMPLETED]) && auth()->user()->active_unit->officer->id == $report->officer_id && request()->is('mdt/reports/*/edit'))
+                <button class="btn btn-green btn-sm btn-rounded" @click="showModal = true">Add Person</button>
+            @endif
             <!-- Existing Civilians Table -->
             <table class="w-full mt-2">
                 <tr class="border-b-2">
@@ -114,10 +115,12 @@ new class extends Component {
                             @endif
                         </td>
                         <td>
-                            <button wire:click="removePivotCivilian({{ $civilian->id }})"
-                                    class="btn btn-red btn-sm btn-rounded">
-                                Remove
-                            </button>
+                            @if (!in_array($report->status, [\App\Enum\ReportStatus::PENDING, \App\Enum\ReportStatus::COMPLETED]) && auth()->user()->active_unit->officer->id == $report->officer_id && request()->is('mdt/reports/*/edit'))
+                                <button wire:click="removePivotCivilian({{ $civilian->id }})"
+                                        class="btn btn-red btn-sm btn-rounded">
+                                    Remove
+                                </button>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

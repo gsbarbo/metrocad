@@ -47,13 +47,7 @@
                         <h1 class="px-5">Narrative</h1>
                     </div>
                     <div class="px-5 py-2 space-y-2">
-                        <x-forms.textarea name="narrative" label="Narrative" placeholder="Enter narrative here..."
-                                          required mdt rows="10">{{$report->narrative}}</x-forms.textarea>
-                        <button class="btn btn-blue btn-sm btn-rounded">Save Narrative</button>
-                        <button class="btn btn-green btn-sm btn-rounded" name="submitForReview" value="true">Save
-                            Narrative & Submit
-                            For Review
-                        </button>
+                        <div class="markdown bg-[#0C1011] p-2">{!! markdown($report->narrative) !!}</div>
                     </div>
                 </form>
             </div>
@@ -198,12 +192,17 @@
                     <h1 class="px-5">Actions</h1>
                 </div>
                 <div class="flex-col flex space-y-2 mt-2">
-                    <button class="btn btn-green btn-sm btn-rounded" type="submit" form="narrativeForm" value="true"
-                            name="submitForReview">Submit Report
-                    </button>
-                    <button class="btn btn-blue btn-sm btn-rounded" type="submit" form="narrativeForm">Save Report
-                    </button>
-                    <button class="btn btn-red btn-sm btn-rounded">Delete Report</button>
+                    @if (
+                        !in_array($report->status, [\App\Enum\ReportStatus::PENDING, \App\Enum\ReportStatus::COMPLETED]) &&
+                        auth()->user()->active_unit->officer->id == $report->officer_id)
+                        <a href="{{route('mdt.reports.edit', $report->id)}}">
+                            <button class="btn btn-blue btn-sm btn-rounded w-full">Edit Report
+                            </button>
+                        </a>
+                    @else
+                        <p class="text-white text-sm ml-5">There are no actions you can take on this report.</p>
+                    @endif
+
                 </div>
             </div>
 

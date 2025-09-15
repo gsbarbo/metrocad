@@ -40,4 +40,16 @@ class Report extends Model
             ->without(['licenses', 'medical_records', 'vehicles', 'firearms'])
             ->withTimestamps();
     }
+
+    public function vehicles()
+    {
+        return $this->belongsToMany(Vehicle::class, 'report_vehicle')
+            ->withPivot('type')
+            ->withTimestamps();
+    }
+
+    public function properties()
+    {
+        return $this->hasMany(ReportProperty::class);
+    }
 }
