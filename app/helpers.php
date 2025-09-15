@@ -52,7 +52,7 @@ if (! function_exists('update_setting')) {
 }
 
 if (! function_exists('markdown')) {
-    function markdown(string $markdown): string
+    function markdown(?string $markdown): string
     {
         return str($markdown)->markdown([
             'html_input' => 'strip',
