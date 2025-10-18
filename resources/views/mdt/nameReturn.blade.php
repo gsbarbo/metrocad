@@ -529,6 +529,9 @@
                     <a class="btn btn-md btn-green btn-rounded" href="{{ route('mdt.civilianSearch') }}">Search More</a>
                     <a class="btn btn-md btn-blue btn-rounded" href="{{ route('mdt.civilianReturn', $civilian->id) }}">Refresh
                         Data</a>
+                    <a class="btn btn-md btn-red btn-rounded" href="#"
+                       onclick="openExternalWindow('{{ route('mdt.tickets.create', ['civilian_id' => $civilian->id]) }}', 800, 1200)">Write
+                        Ticket/Arrest</a>
                 </div>
             </div>
         </div>

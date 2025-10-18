@@ -1,5 +1,5 @@
 @layer utilities {
     .markdown {
-        @apply h-40 prose-invert;
+        @apply min-h-40 prose-invert;
     }
 }

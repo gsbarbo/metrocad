@@ -27,3 +27,9 @@ Route::post('reports', [\App\Http\Controllers\Mdt\ReportController::class, 'stor
 Route::get('reports/{report}/edit', [\App\Http\Controllers\Mdt\ReportController::class, 'edit'])->name('reports.edit');
 Route::put('reports/{report}', [\App\Http\Controllers\Mdt\ReportController::class, 'update'])->name('reports.update');
 Route::get('reports/{report}', [\App\Http\Controllers\Mdt\ReportController::class, 'show'])->name('reports.show');
+
+Route::get('tickets/create', [\App\Http\Controllers\Mdt\TicketController::class, 'create'])->name('tickets.create');
+Route::post('tickets', [\App\Http\Controllers\Mdt\TicketController::class, 'store'])->name('tickets.store');
+Route::get('tickets/{ticket}/edit', [\App\Http\Controllers\Mdt\TicketController::class, 'edit'])->name('tickets.edit');
+Route::put('tickets/{ticket}', [\App\Http\Controllers\Mdt\TicketController::class, 'update'])->name('tickets.update');
+Route::get('tickets/{ticket}', [\App\Http\Controllers\Mdt\TicketController::class, 'show'])->name('tickets.show');

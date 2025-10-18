@@ -107,6 +107,12 @@ class Civilian extends Model implements Auditable
     }
 
     #[Scope]
+    public function withoutDefaultWith($query)
+    {
+        return $query->setEagerLoads([]);
+    }
+
+    #[Scope]
     protected function ownedByCurrentUser(Builder $query): void
     {
         $query->where('user_id', auth()->user()->id);
