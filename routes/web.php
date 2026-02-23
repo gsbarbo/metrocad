@@ -90,7 +90,7 @@ Route::group([
 // });
 
 Route::get('test', function () {
-    dd(\App\Enum\CallSource::toArray(),
-        \App\Enum\CallSource::fromValue('Call'),
+    dd(\App\Enum\PenalCodeType::toArray(),
+        \App\Enum\PenalCodeType::FELONY->label(),
     );
 });

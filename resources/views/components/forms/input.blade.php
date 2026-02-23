@@ -8,6 +8,12 @@
 
 ])
 
+@php
+    if(!$label){
+        $label = ucwords(str_replace('_', ' ', $name));
+    }
+@endphp
+
 <div class="space-y-1">
     @if($label)
         <label for="{{ $name }}" class="label">

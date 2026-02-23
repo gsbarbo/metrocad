@@ -75,6 +75,49 @@
                     </div>
                 </div>
 
+                <div class="bg-slate-700 rounded-lg">
+                    <div class="bg-blue-700 text-white border-b-4 border-blue-800 rounded-t-lg py-2">
+                        <h1 class="px-5">Section II - Ticket/Arrest Information</h1>
+                    </div>
+                    <div class="px-5 py-2 space-y-2">
+                        <div class="grid grid-cols-6 gap-2">
+                            <div class="col-span-3">
+                                <x-forms.input name="" label="Name" mdt
+                                               readonly>{{$civilian->name}}</x-forms.input>
+                            </div>
+                            <x-forms.input name="" label="DOB" mdt readonly>
+                                {{$civilian->date_of_birth?->format(get_setting('general.dateFormat'))}}
+                            </x-forms.input>
+                            <x-forms.input name="" label="Age" mdt readonly>
+                                {{$civilian->age}}
+                            </x-forms.input>
+                            <x-forms.input name="" label="SSN" mdt readonly>
+                                {{$civilian->s_n_n}}
+                            </x-forms.input>
+                            <div class="col-span-2">
+                                <x-forms.input name="" label="Postal" mdt readonly>
+                                    {{$civilian->postal}}
+                                </x-forms.input>
+                            </div>
+                            <div class="col-span-2">
+                                <x-forms.input name="" label="Street" mdt readonly>
+                                    {{$civilian->street}}
+                                </x-forms.input>
+                            </div>
+                            <div class="col-span-2">
+                                <x-forms.input name="" label="City" mdt readonly>
+                                    {{$civilian->city}}
+                                </x-forms.input>
+                            </div>
+
+                            <livewire:mdt.tickets.licenseSelect :licenses="$civilian->licenses"/>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
 
             <div class="col-span-1 space-y-4">

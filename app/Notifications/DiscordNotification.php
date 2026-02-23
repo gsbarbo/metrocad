@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Http;
 
 class DiscordNotification
 {
-    public $channel;
+    public int $channel;
 
-    public $embeds;
+    public array $embeds;
 
     public function embed($title = '', $description = '', $color = null, $fields = []): self
     {

@@ -13,30 +13,20 @@ class AuthController extends Controller
     {
         $discordUser = Socialite::driver('discord')->user();
         $user = $this->findOrNewUser($discordUser);
-
         Auth::login($user, true);
 
         return redirect()->intended('/portal')->with('alerts', [['message' => 'Welcome!', 'level' => 'success']]);
     }
 
-    public function logout()
-    {
-        Auth::logout();
-
-        return redirect()->route('home')->with('alerts', [['message' => 'Logged out.', 'level' => 'success']]);
-    }
-
     protected function findOrNewUser($discordUser)
     {
         $user = User::where('id', $discordUser->getId())->first();
-
         if ($user) {
             if (is_null($discordUser->avatar)) {
                 $avatar = 'https://ui-avatars.com/api/?name='.urlencode($discordUser->user['global_name']);
             } else {
                 $avatar = $discordUser->avatar;
             }
-
             $user->update([
                 'discord_name' => $discordUser->user['global_name'],
                 'discord_discriminator' => $discordUser->user['discriminator'],
@@ -51,7 +41,6 @@ class AuthController extends Controller
             } else {
                 $avatar = $discordUser->avatar;
             }
-
             User::create([
                 'id' => $discordUser->user['id'],
                 'discord_name' => $discordUser->user['global_name'],
@@ -62,9 +51,15 @@ class AuthController extends Controller
                 'last_login_at' => now(),
             ]);
         }
-
         $user = User::where('id', $discordUser->getId())->first();
 
         return $user;
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+
+        return redirect()->route('home')->with('alerts', [['message' => 'Logged out.', 'level' => 'success']]);
     }
 }

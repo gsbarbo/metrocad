@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Settings\DiscordController;
 use App\Http\Controllers\Admin\Settings\RoleController;
 use App\Http\Controllers\Admin\Settings\Values\AddressController;
 use App\Http\Controllers\Admin\Settings\Values\LicensesController;
+use App\Http\Controllers\Admin\Settings\Values\PenalCodeController;
 use App\Http\Controllers\Admin\Settings\VehicleTypeController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\User\UserDepartmentController;
@@ -54,6 +55,16 @@ Route::name('settings.')->prefix('settings')->group(function () {
         Route::put('{address}', [AddressController::class, 'update'])->name('update');
         Route::delete('{address}', [AddressController::class, 'destroy'])->name('destroy');
         Route::post('import', [AddressController::class, 'import'])->name('import');
+    });
+
+    Route::name('penalCode.')->prefix('penal-code')->middleware('can:admin:settings:values')->group(function () {
+        Route::get('/', [PenalCodeController::class, 'index'])->name('index');
+        Route::get('create', [PenalCodeController::class, 'create'])->name('create');
+        Route::post('/', [PenalCodeController::class, 'store'])->name('store');
+        Route::get('{penalCode}/edit', [PenalCodeController::class, 'edit'])->name('edit');
+        Route::put('{penalCode}', [PenalCodeController::class, 'update'])->name('update');
+        Route::delete('{penalCode}', [PenalCodeController::class, 'destroy'])->name('destroy');
+        Route::post('import', [PenalCodeController::class, 'import'])->name('import');
     });
 
     Route::resource('role', RoleController::class)->middleware('can:admin:settings:management');
