@@ -1,0 +1,39 @@
+@layer components {
+
+    .label {
+        @apply block text-sm font-medium dark:text-white text-gray-900;
+    }
+
+    .form-text-input {
+        @apply border text-sm rounded-lg block w-full p-2.5 bg-gray-50 dark:bg-input text-gray-900 border-gray-300 dark:border-gray-600 placeholder-gray-400 dark:text-white focus:ring-blue-500 focus:border-blue-500;
+    }
+
+    .form-select-input {
+        @apply border text-sm rounded-lg block w-full p-2.5 bg-gray-50 dark:bg-input text-gray-900 border-gray-300 dark:border-gray-600 placeholder-gray-400 dark:text-white focus:ring-blue-500 focus:border-blue-500;
+    }
+
+    .form-textarea {
+        @apply border text-sm rounded-lg block w-full p-2.5 bg-gray-50 dark:bg-input text-gray-900 border-gray-300 dark:border-gray-600 placeholder-gray-400 dark:text-white focus:ring-blue-500 focus:border-blue-500;
+    }
+
+    .form-help-text {
+        @apply my-1 text-xs font-thin dark:text-gray-400 text-gray-700;
+    }
+
+    .form-error-text {
+        @apply text-xs mb-3 mt-1 text-red-600;
+    }
+
+    /* MDT Styles */
+    .mdt-text-input {
+        @apply border text-sm rounded-lg block w-full p-2.5 bg-[#0C1011] focus:bg-[#222423] border-gray-600 placeholder-gray-400 text-white uppercase;
+    }
+
+    .mdt-select-input {
+        @apply border text-sm rounded-lg block w-full p-2.5 bg-[#0C1011] focus:bg-[#222423] border-gray-600 placeholder-gray-400 text-white uppercase;
+    }
+
+    .mdt-textarea {
+        @apply block p-2.5 w-full h-24 text-sm rounded-lg border bg-[#0C1011] focus:bg-[#222423] border-gray-600 placeholder-gray-400 text-white uppercase;
+    }
+}

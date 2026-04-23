@@ -1,7 +1,15 @@
 {
   "permissions": {
     "allow": [
-      "mcp__laravel-boost__search-docs"
+      "mcp__laravel-boost__search-docs",
+      "Bash(composer show *)",
+      "Bash(vendor/bin/pint --dirty --format agent)",
+      "Bash(composer dump-autoload *)",
+      "mcp__laravel-boost__browser-logs"
     ]
-  }
+  },
+  "enabledMcpjsonServers": [
+    "laravel-boost"
+  ],
+  "enableAllProjectMcpServers": true
 }
