@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Enums\UserStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -26,7 +27,7 @@ return new class extends Migration
             $table->string('steam_name')->nullable();
             $table->string('steam_hex')->nullable();
 
-            $table->integer('status')->default(1);
+            $table->string('status')->default(UserStatus::Pending->value);
             $table->string('display_name')->nullable();
 
             $table->timestamp('last_login_at');

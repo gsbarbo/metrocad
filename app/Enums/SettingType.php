@@ -10,4 +10,5 @@ enum SettingType: string
     case Float = 'float';
     case Array = 'array';
     case Json = 'json';
+    case Markdown = 'markdown';
 }
