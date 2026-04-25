@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Services\Auth\DiscordAuthService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\UnauthorizedException;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -23,17 +24,21 @@ class DiscordController extends Controller
             $discordUser = Socialite::driver('discord')->user();
             $user = $this->discordAuth->findOrCreateUser($discordUser);
         } catch (UnauthorizedException $e) {
-            return redirect()->route('login')
+            toast('error', $e->getMessage());
+
+            return redirect()->route('home')
                 ->withErrors(['discord' => $e->getMessage()]);
         } catch (\Exception $e) {
-            return redirect()->route('login')
+            toast('error', $e->getMessage());
+
+            return redirect()->route('home')
                 ->withErrors(['discord' => 'Discord authentication failed. Please try again.']);
         }
 
         $user = $this->discordAuth->findOrCreateUser($discordUser);
 
-        auth()->login($user, remember: true);
+        Auth::login($user, remember: true);
 
-        return redirect()->intended(route('dashboard'));
+        return redirect()->intended(route('portal.dashboard'));
     }
 }

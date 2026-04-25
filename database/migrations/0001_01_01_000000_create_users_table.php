@@ -12,11 +12,35 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->bigInteger('id')->unsigned()->primary();
+            $table->string('discord_global_name')->nullable();
+            $table->string('discord_username');
+            $table->integer('discord_discriminator')->nullable();
+
+            $table->string('avatar');
+
+            $table->string('discord_token')->nullable();
+            $table->string('discord_refresh_token')->nullable();
+
+            $table->bigInteger('steam_id')->nullable();
+            $table->string('steam_name')->nullable();
+            $table->string('steam_hex')->nullable();
+
+            $table->integer('status')->default(1);
+            $table->string('display_name')->nullable();
+
+            $table->timestamp('last_login_at');
+
+            $table->boolean('is_protected_user')->default(0); // can not be touched except by super users
+            $table->boolean('is_super_user')->default(0); // Can do anything in the cad. Bypasses all permissions. Can not be added/removed except by owner
+            $table->boolean('is_owner')->default(0); // Can do anything in the cad. Bypasses all permissions. Can not be removed
+
+            $table->timestamp('member_at')->nullable();
+            $table->string('community_rank')->nullable();
+
+            $table->string('email')->nullable();
+            $table->string('password')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });

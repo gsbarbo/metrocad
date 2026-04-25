@@ -10,12 +10,12 @@
 
         <div class="border border-gray-600 mt-8" x-data="{ tab: 'discord' }">
             <div class="flex border-b border-gray-600">
-                <button class="flex-1 py-3 text-sm font-medium transition-colors"
+                <button class="flex-1 py-3 text-sm font-medium transition-colors cursor-pointer"
                     :class="tab === 'discord' ? 'border-b-2 border-discord text-white' : 'text-gray-400 hover:text-gray-200'"
                     @click="tab = 'discord'">
                     Discord
                 </button>
-                <button class="flex-1 py-3 text-sm font-medium transition-colors"
+                <button class="flex-1 py-3 text-sm font-medium transition-colors cursor-pointer"
                     :class="tab === 'password' ? 'border-b-2 border-discord text-white' : 'text-gray-400 hover:text-gray-200'"
                     @click="tab = 'password'">
                     Tablet
@@ -25,9 +25,9 @@
             <div x-show="tab === 'discord'" class="p-2">
                 <p class="text-gray-400 pb-2">If this is your first time logging in, you must use Discord.</p>
 
-                <a class="inline-block w-full" href="#">
+                <a class="inline-block w-full" href="{{ route('auth.discord') }}">
                     <button
-                        class="w-full flex items-center justify-center gap-2 bg-discord rounded-lg px-6 py-2.5 text-sm font-medium text-white hover:opacity-85 transition-opacity">
+                        class="w-full flex items-center justify-center gap-2 bg-discord rounded-lg px-6 py-2.5 text-sm font-medium text-white hover:opacity-85 transition-opacity cursor-pointer">
                         <svg class="h-5 w-5 shrink-0" preserveAspectRatio="xMidYMid" viewBox="0 -28.5 256 256"
                             xmlns="http://www.w3.org/2000/svg">
                             <path

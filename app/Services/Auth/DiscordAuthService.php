@@ -4,7 +4,6 @@ namespace App\Services\Auth;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
 use Illuminate\Validation\UnauthorizedException;
 use Laravel\Socialite\Contracts\User as SocialiteUser;
 
@@ -14,18 +13,18 @@ class DiscordAuthService
 
     public function findOrCreateUser(SocialiteUser $discordUser): User
     {
-        $this->validateGuildMembership($discordUser->token);
+        // $this->validateGuildMembership($discordUser->token);
 
-        dd($discordUser);
         return User::updateOrCreate(
-            ['discord_id' => $discordUser->getId()],
+            ['id' => $discordUser->getId()],
             [
-                'name'           => $discordUser->getName(),
-                'email'          => $discordUser->getEmail(),
-                'discord_token'  => $discordUser->token,
+                'discord_username' => $discordUser->getName(),
+                'discord_global_name' => $discordUser->user['global_name'],
+                'email' => $discordUser->getEmail(),
+                'discord_token' => $discordUser->token,
                 'discord_refresh_token' => $discordUser->refreshToken,
-                'avatar'         => $discordUser->getAvatar(),
-                'password'       => bcrypt(Str::random(32)),
+                'avatar' => $discordUser->getAvatar(),
+                'last_login_at' => now(),
             ]
         );
     }
@@ -33,8 +32,6 @@ class DiscordAuthService
     private function validateGuildMembership(string $accessToken): void
     {
         $guilds = $this->fetchUserGuilds($accessToken);
-
-        dd($guilds);
 
         $isMember = collect($guilds)->contains('id', config('services.discord.guild_id'));
 
@@ -46,7 +43,7 @@ class DiscordAuthService
     private function fetchUserGuilds(string $accessToken): array
     {
         $response = Http::withToken($accessToken)
-            ->get(self::DISCORD_API . '/users/@me/guilds');
+            ->get(self::DISCORD_API.'/users/@me/guilds');
 
         if ($response->failed()) {
             throw new \RuntimeException('Failed to fetch Discord guild membership.');

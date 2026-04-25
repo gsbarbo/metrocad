@@ -5,11 +5,12 @@
       "Bash(composer show *)",
       "Bash(vendor/bin/pint --dirty --format agent)",
       "Bash(composer dump-autoload *)",
-      "mcp__laravel-boost__browser-logs"
+      "mcp__laravel-boost__browser-logs",
+      "Bash(php artisan *)"
     ]
   },
+  "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "laravel-boost"
-  ],
-  "enableAllProjectMcpServers": true
+  ]
 }
