@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
-    <title>MetroCAD</title>
-    <link href="" rel="icon" type="image/x-icon">
+    <title>{{ setting('community.name') }}</title>
+    <link href="{{ setting('community.logo_url') }}" rel="icon" type="image/x-icon">
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
     <link

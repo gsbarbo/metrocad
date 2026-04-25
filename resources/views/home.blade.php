@@ -3,8 +3,8 @@
 @section('main')
     <div class="max-w-sm mx-auto">
         <div class="text-center mt-20">
-            <div class="mx-auto h-12 w-12 rounded-full bg-red-600"></div>
-            <h1 class="text-2xl font-bold mt-2">Community Name CAD</h1>
+            <img class="mx-auto h-24 w-24 rounded-full" src="{{ setting('community.logo_url') }}" alt="Community Logo">
+            <h1 class="text-2xl font-bold mt-2">{{ setting('community.name') }} CAD</h1>
             <p class="text-gray-400 mt-2 leading-0">Mobile Data Terminal</p>
         </div>
 
