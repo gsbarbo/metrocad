@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Middleware\EnsureOwnerStatusIsActive;
+use App\Http\Middleware\EnsureUserCanAccessCad;
+use App\Http\Middleware\RedirectIfUserIsActive;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -13,6 +16,11 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->redirectGuestsTo(fn () => route('home'));
         $middleware->redirectUsersTo(fn () => route('portal.dashboard'));
+        $middleware->appendToGroup('web', EnsureOwnerStatusIsActive::class);
+        $middleware->alias([
+            'cad.access' => EnsureUserCanAccessCad::class,
+            'status.access' => RedirectIfUserIsActive::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

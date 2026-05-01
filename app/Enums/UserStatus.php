@@ -14,4 +14,14 @@ enum UserStatus: string
     case Banned = 'banned';
     case Former = 'former_member';
     case Denied = 'denied';
+
+    public function isActive(): bool
+    {
+        return $this === self::Active;
+    }
+
+    public function canLogin(): bool
+    {
+        return $this === self::Active;
+    }
 }

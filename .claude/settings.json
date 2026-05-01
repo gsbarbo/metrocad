@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(vendor/bin/pint bootstrap/app.php app/Http/Middleware/RedirectIfUserIsActive.php --format agent)",
+      "Bash(vendor/bin/pint app/Http/Middleware/EnsureOwnerStatusIsActive.php bootstrap/app.php --format agent)"
+    ]
+  }
+}
