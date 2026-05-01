@@ -12,7 +12,7 @@
 @php
     $label = $label ?? ucwords(str_replace('_', ' ', $name));
     $id = $id ?? str_replace(['[', ']'], ['_', ''], $name);
-    $inputClass = $mdt ? 'mdt-text-input' : 'form-text-input';
+    $inputClass = $mdt ? 'mdt-input' : 'form-input';
 @endphp
 
 <div class="space-y-1">
@@ -20,17 +20,17 @@
         <label for="{{ $id }}" class="label">
             {{ $label }}
             @if ($required)
-                <span class="form-error-text">*</span>
+                <span class="text-red-500">*</span>
             @endif
         </label>
     @endif
 
+    <input id="{{ $id }}" name="{{ $name }}" type="{{ $type }}" value="{{ old($name, $value) }}"
+        @required($required) {{ $attributes->merge(['class' => $inputClass]) }}>
+
     @if ($help)
         <p class="form-help-text">{{ $help }}</p>
     @endif
-
-    <input id="{{ $id }}" name="{{ $name }}" type="{{ $type }}" value="{{ old($name, $value) }}"
-        @required($required) {{ $attributes->merge(['class' => $inputClass]) }}>
 
     @error($name)
         <p class="form-error-text">{{ $message }}</p>

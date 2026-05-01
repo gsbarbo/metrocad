@@ -25,11 +25,18 @@ class SettingsSeeder extends Seeder
                 'description' => 'Puts the CAD into maintenance mode.',
             ],
             [
-                'name' => 'cad.max_units',
-                'value' => '50',
-                'type' => 'integer',
-                'label' => 'Max Active Units',
-                'description' => 'Maximum number of units that can be active simultaneously.',
+                'name' => 'community.units',
+                'value' => 'imperial',
+                'type' => 'string',
+                'label' => 'Measurement Units',
+                'description' => 'The units used for measurements in the CAD system.',
+            ],
+            [
+                'name' => 'civilian.allowDuplicateCivilianNames',
+                'value' => 'false',
+                'type' => 'boolean',
+                'label' => 'Allow Duplicate Civilian Names',
+                'description' => 'Allows creating civilians with duplicate names.',
             ],
         ];
 

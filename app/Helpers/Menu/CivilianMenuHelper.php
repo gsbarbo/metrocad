@@ -2,7 +2,7 @@
 
 namespace App\Helpers\Menu;
 
-class PortalMenuHelper
+class CivilianMenuHelper
 {
     public static function links(): array
     {
@@ -19,24 +19,7 @@ class PortalMenuHelper
                 'icon' => 'heroicon-o-user',
                 'permission' => null,
             ],
-            [
-                'label' => 'Courthouse',
-                'route' => 'home',
-                'icon' => 'heroicon-o-building-library',
-                'permission' => null,
-            ],
-            [
-                'label' => 'CAD/MDT',
-                'route' => 'home',
-                'icon' => 'heroicon-o-device-tablet',
-                'permission' => null,
-            ],
-            [
-                'label' => 'Workbench',
-                'route' => 'home',
-                'icon' => 'heroicon-o-computer-desktop',
-                'permission' => null,
-            ],
+
         ];
     }
 

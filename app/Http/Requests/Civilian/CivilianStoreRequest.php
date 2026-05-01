@@ -1,0 +1,44 @@
+<?php
+
+namespace App\Http\Requests\Civilian;
+
+use App\Rules\Civilian\UniqueCivilianName;
+use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Foundation\Http\FormRequest;
+
+class CivilianStoreRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'first_name' => ['required', 'alpha', 'max:255'],
+            'last_name' => ['required', 'max:255', new UniqueCivilianName],
+            'date_of_birth' => ['required', 'date'],
+            'height' => ['required', 'numeric'],
+            'weight' => ['required', 'numeric'],
+            'occupation' => ['string', 'nullable'],
+            'gender' => ['required', 'string'],
+            'eye_color' => ['required', 'string'],
+            'hair_color' => ['required', 'string'],
+            'race' => ['required', 'string'],
+            'postal' => ['required', 'numeric'],
+            'street' => ['required'],
+            'city' => ['required'],
+            'phone_number' => ['string', 'nullable'],
+            'image_url' => ['url', 'nullable'],
+        ];
+    }
+}

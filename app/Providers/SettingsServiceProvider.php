@@ -17,8 +17,7 @@ class SettingsServiceProvider extends ServiceProvider
                 return new SettingsService(collect());
             }
 
-            $settings = Cache::rememberForever('settings', fn () => Setting::all()->toArray()
-            );
+            $settings = Cache::rememberForever('settings', fn () => Setting::all()->toArray());
 
             return new SettingsService(collect($settings));
         });

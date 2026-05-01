@@ -28,4 +28,9 @@ class User extends Authenticatable
             'status' => UserStatus::class,
         ];
     }
+
+    public function civilians()
+    {
+        return $this->hasMany(Civilian::class);
+    }
 }

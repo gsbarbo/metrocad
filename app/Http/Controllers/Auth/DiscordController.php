@@ -26,13 +26,11 @@ class DiscordController extends Controller
         } catch (UnauthorizedException $e) {
             toast('error', $e->getMessage());
 
-            return redirect()->route('home')
-                ->withErrors(['discord' => $e->getMessage()]);
+            return redirect()->route('home');
         } catch (\Exception $e) {
-            toast('error', $e->getMessage());
+            toast('error', 'Discord authentication failed. Please try again.');
 
-            return redirect()->route('home')
-                ->withErrors(['discord' => 'Discord authentication failed. Please try again.']);
+            return redirect()->route('home');
         }
 
         $user = $this->discordAuth->findOrCreateUser($discordUser);

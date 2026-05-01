@@ -1,7 +1,7 @@
 @props([
     'name',
     'cancelRoute',
-    'color' => 'btn-green',
+    'color' => 'btn-primary',
     'cancelRouteId' => null,
 ])
 

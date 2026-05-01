@@ -24,3 +24,9 @@ Route::group(['middleware' => ['auth', 'cad.access'], 'prefix' => 'portal'], fun
     Route::get('/dashboard', DashboardController::class)->name('portal.dashboard');
 
 });
+
+Route::middleware(['auth', 'cad.access'])->prefix('civilian')->name('civilian.')->group(function () {
+
+    require __DIR__.'/civilian.php';
+
+});

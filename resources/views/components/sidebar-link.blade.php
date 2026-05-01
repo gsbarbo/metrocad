@@ -9,7 +9,7 @@
     'bg-navigation-active text-text' => $active,
     'text-text-muted hover:text-text hover:bg-navigation-hover' => !$active,
 ])>
-    <x-dynamic-component :component="$icon" class="w-8 h-8 shrink-0" />
+    <x-dynamic-component :component="$icon" class="w-6 h-6 shrink-0" />
     <span class="whitespace-nowrap font-medium transition-opacity duration-150"
         :class="sidebarExpanded ? 'opacity-100' : 'opacity-0'">
         {{ $slot }}
