@@ -25,6 +25,13 @@ class SettingsSeeder extends Seeder
                 'description' => 'Puts the CAD into maintenance mode.',
             ],
             [
+                'name' => 'community.intro',
+                'value' => 'false',
+                'type' => 'markdown',
+                'label' => 'Introduction Message',
+                'description' => 'The message displayed to users when they first visit the CAD system.',
+            ],
+            [
                 'name' => 'community.units',
                 'value' => 'imperial',
                 'type' => 'string',

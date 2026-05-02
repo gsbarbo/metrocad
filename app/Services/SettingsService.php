@@ -80,6 +80,7 @@ class SettingsService
             SettingType::Array => $this->castArray($value),
             SettingType::Json => $this->castJson($value),
             SettingType::String => $value,
+            SettingType::Markdown => $value,
         };
     }
 
