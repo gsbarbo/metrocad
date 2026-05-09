@@ -9,6 +9,10 @@
     }
 
     /* ── Sizes ────────────────────────────────────────────── */
+    .btn-xs {
+        @apply py-0.25 px-1 text-xs;
+    }
+
     .btn-sm {
         @apply py-1 px-3 text-xs;
     }

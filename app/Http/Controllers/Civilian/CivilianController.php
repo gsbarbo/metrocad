@@ -58,9 +58,9 @@ class CivilianController extends Controller
         return redirect()->route('civilian.index');
     }
 
-    public function show(string $id)
+    public function show(Civilian $civilian)
     {
-        //
+        return view('civilian.show', compact('civilian'));
     }
 
     public function edit(string $id)
